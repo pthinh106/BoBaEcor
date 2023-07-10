@@ -9,7 +9,7 @@ RUN mvn clean package -DskipTests
 # Package stage
 #
 FROM openjdk:17.0.1-jdk-slim
-COPY --from=build /target/BoBa-0.0.1-SNAPSHOT.jar BoBa.jar
+COPY --from=build /target/BoBaEcor-0.0.1-SNAPSHOT.jar BoBaEcor.jar
 # ENV PORT=8080
 EXPOSE 8080
-ENTRYPOINT ["java","-jar","BoBa.jar"]
+ENTRYPOINT ["java","-jar","BoBaEcor.jar"]
