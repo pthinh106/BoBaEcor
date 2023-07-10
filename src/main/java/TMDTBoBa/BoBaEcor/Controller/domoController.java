@@ -67,7 +67,7 @@ public class domoController {
         return ResponseEntity.ok(listImg);
     }
 
-    ///are your ready
+    ///are your ready 2
 //    @PostMapping("/logout")
 //    public String logout(HttpServletRequest request) throws LoginException {
 //        UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken("0905633610", "123");
