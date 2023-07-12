@@ -18,7 +18,7 @@ import java.sql.Timestamp;
 import java.util.*;
 
 @RestController
-@RequestMapping(path = "/demo")
+@RequestMapping(path = "/demo",produces="application/json")
 @RequiredArgsConstructor
 public class domoController {
     private final IProductRepository iProductRepository;

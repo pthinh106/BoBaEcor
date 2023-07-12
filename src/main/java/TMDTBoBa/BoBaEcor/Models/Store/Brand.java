@@ -2,31 +2,31 @@ package TMDTBoBa.BoBaEcor.Models.Store;
 
 import TMDTBoBa.BoBaEcor.Models.User.User;
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.sql.Timestamp;
 
+@Table(name = "table_brands")
 @Entity
-@Table(name = "table_categorys")
-@Setter
 @Getter
+@Setter
 @RequiredArgsConstructor
 @AllArgsConstructor
-public class Category {
+public class Brand {
     @Id
-    @Column(name = "category_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer categoryId;
+    @Column(name = "brand_id")
+    private Integer blogTopicId;
 
-    @Column(name = "category_name", columnDefinition = "Varchar(255) NOT NULL",unique = true)
-    private String categoryName;
+    @Column(name = "brand_name",columnDefinition = "Varchar(255) NOT NULL")
+    private String blogTopicName;
 
-    @Column(name = "category_slug", columnDefinition = "Varchar(255) NOT NULL",unique = true)
-    private String categorySlug;
-
-    @Column(name = "category_status", columnDefinition = "tinyint(1) default 1")
+    @Column(name = "status",columnDefinition = "tinyint(1) default 1")
     private boolean status;
 
     @Column(name = "created_on", columnDefinition="TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
@@ -44,5 +44,4 @@ public class Category {
     @ManyToOne
     @JoinColumn(name = "user_update_id")
     private User userUpdate;
-
 }

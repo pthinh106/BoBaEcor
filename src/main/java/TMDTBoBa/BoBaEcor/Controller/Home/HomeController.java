@@ -10,13 +10,33 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class HomeController {
     @GetMapping("/")
     public String index(Model model){
-        model.addAttribute("sos","sos");
 
         return "home/index";
     }
-    @GetMapping("/thoi-trang-nam")
+
+    @GetMapping("/tim-kiem")
+    public String findProduct(Model model){
+
+        return "home/findproduct";
+    }
+
+    @GetMapping("/cua-hang")
     public String store(){
-        return "home/store";
+        return "home/shop";
+    }
+
+    @GetMapping("/gio-hang")
+    public String cart(){
+        return "home/cart";
+    }
+
+    @GetMapping("/thanh-toan")
+    public String checkOut(){
+        return "home/checkout";
+    }
+    @GetMapping("/tin-tuc")
+    public String blog(){
+        return "home/blog";
     }
 
 }

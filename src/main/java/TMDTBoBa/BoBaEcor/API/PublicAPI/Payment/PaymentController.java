@@ -13,7 +13,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.UnknownHostException;
 
 @RestController
-@RequestMapping(path = "/api/v1/payment")
+@RequestMapping(path = "/api/v1/payment",produces="application/json")
 @RequiredArgsConstructor
 public class PaymentController {
 

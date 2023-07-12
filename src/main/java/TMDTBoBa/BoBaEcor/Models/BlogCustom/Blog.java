@@ -1,32 +1,39 @@
-package TMDTBoBa.BoBaEcor.Models.Store;
+package TMDTBoBa.BoBaEcor.Models.BlogCustom;
 
 import TMDTBoBa.BoBaEcor.Models.User.User;
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.sql.Timestamp;
 
+@Table(name = "table_blog")
 @Entity
-@Table(name = "table_categorys")
-@Setter
 @Getter
+@Setter
 @RequiredArgsConstructor
 @AllArgsConstructor
-public class Category {
+public class Blog {
     @Id
-    @Column(name = "category_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer categoryId;
+    @Column(name = "blog_id")
+    private Integer blogId;
 
-    @Column(name = "category_name", columnDefinition = "Varchar(255) NOT NULL",unique = true)
-    private String categoryName;
+    @ManyToOne
+    @JoinColumn(name = "blog")
+    BlogTopic blogTopic;
 
-    @Column(name = "category_slug", columnDefinition = "Varchar(255) NOT NULL",unique = true)
-    private String categorySlug;
+    @Column(name = "blog_des",columnDefinition = "TEXT NOT NULL")
+    private String blogDes;
 
-    @Column(name = "category_status", columnDefinition = "tinyint(1) default 1")
+    @Column(name = "blog_img",columnDefinition = "Varchar(255) NULL")
+    private String blogImg;
+
+    @Column(name = "blog_status", columnDefinition = "tinyint(1) default 1")
     private boolean status;
 
     @Column(name = "created_on", columnDefinition="TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
@@ -44,5 +51,4 @@ public class Category {
     @ManyToOne
     @JoinColumn(name = "user_update_id")
     private User userUpdate;
-
 }

@@ -1,14 +1,13 @@
 package TMDTBoBa.BoBaEcor.Models.Store;
 
 import TMDTBoBa.BoBaEcor.Models.User.User;
-import com.google.gson.Gson;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.sql.Timestamp;
-import java.util.List;
+import java.util.HashSet;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicReference;
 
@@ -31,6 +30,10 @@ public class Product {
     @JoinColumn(name = "category_id")
     private Category category;
 
+    @ManyToOne
+    @JoinColumn(name = "brand_id")
+    private Brand brand;
+
     @Column(name = "product_name", columnDefinition = "Varchar(255) NOT NULL", unique = true)
     private String productName;
 
@@ -40,17 +43,23 @@ public class Product {
     @OneToMany(cascade = CascadeType.ALL,mappedBy = "product")
     private Set<ProductDetail> productDetails;
 
-    @Column(name = "product_thumbnail", columnDefinition = "Varchar(255)")
-    private String productThumbnail;
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
+    private Set<ProductImages> productImages;
 
-    @Column(name = "product_images",columnDefinition = "Text NULL")
-    private String productImages;
+    @Column(name = "product_thumbnail", columnDefinition = "Varchar(255) NOT NULL")
+    private String productThumbnail;
 
     @Column(name = "product_description",columnDefinition = "Text NULL")
     private String productDescription;
 
+    @Column(name = "product_short_description",columnDefinition = "Text NULL")
+    private String productShortDes;
+
+    @Column(name = "product_sale_status",columnDefinition = "tinyint(1) default 1")
+    private boolean saleStatus;
+
     @Column(name = "product_status", columnDefinition = "tinyint(1) default 1")
-    private int status;
+    private boolean status;
 
     @Column(name = "created_on", columnDefinition="TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     @CreationTimestamp()
@@ -67,6 +76,23 @@ public class Product {
     @ManyToOne
     @JoinColumn(name = "user_update_id")
     private User userUpdate;
+
+    public Set<ProductColor> getAllProductColor(){
+        Set<ProductColor> productColors = new HashSet<>();
+        productDetails.forEach(productDetail -> {
+            productColors.add(productDetail.getProductColor());
+        });
+        return productColors;
+    }
+
+    public Set<ProductSize> getAllProductSize(){
+        Set<ProductSize> productSizes = new HashSet<>();
+        productDetails.forEach(productDetail -> {
+            productSizes.add(productDetail.getProductSize());
+        });
+        return productSizes;
+    }
+
 
     public Integer getTotalQuantityColor(ProductColor productColor){
         AtomicReference<Integer> total = new AtomicReference<>(0);
@@ -86,9 +112,9 @@ public class Product {
         });
         return total.get();
     }
-    public List<String> getListImages(){
-        Gson gson = new Gson();
-        String data = new Gson().toJson(productImages);
-        return gson.fromJson(data, List.class);
-    }
+//    public List<String> getListImages(){
+//        Gson gson = new Gson();
+//        String data = new Gson().toJson(productImages);
+//        return gson.fromJson(data, List.class);
+//    }
 }

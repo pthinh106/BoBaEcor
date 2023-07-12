@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping(path = "/api/v1/otp")
+@RequestMapping(path = "/api/v1/otp",produces="application/json")
 @RequiredArgsConstructor
 public class SMSOtpController {
     private final SMSService smsService;
