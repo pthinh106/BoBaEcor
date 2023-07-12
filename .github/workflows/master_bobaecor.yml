@@ -49,5 +49,5 @@ jobs:
         with:
           app-name: 'bobaecor'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_71ECD21C304B4E97A5D269A4FF115D54 }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_D5D251058AC64779A1D01F661E42C9D2 }}
           package: '*.jar'
