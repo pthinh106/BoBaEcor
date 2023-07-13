@@ -27,7 +27,7 @@ public class SecurityConfig {
 
         http
                 .authorizeHttpRequests()
-                .requestMatchers("/**","/resources/static/**").permitAll()
+                .requestMatchers("/**","/resources/static/**","/admin/**").permitAll()
                 .requestMatchers("/api/v1/auth/**").permitAll()
 //                .requestMatchers("/demo/**").hasAnyAuthority("ROLE_MANAGER")
                 .requestMatchers("/api/v1/payment/**").permitAll()
