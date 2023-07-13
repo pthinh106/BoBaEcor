@@ -26,5 +26,5 @@ public class ProductImages {
     Product product;
 
     @Column(name = "image_status",columnDefinition = "tinyint(1) default 1")
-    private boolean status;
+    private Integer status;
 }

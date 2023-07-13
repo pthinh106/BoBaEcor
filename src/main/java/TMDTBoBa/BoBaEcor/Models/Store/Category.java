@@ -27,7 +27,7 @@ public class Category {
     private String categorySlug;
 
     @Column(name = "category_status", columnDefinition = "tinyint(1) default 1")
-    private boolean status;
+    private Integer status;
 
     @Column(name = "created_on", columnDefinition="TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     @CreationTimestamp()
@@ -38,11 +38,11 @@ public class Category {
     private Timestamp updatedOn;
 
     @ManyToOne
-    @JoinColumn(name = "user_create_id")
+    @JoinColumn(name = "user_create_id",columnDefinition = "NULL")
     private User userCreate;
 
     @ManyToOne
-    @JoinColumn(name = "user_update_id")
+    @JoinColumn(name = "user_update_id",columnDefinition = "NULL")
     private User userUpdate;
 
 }

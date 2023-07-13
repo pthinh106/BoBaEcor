@@ -32,6 +32,7 @@ public class SecurityConfig {
 //                .requestMatchers("/demo/**").hasAnyAuthority("ROLE_MANAGER")
                 .requestMatchers("/api/v1/payment/**").permitAll()
                 .requestMatchers("/api/v1/otp/**").permitAll()
+                .requestMatchers("/api/v1/private/addon/**").permitAll()
                 .requestMatchers("/demo/**").permitAll()
 
                 .anyRequest().authenticated();

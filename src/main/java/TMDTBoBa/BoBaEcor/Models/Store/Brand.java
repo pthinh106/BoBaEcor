@@ -21,13 +21,16 @@ public class Brand {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "brand_id")
-    private Integer blogTopicId;
+    private Integer brandId;
 
     @Column(name = "brand_name",columnDefinition = "Varchar(255) NOT NULL")
-    private String blogTopicName;
+    private String brandName;
+
+    @Column(name = "brand_slug",columnDefinition = "Varchar(255) NOT NULL")
+    private String brandSlug;
 
     @Column(name = "status",columnDefinition = "tinyint(1) default 1")
-    private boolean status;
+    private Integer status;
 
     @Column(name = "created_on", columnDefinition="TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     @CreationTimestamp()

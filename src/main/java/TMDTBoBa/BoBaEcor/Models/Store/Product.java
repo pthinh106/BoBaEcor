@@ -56,10 +56,10 @@ public class Product {
     private String productShortDes;
 
     @Column(name = "product_sale_status",columnDefinition = "tinyint(1) default 1")
-    private boolean saleStatus;
+    private Integer saleStatus;
 
     @Column(name = "product_status", columnDefinition = "tinyint(1) default 1")
-    private boolean status;
+    private Integer status;
 
     @Column(name = "created_on", columnDefinition="TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     @CreationTimestamp()
@@ -79,17 +79,13 @@ public class Product {
 
     public Set<ProductColor> getAllProductColor(){
         Set<ProductColor> productColors = new HashSet<>();
-        productDetails.forEach(productDetail -> {
-            productColors.add(productDetail.getProductColor());
-        });
+        productDetails.forEach(productDetail -> productColors.add(productDetail.getProductColor()));
         return productColors;
     }
 
     public Set<ProductSize> getAllProductSize(){
         Set<ProductSize> productSizes = new HashSet<>();
-        productDetails.forEach(productDetail -> {
-            productSizes.add(productDetail.getProductSize());
-        });
+        productDetails.forEach(productDetail -> productSizes.add(productDetail.getProductSize()));
         return productSizes;
     }
 
@@ -112,9 +108,4 @@ public class Product {
         });
         return total.get();
     }
-//    public List<String> getListImages(){
-//        Gson gson = new Gson();
-//        String data = new Gson().toJson(productImages);
-//        return gson.fromJson(data, List.class);
-//    }
 }

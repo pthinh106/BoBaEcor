@@ -42,5 +42,5 @@ public class ProductDetail {
     private Integer productPriceSale;
 
     @Column(name = "product_sale_status",columnDefinition = "tinyint(1) default 1")
-    private boolean status;
+    private Integer status;
 }

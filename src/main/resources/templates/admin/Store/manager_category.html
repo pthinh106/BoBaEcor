@@ -27,16 +27,17 @@
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title">Category</h5>
-                        <form class="row g-3" style="padding: 10px">
+                        <form id="form" class="row g-3" style="padding: 10px" th:object="${category}">
+                            <input type="hidden" th:field="*{categoryId}">
                             <div class="col-md-6">
-                                <label for="inputName" class="form-label">Category Name</label>
-                                <input type="text" class="form-control" id="inputName">
+                                <label for="inputName" class="form-label" >Category Name</label>
+                                <input type="text" class="form-control" id="inputName" th:field="*{categoryName}">
                             </div>
                             <div class="col-md-4">
                                 <label for="inputState" class="form-label">Status</label>
-                                <select id="inputState" class="form-select">
-                                    <option selected>true</option>
-                                    <option>false</option>
+                                <select id="inputState" class="form-select" th:field="*{status}">
+                                    <option selected value="1">true</option>
+                                    <option value="0">false</option>
                                 </select>
                             </div>
                             <div class="col-md-2">
@@ -109,6 +110,49 @@
 </main><!-- End #main -->
 <footer th:replace="~{admin/Fragment/layout :: footer}"></footer>
 <div th:replace="~{admin/Fragment/layout :: js}"></div>
+<script>
+    $("#form").submit(function(e) {
 
+        e.preventDefault(); // avoid to execute the actual submit of the form.
+
+        var form = $(this);
+        $.ajax({
+            type: "POST",
+            url: "http://localhost:8060/api/v1/private/addon/category",
+            data: form.serialize(), // serializes the form's elements.
+            success: function(data)
+            {
+                if(data){
+                    Swal.fire({
+                        position: 'center',
+                        icon: 'success',
+                        title: data.message,
+                        showConfirmButton: true
+                    }).then((result) =>{
+                        window.location.reload();
+                    })
+                }else{
+                    Swal.fire({
+                        position: 'center',
+                        icon: 'error',
+                        title: data.message,
+                        showConfirmButton: true
+                    })
+                }
+            },
+            error: function ($xhr,textStatus,errorThrown) {
+                var data = $xhr.responseJSON;
+                Swal.fire({
+                    position: 'center',
+                    icon: 'error',
+                    title: data.message,
+                    showConfirmButton: true
+                })
+
+            }
+        });
+
+    });
+</script>
 </body>
 </html>

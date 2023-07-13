@@ -27,7 +27,7 @@ public class ProductTopic {
     private String productTopicName;
 
     @Column(name = "status",columnDefinition = "tinyint(1) default 1")
-    private boolean status;
+    private Integer status;
 
     @Column(name = "created_on", columnDefinition="TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     @CreationTimestamp()

@@ -1231,3 +1231,6 @@ h6 {
   font-size: 13px;
   color: #012970;
 }
+.swal2-popup {
+  font-size: 1rem!important;
+}
