@@ -1,10 +1,161 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{admin/Fragment/layout :: head}">
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
 <body>
+<header th:replace="~{admin/Fragment/layout :: header}"></header>
+<aside th:replace="~{admin/Fragment/layout :: sidebar}"></aside>
+<main id="main" class="main">
+
+    <div class="pagetitle">
+        <h1>Product Manager</h1>
+        <nav>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                <li class="breadcrumb-item">Product</li>
+                <li class="breadcrumb-item active">Addon Product</li>
+            </ol>
+        </nav>
+    </div><!-- End Page Title -->
+
+    <section class="section">
+        <form enctype="multipart/form-data" >
+            <div class="row d-flex justify-content-center" >
+                <div class="col-lg-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Basic Information</h5>
+                            <div class="row mb-3">
+                                <div class="col-lg-12">
+                                    <label for="productName" class="form-label">Product Name</label>
+                                    <input type="text" class="form-control" id="productName">
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-lg-12">
+                                    <label for="productShortDes" class="form-label">Product Short Des</label>
+                                    <textarea class="form-control" id="productShortDes">
+                                    </textarea><!-- End TinyMCE Editor -->
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-lg-12">
+                                    <label for="productDes" class="form-label">Product Des</label>
+                                    <textarea class="tinymce-editor" id="productDes">
+                                    </textarea><!-- End TinyMCE Editor -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Social Media</h5>
+                            <div class="row mb-3 mt-3">
+                                <label for="thumbNail" class="form-label">Product Thumbnail</label>
+                                <div class="col-lg-12">
+                                    <input class="form-control" type="file" id="thumbNail">
+                                </div>
+                            </div>
+                            <div class="row mb-3 mt-3">
+                                <label for="productImages" class="form-label">Product Images</label>
+                                <div class="col-lg-12">
+                                    <input class="form-control" type="file" id="productImages" accept="image/png, image/jpeg" multiple>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Valuation</h5>
+                            <div class="row mb-3">
+                                <div class="col-lg-4">
+                                    <label for="productPrice" class="form-label">Product Price</label>
+                                    <div class="col-lg-12 input-group mb-3">
+                                        <input class="form-control" type="number" id="productPrice">
+                                        <span class="input-group-text">₫</span>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <label for="productSale" class="form-label">Sale</label>
+                                    <div class="col-lg-12 input-group mb-3">
+                                        <input class="form-control" type="number" id="productSale" >
+                                        <span class="input-group-text">₫</span>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 ">
+                                    <label for="productPriceDetail" class="form-label">Product Price Detail</label>
+                                    <div class="col-lg-12 input-group mb-3">
+                                        <input class="form-control" type="number" id="productPriceDetail" >
+                                        <span class="input-group-text">₫</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Product Status</h5>
+                            <div class="row mb-3 mt-3">
+                                <div class="col-lg-12">
+                                    <select class="form-select" aria-label="Default select example" id="inputStatus">
+                                        <option value="1">True</option>
+                                        <option value="2">False</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Category</h5>
+                            <div class="row mb-3 mt-3">
+                                <div class="col-lg-12">
+                                    <select class="form-select" aria-label="Default select example" id="inputCategory">
+                                        <option value="1">True</option>
+                                        <option value="2">False</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Brand</h5>
+                            <div class="row mb-3 mt-3">
+                                <div class="col-lg-12">
+                                    <select class="form-select" aria-label="Default select example" id="inputBrand">
+                                        <option value="1">True</option>
+                                        <option value="2">False</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Collection</h5>
+                            <div class="row mb-3 mt-3">
+                                <div class="col-lg-12">
+                                    <select class="form-select" aria-label="Default select example" id="inputCollection">
+                                        <option value="1">True</option>
+                                        <option value="2">False</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form><!-- End General Form Elements -->
+    </section>
+
+</main><!-- End #main -->
+<footer th:replace="~{admin/Fragment/layout :: footer}"></footer>
+<div th:replace="~{admin/Fragment/layout :: js}"></div>
 
 </body>
 </html>
