@@ -11,8 +11,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
-import java.util.logging.Logger;
 
 @RestController
 @RequestMapping(path = "/api/v1/private/addon")
@@ -23,9 +23,16 @@ public class AddonRestController {
 
     private final BrandService brandService;
 
-    @PostMapping("/product")
-    public ResponseEntity<Product> addonProduct(@ModelAttribute("product") Product product){
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new Product());
+    @PostMapping(value = "/product", consumes = { "multipart/form-data"})
+    public ResponseEntity<Product> addonProduct(@ModelAttribute("product") Product product, @RequestParam("files") MultipartFile[] multipartFiles,
+                                                @RequestParam("price") Integer price,@RequestParam("sale") Integer sale,@RequestParam("priceDetail") Integer priceDetail){
+        System.out.println(product.getProductName());
+        System.out.println(product.getProductDescription());
+        System.out.println(multipartFiles.length);
+        System.out.println(price);
+        System.out.println(sale);
+        System.out.println(priceDetail);
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
     }
 
     @PostMapping("/brand")

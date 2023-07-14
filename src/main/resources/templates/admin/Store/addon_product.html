@@ -4,6 +4,112 @@
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
+<style>
+    .upload-image {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        border: 1px solid #9a9195;
+        border-radius: 5px;
+    }
+    .input-file{
+        margin: 10px 0px;
+    }
+
+    #select-image {
+        display: none;
+    }
+
+    .input-file label {
+        display: flex;
+        align-items: center;
+        background: #025bee;
+        padding: 18px 30px;
+        color: #ffffff;
+        border-radius: 5px;
+        -webkit-border-radius: 5px;
+        -moz-border-radius: 5px;
+        -ms-border-radius: 5px;
+        -o-border-radius: 5px;
+    }
+
+    label svg {
+        fill: #ffffff;
+        width: 20px;
+        height: 20px;
+        margin-right: 8px;
+    }
+
+    .preview_image p {
+        text-align: center;
+    }
+
+    .preview_image{
+        width: 100%;
+    }
+
+    #images {
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: row;
+        justify-content: flex-start;
+        align-items: center;
+    }
+
+    .image_box {
+        width: 33.33%;
+        height: 200px;
+        padding: 5px;
+        position: relative;
+
+    }
+    .img-pre{
+        width: 100%;
+        height: 100%;
+        text-align: center;
+        border: 1px dashed #b8b8b8;
+        border-radius: 8px;
+    }
+
+    .img-pre img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        padding: 5px;
+    }
+
+    .toggle-remove-image{
+        text-align: center;
+        width: 25px;
+        position: absolute;
+        top: -1%;
+        right: 2%;
+        margin: 4px;
+        font-size: 25px;
+    }
+    .add-type{
+        font-size: 25px;
+        color: #4154f1;
+    }
+    .add-type:hover{
+        cursor: pointer;
+    }
+    .remove-item-type{
+        font-size: 25px;
+        color: #4154f1;
+    }
+    .remove-item-type:hover{
+        cursor: pointer;
+    }
+    .checkbox-type{
+        width: 20px;
+        height: 20px;
+    }
+
+
+
+</style>
 <body>
 <header th:replace="~{admin/Fragment/layout :: header}"></header>
 <aside th:replace="~{admin/Fragment/layout :: sidebar}"></aside>
@@ -21,7 +127,8 @@
     </div><!-- End Page Title -->
 
     <section class="section">
-        <form enctype="multipart/form-data" >
+        <form id="form"  method="post" enctype="multipart/form-data" th:object="${product}">
+            <input type="hidden" th:field="*{productId}">
             <div class="row d-flex justify-content-center" >
                 <div class="col-lg-6">
                     <div class="card">
@@ -30,65 +137,114 @@
                             <div class="row mb-3">
                                 <div class="col-lg-12">
                                     <label for="productName" class="form-label">Product Name</label>
-                                    <input type="text" class="form-control" id="productName">
+                                    <input type="text" class="form-control" id="productName" th:field="*{productName}">
                                 </div>
                             </div>
                             <div class="row mb-3">
                                 <div class="col-lg-12">
                                     <label for="productShortDes" class="form-label">Product Short Des</label>
-                                    <textarea class="form-control" id="productShortDes">
-                                    </textarea><!-- End TinyMCE Editor -->
+                                    <textarea class="form-control" id="productShortDes" th:field="*{productShortDes}"></textarea><!-- End TinyMCE Editor -->
                                 </div>
                             </div>
                             <div class="row mb-3">
                                 <div class="col-lg-12">
                                     <label for="productDes" class="form-label">Product Des</label>
-                                    <textarea class="tinymce-editor" id="productDes">
-                                    </textarea><!-- End TinyMCE Editor -->
+                                    <textarea class="tinymce-editor" id="productDes" th:field="*{productDescription}"></textarea><!-- End TinyMCE Editor -->
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="card">
                         <div class="card-body">
-                            <h5 class="card-title">Social Media</h5>
+                            <h5 class="card-title">Social Media(the first picture is a thumbnail)</h5>
                             <div class="row mb-3 mt-3">
-                                <label for="thumbNail" class="form-label">Product Thumbnail</label>
-                                <div class="col-lg-12">
-                                    <input class="form-control" type="file" id="thumbNail">
+                                <div class="">
+                                    <div class="upload-image">
+                                        <div class="preview_image">
+                                            <div id="images"></div>
+                                        </div>
+                                        <div class="input-file">
+                                            <input type="file" id="select-image" name="files" multiple>
+                                            <label for="select-image" >
+                                                <?xml version="1.0" ?><svg viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg">
+                                                <path
+                                                        d="M1344 1472q0-26-19-45t-45-19-45 19-19 45 19 45 45 19 45-19 19-45zm256 0q0-26-19-45t-45-19-45 19-19 45 19 45 45 19 45-19 19-45zm128-224v320q0 40-28 68t-68 28h-1472q-40 0-68-28t-28-68v-320q0-40 28-68t68-28h427q21 56 70.5 92t110.5 36h256q61 0 110.5-36t70.5-92h427q40 0 68 28t28 68zm-325-648q-17 40-59 40h-256v448q0 26-19 45t-45 19h-256q-26 0-45-19t-19-45v-448h-256q-42 0-59-40-17-39 14-69l448-448q18-19 45-19t45 19l448 448q31 30 14 69z" />
+                                            </svg>
+                                                Choose Images
+                                            </label>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="row mb-3 mt-3">
-                                <label for="productImages" class="form-label">Product Images</label>
-                                <div class="col-lg-12">
-                                    <input class="form-control" type="file" id="productImages" accept="image/png, image/jpeg" multiple>
-                                </div>
+
                             </div>
                         </div>
                     </div>
                     <div class="card">
                         <div class="card-body">
-                            <h5 class="card-title">Valuation</h5>
-                            <div class="row mb-3">
-                                <div class="col-lg-4">
-                                    <label for="productPrice" class="form-label">Product Price</label>
-                                    <div class="col-lg-12 input-group mb-3">
-                                        <input class="form-control" type="number" id="productPrice">
-                                        <span class="input-group-text">₫</span>
-                                    </div>
+                            <div class="d-flex flex-row">
+                                <h5 class="card-title w-100" >Type</h5>
+                                <div class="d-flex" style="width: 10%">
+                                    <span class="m-auto add-type" onclick="removeAs()"><i class="bi bi-trash-fill"></i></span>
+                                    <span class="m-auto add-type" onclick="addType()"><i class="bi bi-plus-circle-fill"></i></span>
                                 </div>
-                                <div class="col-lg-4">
-                                    <label for="productSale" class="form-label">Sale</label>
-                                    <div class="col-lg-12 input-group mb-3">
-                                        <input class="form-control" type="number" id="productSale" >
-                                        <span class="input-group-text">₫</span>
+
+                            </div>
+                            <div>
+                                <div class="overflow-x-auto d-flex flex-column justify-content-start">
+                                    <div class="d-flex flex-row">
+                                        <div class="col-lg-1 text-center m-auto">
+                                            <input type="checkbox" class="checkbox-type" id="removeAll">
+                                        </div>
+                                        <div class="col-lg-3 m-2">
+                                            <span class="form-label">Size</span>
+                                        </div>
+                                        <div class="col-lg-3 m-2">
+                                            <span  class="form-label">Color</span>
+                                        </div>
+                                        <div class="col-lg-3 m-2">
+                                            <span  class="form-label">Price</span>
+                                        </div>
+                                        <div class="col-lg-3 m-2">
+                                            <span class="form-label">Quantity Inventory</span>
+                                        </div>
+                                        <div class="col-lg-3 m-2">
+                                            <span  class="form-label">Quantity Solid</span>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-lg-4 ">
-                                    <label for="productPriceDetail" class="form-label">Product Price Detail</label>
-                                    <div class="col-lg-12 input-group mb-3">
-                                        <input class="form-control" type="number" id="productPriceDetail" >
-                                        <span class="input-group-text">₫</span>
+                                    <div id="typeProduct">
+                                        <div class="type-item d-flex flex-row type-product">
+                                            <div class="col-lg-1 text-center m-auto">
+                                                <input type="checkbox" class="checkbox-type item-type" name="removeType" onclick="checkboxChild()">
+                                            </div>
+                                            <div class="col-lg-3 m-2">
+                                                <div class="col-lg-12">
+                                                    <select class="form-select" aria-label="Default select example" id="productSize">
+                                                        <option value="1">True</option>
+                                                        <option value="2">False</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-3 m-2">
+                                                <div class="col-lg-12">
+                                                    <select class="form-select" aria-label="Default select example" id="priceDetail">
+                                                        <option value="1">True</option>
+                                                        <option value="2">False</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-3 m-2">
+                                                <input type="number" class="form-control" id="price">
+                                            </div>
+                                            <div class="col-lg-3 m-2">
+                                                <input type="number" class="form-control" id="inventory">
+                                            </div>
+                                            <div class="col-lg-3 m-2">
+                                                <input type="number" class="form-control" id="Solid">
+                                            </div>
+                                            <div class="col-lg-1 m-auto text-center">
+                                                <span id="removeType" class="remove-item-type" onclick="removeItemType(this)"  data-index = "0"><i class="bi bi-trash-fill"></i></span>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -101,7 +257,7 @@
                             <h5 class="card-title">Product Status</h5>
                             <div class="row mb-3 mt-3">
                                 <div class="col-lg-12">
-                                    <select class="form-select" aria-label="Default select example" id="inputStatus">
+                                    <select class="form-select" aria-label="Default select example" id="inputStatus" th:field="*{status}">
                                         <option value="1">True</option>
                                         <option value="2">False</option>
                                     </select>
@@ -114,7 +270,7 @@
                             <h5 class="card-title">Category</h5>
                             <div class="row mb-3 mt-3">
                                 <div class="col-lg-12">
-                                    <select class="form-select" aria-label="Default select example" id="inputCategory">
+                                    <select class="form-select" aria-label="Default select example" id="inputCategory" th:field="*{category}">
                                         <option value="1">True</option>
                                         <option value="2">False</option>
                                     </select>
@@ -127,7 +283,7 @@
                             <h5 class="card-title">Brand</h5>
                             <div class="row mb-3 mt-3">
                                 <div class="col-lg-12">
-                                    <select class="form-select" aria-label="Default select example" id="inputBrand">
+                                    <select class="form-select" aria-label="Default select example" id="inputBrand" th:field="*{brand}">
                                         <option value="1">True</option>
                                         <option value="2">False</option>
                                     </select>
@@ -148,8 +304,51 @@
                             </div>
                         </div>
                     </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Valuation</h5>
+                            <div class="row mb-3">
+                                <div class="col-lg-6">
+                                    <label for="productPrice" class="form-label">Price</label>
+                                    <div class="col-lg-12 input-group mb-3">
+                                        <input class="form-control" type="number" id="productPrice" name="price">
+                                        <span class="input-group-text">₫</span>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <label for="productSale" class="form-label">Price Detail</label>
+                                    <div class="col-lg-12 input-group mb-3">
+                                        <input class="form-control" type="number" id="productSale" name="sale">
+                                        <span class="input-group-text">₫</span>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <label for="productPriceDetail" class="form-label">Sale</label>
+                                    <div class="col-lg-12 input-group mb-3">
+                                        <input class="form-control" type="number" id="productPriceDetail" name="priceDetail">
+                                        <span class="input-group-text">₫</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
+
+            <div class="row border-top" >
+                <div class="col-lg-12">
+                    <div class="row mb-3 mt-3">
+                        <div class="col-lg-10">
+                            <div id="actionName" style="text-align: end" >
+                                <button type="submit" class="btn btn-primary">Submit</button>
+                                <button type="reset" class="btn btn-secondary">Reset</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
         </form><!-- End General Form Elements -->
     </section>
 
@@ -157,5 +356,222 @@
 <footer th:replace="~{admin/Fragment/layout :: footer}"></footer>
 <div th:replace="~{admin/Fragment/layout :: js}"></div>
 
+
+<script>
+    var flag = true;
+    var index = 1;
+    document.getElementById('removeAll').onclick = function (){
+        const itemType = document.getElementsByClassName("checkbox-type");
+        for(const item of itemType){
+            item.checked = !!this.checked;
+        }
+    };
+    function setup() {
+        const listChild = document.getElementsByClassName("remove-item-type");
+        if(listChild.length === 0){
+            index = 0;
+
+        }
+
+        let cur = 0;
+        for(const child of listChild){
+            child.setAttribute("data-index",cur);
+            cur++;
+        }
+        document.getElementById('removeAll').checked = false;
+    }
+
+
+    function addType() {
+        const rootType = document.getElementById("typeProduct");
+        const node = '<div class="type-item d-flex flex-row">'+
+            '<div class="col-lg-1 text-center m-auto">'+
+                '<input type="checkbox" class="checkbox-type" name="removeType" onclick="checkboxChild()">'+
+            '</div>'+
+            '<div class="col-lg-3 m-2">'+
+                '<div class="col-lg-12">'+
+                    '<select class="form-select" aria-label="Default select example" id="productSize">'+
+                        '<option value="1">True</option>'+
+                        '<option value="2">False</option>'+
+                    '</select>'+
+                '</div>'+
+            '</div>'+
+            '<div class="col-lg-3 m-2">'+
+                '<div class="col-lg-12">'+
+                    '<select class="form-select" aria-label="Default select example" id="priceDetail">'+
+                        '<option value="1">True</option>'+
+                        '<option value="2">False</option>'+
+                    '</select>'+
+                '</div>'+
+            '</div>'+
+            '<div class="col-lg-3 m-2">'+
+                '<input type="number" class="form-control" id="price">'+
+            '</div>'+
+            '<div class="col-lg-3 m-2">'+
+                '<input type="number" class="form-control" id="inventory">'+
+            '</div>'+
+            '<div class="col-lg-3 m-2">'+
+                '<input type="number" class="form-control" id="Solid">'+
+            '</div>'+
+            '<div class="col-lg-1 m-auto text-center">'+
+                '<span id="removeType" class="remove-item-type" onclick="removeItemType(this)"  data-index ="'+ index+'"><i class="bi bi-trash-fill"></i></span>'+
+            '</div>'+
+        '</div>'
+        rootType.insertAdjacentHTML('beforeend',node);
+        index++;
+        };
+    function removeItemType(curr){
+        const listItemType =document.getElementById("typeProduct");
+        const index1 = curr.getAttribute("data-index");
+        if (listItemType.hasChildNodes()) {
+            listItemType.removeChild(listItemType.children[index1]);
+        }
+        setup();
+    };
+    function checkboxChild() {
+        const rootCheckbox = document.getElementById("removeAll");
+        const itemCheckbox = document.getElementById("typeProduct");
+        for(var i = 0; i < itemCheckbox.children.length;i++){
+            if(itemCheckbox.children[i].children[0].children[0].checked === false){
+                rootCheckbox.checked = false;
+                flag = false;
+                break;
+            }
+        }
+        if(flag){
+            rootCheckbox.checked = true;
+        }else{
+            flag = true;
+        }
+    }
+
+    function removeAs () {
+        const listItemType =document.getElementById("typeProduct");
+        for(var i = 0; i < listItemType.children.length;){
+            if(listItemType.children[i].children[0].children[0].checked === true){
+                if (listItemType.hasChildNodes()) {
+                    listItemType.removeChild(listItemType.children[i]);
+                    continue;
+                }
+            }
+            i++;
+        }
+        setup();
+    }
+
+</script>
+
+<script>
+    const fileInput = document.getElementById('select-image');
+    const images = document.getElementById('images');
+
+    // Listen to the change event on the <input> element
+    fileInput.addEventListener('change', (event) => {
+        const imageFiles = event.target.files;
+        images.innerHTML = '';
+
+        if (imageFiles.length > 0) {
+            let index = 0;
+            for (const imageFile of imageFiles) {
+                const reader = new FileReader();
+
+                reader.readAsDataURL(imageFile);
+                reader.addEventListener('load', () => {
+                    // Create new <img> element and add it to the DOM
+                    images.innerHTML += `
+                <div class="image_box">
+                    <span class="toggle-remove-image" data-index = "${index}" onclick="remove(this)"  data-name = "${imageFile.name}"><i class="bi bi-x-circle-fill"></i></span>
+                    <div class="img-pre">
+                        <img src='${reader.result}'>
+                    </div>
+                </div>
+            `;
+                    index++;
+                });
+            }
+        } else {
+            images.innerHTML = '';
+        }
+    });
+</script>
+
+<script>
+    function  remove(curr) {
+        const index =  curr.getAttribute("data-index");
+        const name =  curr.getAttribute("data-name");
+
+        const dt = new DataTransfer()
+        const input = document.getElementById('select-image')
+        for (let i = 0; i < input.files.length; i++) {
+            const file = input.files[i]
+            if (file.name === name){
+                continue;
+            }
+            dt.items.add(file) // here you exclude the file. thus removing it.
+        }
+        input.files = dt.files;
+        const listPreview = document.getElementById("images");
+        if (listPreview.hasChildNodes()) {
+            listPreview.removeChild(listPreview.children[index]);
+        }
+        if(input.files.length > 0){
+            const listChild = document.getElementsByClassName("image_box");
+            let cur = 0;
+            for(const child of listChild){
+                child.setAttribute("data-index",cur);
+                cur++;
+            }
+        }
+    };
+</script>
+
+<script>
+    $("#form").submit(function(e) {
+        tinyMCE.triggerSave();
+
+        e.preventDefault(); // avoid to execute the actual submit of the form.
+        var form = new FormData(this);
+
+        $.ajax({
+            enctype: 'multipart/form-data',
+            type: "POST",
+            url: "http://localhost:8060/api/v1/private/addon/product",
+            data: form, // serializes the form's elements.
+            processData: false,
+            contentType: false,
+            success: function(data)
+            {
+                if(data){
+                    Swal.fire({
+                        position: 'center',
+                        icon: 'success',
+                        title: data.message,
+                        showConfirmButton: true
+                    }).then((result) =>{
+                        // window.location.reload();
+                    })
+                }else{
+                    Swal.fire({
+                        position: 'center',
+                        icon: 'error',
+                        title: data.message,
+                        showConfirmButton: true
+                    })
+                }
+            },
+            error: function ($xhr,textStatus,errorThrown) {
+                var data = $xhr.responseJSON;
+                Swal.fire({
+                    position: 'center',
+                    icon: 'error',
+                    title: data.message,
+                    showConfirmButton: true
+                })
+
+            }
+        });
+
+    });
+</script>
 </body>
 </html>

@@ -16,19 +16,24 @@ public class AdminController {
         return "admin/login";
     }
 
-    @GetMapping("/categories")
+    @GetMapping("/manager/product")
+    public String product(Model model){
+        return "admin/Store/manager_product";
+    }
+
+    @GetMapping("/manager/categories")
     public String categories(Model model){
         model.addAttribute("category", new Category());
         return "admin/Store/manager_category";
     }
 
-    @GetMapping("/brands")
+    @GetMapping("/manager/brands")
     public String brands(Model model){
         model.addAttribute("brand", new Brand());
         return "admin/Store/manager_brands";
     }
 
-    @GetMapping("/collections")
+    @GetMapping("/manager/collections")
     public String collections(){
         return "admin/Store/manager_collections";
     }

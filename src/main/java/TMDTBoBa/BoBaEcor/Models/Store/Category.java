@@ -9,7 +9,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 import java.sql.Timestamp;
 
 @Entity
-@Table(name = "table_categorys")
+@Table(name = "table_categories")
 @Setter
 @Getter
 @RequiredArgsConstructor
@@ -38,11 +38,11 @@ public class Category {
     private Timestamp updatedOn;
 
     @ManyToOne
-    @JoinColumn(name = "user_create_id",columnDefinition = "NULL")
+    @JoinColumn(name = "user_create_id")
     private User userCreate;
 
     @ManyToOne
-    @JoinColumn(name = "user_update_id",columnDefinition = "NULL")
+    @JoinColumn(name = "user_update_id")
     private User userUpdate;
 
 }
