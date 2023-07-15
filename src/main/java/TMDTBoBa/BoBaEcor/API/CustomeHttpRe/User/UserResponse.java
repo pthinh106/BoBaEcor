@@ -13,7 +13,7 @@ import java.util.Set;
 @Data
 public class UserResponse {
 
-    private Long userId;
+    private Integer userId;
 
     private String firstName;
 
@@ -35,7 +35,7 @@ public class UserResponse {
 
     private Set<String> listRole;
 
-    public UserResponse(Long userId, String firstName, String lastName, String email, String phoneNumber, String birthDay, String address, Integer accountStatus, String createdOn, String updatedOn, Set<String> listRole) {
+    public UserResponse(Integer userId, String firstName, String lastName, String email, String phoneNumber, String birthDay, String address, Integer accountStatus, String createdOn, String updatedOn, Set<String> listRole) {
         this.userId = userId;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -49,7 +49,7 @@ public class UserResponse {
         this.listRole = listRole;
     }
 
-    public UserResponse(Long userId, String firstName, String lastName, String email, String phoneNumber, String birthDay, String address, Integer accountStatus, String createdOn, String updatedOn) {
+    public UserResponse(Integer userId, String firstName, String lastName, String email, String phoneNumber, String birthDay, String address, Integer accountStatus, String createdOn, String updatedOn) {
         this.userId = userId;
         this.firstName = firstName;
         this.lastName = lastName;

@@ -12,7 +12,7 @@ public class Contains {
 
 
     public static String formatDate(Timestamp date){
-        String pattern = "dd-M-yyyy hh:mm:ss";
+        String pattern = "dd-M-yyyy hh:mm";
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
         return simpleDateFormat.format(date);
     }

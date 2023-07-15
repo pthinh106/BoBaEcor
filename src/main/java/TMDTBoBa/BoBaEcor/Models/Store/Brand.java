@@ -10,6 +10,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.sql.Timestamp;
+import java.util.Set;
 
 @Table(name = "table_brands")
 @Entity
@@ -28,6 +29,9 @@ public class Brand {
 
     @Column(name = "brand_slug",columnDefinition = "Varchar(255) NOT NULL")
     private String brandSlug;
+
+    @OneToMany(mappedBy = "brand")
+    private Set<Product> products;
 
     @Column(name = "status",columnDefinition = "tinyint(1) default 1")
     private Integer status;

@@ -4,6 +4,13 @@
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
+<style>
+    .category-status{
+        background: aquamarine;
+        border-radius: 15px;
+        padding: 0 15px;
+    }
+</style>
 <body>
 <header th:replace="~{admin/Fragment/layout :: header}"></header>
 <aside th:replace="~{admin/Fragment/layout :: sidebar}"></aside>
@@ -36,8 +43,8 @@
                             <div class="col-md-4">
                                 <label for="inputState" class="form-label">Status</label>
                                 <select id="inputState" class="form-select" th:field="*{status}">
-                                    <option selected value="1">true</option>
-                                    <option value="0">false</option>
+                                    <option selected value="1">Activity</option>
+                                    <option value="0">Disable</option>
                                 </select>
                             </div>
                             <div class="col-md-2">
@@ -47,55 +54,44 @@
                                     <button type="reset" class="btn btn-secondary">Reset</button>
                                 </div>
                             </div>
-                        </form><!-- End Multi Columns Form -->
-
-                        <!-- Table with stripped rows -->
-                        <table class="table datatable">
+                        </form>
+                        <table class="table datatable" id="listCategory">
                             <thead>
                             <tr>
-                                <th scope="col">#</th>
+                                <th scope="col" >#</th>
                                 <th scope="col">Name</th>
-                                <th scope="col">Position</th>
-                                <th scope="col">Age</th>
-                                <th scope="col">Start Date</th>
+                                <th scope="col">Status</th>
+                                <th scope="col">Product Quantity</th>
+                                <th scope="col">Update By</th>
+                                <th scope="col">Action</th>
                             </tr>
                             </thead>
                             <tbody>
-                            <tr>
-                                <th scope="row">1</th>
-                                <td>Brandon Jacob</td>
-                                <td>Designer</td>
-                                <td>28</td>
-                                <td>2016-05-25</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">2</th>
-                                <td>Bridie Kessler</td>
-                                <td>Developer</td>
-                                <td>35</td>
-                                <td>2014-12-05</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">3</th>
-                                <td>Ashleigh Langosh</td>
-                                <td>Finance</td>
-                                <td>45</td>
-                                <td>2011-08-12</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">4</th>
-                                <td>Angus Grady</td>
-                                <td>HR</td>
-                                <td>34</td>
-                                <td>2012-06-11</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">5</th>
-                                <td>Raheem Lehner</td>
-                                <td>Dynamic Division Officer</td>
-                                <td>47</td>
-                                <td>2011-04-19</td>
-                            </tr>
+                                <th:block th:each="categories,cout : ${listCategory}">
+                                    <tr>
+                                        <th scope="row" th:text="${cout.index + 1}">1</th>
+                                        <td th:text="${categories.getCategoryName()}">Category Name</td>
+                                        <th:block th:if="${categories.getStatus() == 1}">
+                                            <td>
+                                                <span class="category-status">Activity</span>
+                                            </td>
+                                        </th:block>
+                                        <th:block th:if="${categories.getStatus() == 0}">
+                                            <td>
+                                                <span>Disable</span>
+                                            </td>
+                                        </th:block>
+                                        <td th:text="${categories.getProducts().size()}">2016-05-25</td>
+                                        <td th:text="${categories.getUserCreate().getFullName()}">2016-05-25</td>
+                                        <td >
+                                            <div class="d-flex justify-content-evenly">
+                                                <a th:href="@{~/admin/update/category/{id}(id = ${categories.getCategoryId()})}"><span style="font-size: 20px;color: #4154f1;"><i class="bi bi-pencil-fill"></i></span></a>
+                                                <a th:href="@{'~/' + ${categories.getCategorySlug()}}"><span style="font-size: 20px;color: #2f412e;"><i class="bi bi-eye-fill"></i></span></a>
+                                                <span style="font-size: 20px;color: #ff1205;" onclick="updateCategory()"><i class="bi bi-trash-fill"></i></span>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </th:block>
                             </tbody>
                         </table>
                         <!-- End Table with stripped rows -->

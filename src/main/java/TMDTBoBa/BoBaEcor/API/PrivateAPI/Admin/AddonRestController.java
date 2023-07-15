@@ -37,19 +37,13 @@ public class AddonRestController {
 
     @PostMapping("/brand")
     public ResponseEntity<StoreResponse> addonBrand(@ModelAttribute("brand") Brand brand){
-        StoreResponse categoryResult = brandService.addonBrand(brand);
-        if(categoryResult.getData() == null){
-            return ResponseEntity.status(HttpStatusCode.valueOf(categoryResult.getCode())).body(categoryResult);
-        }
-        return ResponseEntity.status(HttpStatusCode.valueOf(categoryResult.getCode())).body(categoryResult);
+        StoreResponse brandResult = brandService.addonBrand(brand);
+        return ResponseEntity.status(HttpStatusCode.valueOf(brandResult.getCode())).body(brandResult);
     }
 
     @PostMapping("/category")
     public ResponseEntity<StoreResponse> addonBrand(@ModelAttribute("category") Category category){
         StoreResponse categoryResult = categoryService.addonCategory(category);
-        if(categoryResult.getData() == null){
-            return ResponseEntity.status(HttpStatusCode.valueOf(categoryResult.getCode())).body(categoryResult);
-        }
         return ResponseEntity.status(HttpStatusCode.valueOf(categoryResult.getCode())).body(categoryResult);
     }
 

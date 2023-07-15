@@ -1,12 +1,14 @@
 package TMDTBoBa.BoBaEcor.Models.Store;
 
 import TMDTBoBa.BoBaEcor.Models.User.User;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.sql.Timestamp;
+import java.util.Set;
 
 @Entity
 @Table(name = "table_categories")
@@ -25,6 +27,10 @@ public class Category {
 
     @Column(name = "category_slug", columnDefinition = "Varchar(255) NOT NULL",unique = true)
     private String categorySlug;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "category")
+    private Set<Product> products;
 
     @Column(name = "category_status", columnDefinition = "tinyint(1) default 1")
     private Integer status;

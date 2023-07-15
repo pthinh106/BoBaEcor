@@ -26,75 +26,65 @@
 
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title">Brands</h5>
-                        <form class="row g-3">
+                        <h5 class="card-title">Category</h5>
+                        <form id="form" class="row g-3" style="padding: 10px" th:object="${brand}">
+                            <input type="hidden" th:field="*{brandId}">
                             <div class="col-md-6">
-                                <label for="inputName" class="form-label">Brands Name</label>
-                                <input type="text" class="form-control" id="inputName">
+                                <label for="inputName" class="form-label" >Category Name</label>
+                                <input type="text" class="form-control" id="inputName" th:field="*{brandName}">
                             </div>
                             <div class="col-md-4">
                                 <label for="inputState" class="form-label">Status</label>
-                                <select id="inputState" class="form-select">
-                                    <option selected>true</option>
-                                    <option>false</option>
+                                <select id="inputState" class="form-select" th:field="*{status}">
+                                    <option selected value="1">Activity</option>
+                                    <option value="0">Disable</option>
                                 </select>
                             </div>
                             <div class="col-md-2">
                                 <label for="actionName" class="form-label">Action Name</label>
-                                <div id="actionName"class="d-flex flex-row justify-content-md-evenly">
+                                <div id="actionName" class="d-flex flex-row justify-content-md-evenly">
                                     <button type="submit" class="btn btn-primary">Submit</button>
                                     <button type="reset" class="btn btn-secondary">Reset</button>
                                 </div>
                             </div>
-                        </form><!-- End Multi Columns Form -->
-
-                        <!-- Table with stripped rows -->
-                        <table class="table datatable">
+                        </form>
+                        <table class="table datatable" id="listCategory">
                             <thead>
                             <tr>
-                                <th scope="col">#</th>
+                                <th scope="col" >#</th>
                                 <th scope="col">Name</th>
-                                <th scope="col">Position</th>
-                                <th scope="col">Age</th>
-                                <th scope="col">Start Date</th>
+                                <th scope="col">Status</th>
+                                <th scope="col">Product Quantity</th>
+                                <th scope="col">Update By</th>
+                                <th scope="col">Action</th>
                             </tr>
                             </thead>
                             <tbody>
-                            <tr>
-                                <th scope="row">1</th>
-                                <td>Brandon Jacob</td>
-                                <td>Designer</td>
-                                <td>28</td>
-                                <td>2016-05-25</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">2</th>
-                                <td>Bridie Kessler</td>
-                                <td>Developer</td>
-                                <td>35</td>
-                                <td>2014-12-05</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">3</th>
-                                <td>Ashleigh Langosh</td>
-                                <td>Finance</td>
-                                <td>45</td>
-                                <td>2011-08-12</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">4</th>
-                                <td>Angus Grady</td>
-                                <td>HR</td>
-                                <td>34</td>
-                                <td>2012-06-11</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">5</th>
-                                <td>Raheem Lehner</td>
-                                <td>Dynamic Division Officer</td>
-                                <td>47</td>
-                                <td>2011-04-19</td>
-                            </tr>
+                            <th:block th:each="brands,cout : ${listBrand}">
+                                <tr>
+                                    <th scope="row" th:text="${cout.index + 1}">1</th>
+                                    <td th:text="${brands.getBrandName()}">Brand Name</td>
+                                    <th:block th:if="${brands.getStatus() == 1}">
+                                        <td>
+                                            <span class="category-status">Activity</span>
+                                        </td>
+                                    </th:block>
+                                    <th:block th:if="${brands.getStatus() == 0}">
+                                        <td>
+                                            <span>Disable</span>
+                                        </td>
+                                    </th:block>
+                                    <td th:text="${brands.getProducts().size()}">20</td>
+                                    <td th:text="${brands.getUserUpdate().getFullName()}">Nguyen Phuoc Thinh</td>
+                                    <td >
+                                        <div class="d-flex justify-content-evenly">
+                                            <a th:href="@{~/admin/update/brand/{id}(id = ${brands.getBrandId()})}"><span style="font-size: 20px;color: #4154f1;"><i class="bi bi-pencil-fill"></i></span></a>
+                                            <a th:href="@{'~/' + ${brands.getBrandSlug()}}"><span style="font-size: 20px;color: #2f412e;"><i class="bi bi-eye-fill"></i></span></a>
+                                            <span style="font-size: 20px;color: #ff1205;cursor: pointer" ><i class="bi bi-trash-fill"></i></span>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </th:block>
                             </tbody>
                         </table>
                         <!-- End Table with stripped rows -->
@@ -109,6 +99,49 @@
 </main><!-- End #main -->
 <footer th:replace="~{admin/Fragment/layout :: footer}"></footer>
 <div th:replace="~{admin/Fragment/layout :: js}"></div>
+<script>
+    $("#form").submit(function(e) {
 
+        e.preventDefault(); // avoid to execute the actual submit of the form.
+
+        var form = $(this);
+        $.ajax({
+            type: "POST",
+            url: "http://localhost:8060/api/v1/private/addon/brand",
+            data: form.serialize(), // serializes the form's elements.
+            success: function(data)
+            {
+                if(data){
+                    Swal.fire({
+                        position: 'center',
+                        icon: 'success',
+                        title: data.message,
+                        showConfirmButton: true
+                    }).then((result) =>{
+                        window.location.reload();
+                    })
+                }else{
+                    Swal.fire({
+                        position: 'center',
+                        icon: 'error',
+                        title: data.message,
+                        showConfirmButton: true
+                    })
+                }
+            },
+            error: function ($xhr,textStatus,errorThrown) {
+                var data = $xhr.responseJSON;
+                Swal.fire({
+                    position: 'center',
+                    icon: 'error',
+                    title: data.message,
+                    showConfirmButton: true
+                })
+
+            }
+        });
+
+    });
+</script>
 </body>
 </html>

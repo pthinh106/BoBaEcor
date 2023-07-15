@@ -25,7 +25,7 @@ public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")
-    private Long userId;
+    private Integer userId;
 
     @Column(name = "first_name", columnDefinition = "varchar(255) NOT NULL")
     @NotNull
@@ -91,7 +91,7 @@ public class User implements UserDetails {
 
     }
 
-    public User(Long userId, @NotNull String firstName, @NotNull String lastName, String email, String phoneNumber, Date birthDay, String address, String password, String verificationCode, String forgetToken, String accessToken, String refreshToken, Integer accountStatus, Timestamp createdOn, Timestamp updatedOn, Set<UserHasRole> listRole) {
+    public User(Integer userId, @NotNull String firstName, @NotNull String lastName, String email, String phoneNumber, Date birthDay, String address, String password, String verificationCode, String forgetToken, String accessToken, String refreshToken, Integer accountStatus, Timestamp createdOn, Timestamp updatedOn, Set<UserHasRole> listRole) {
         this.userId = userId;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -161,5 +161,9 @@ public class User implements UserDetails {
     @Override
     public int hashCode() {
         return getClass().hashCode();
+    }
+
+    public String getFullName(){
+        return firstName + " " + lastName;
     }
 }
