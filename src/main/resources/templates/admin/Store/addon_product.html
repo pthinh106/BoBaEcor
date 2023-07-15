@@ -233,13 +233,13 @@
                                                 </div>
                                             </div>
                                             <div class="col-lg-3 m-2">
-                                                <input type="number" class="form-control" id="price">
+                                                <input type="number" class="form-control" id="price" min="0">
                                             </div>
                                             <div class="col-lg-3 m-2">
-                                                <input type="number" class="form-control" id="inventory">
+                                                <input type="number" class="form-control" id="inventory" min="0">
                                             </div>
                                             <div class="col-lg-3 m-2">
-                                                <input type="number" class="form-control" id="Solid">
+                                                <input type="number" class="form-control" id="Solid" min="0">
                                             </div>
                                             <div class="col-lg-1 m-auto text-center">
                                                 <span id="removeType" class="remove-item-type" onclick="removeItemType(this)"  data-index = "0"><i class="bi bi-trash-fill"></i></span>
@@ -311,21 +311,21 @@
                                 <div class="col-lg-6">
                                     <label for="productPrice" class="form-label">Price</label>
                                     <div class="col-lg-12 input-group mb-3">
-                                        <input class="form-control" type="number" id="productPrice" name="price">
+                                        <input class="form-control" type="number" id="productPrice" name="price" min="0">
                                         <span class="input-group-text">₫</span>
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
                                     <label for="productSale" class="form-label">Price Detail</label>
                                     <div class="col-lg-12 input-group mb-3">
-                                        <input class="form-control" type="number" id="productSale" name="sale">
+                                        <input class="form-control" type="number" id="productSale" name="sale" min="0">
                                         <span class="input-group-text">₫</span>
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
                                     <label for="productPriceDetail" class="form-label">Sale</label>
                                     <div class="col-lg-12 input-group mb-3">
-                                        <input class="form-control" type="number" id="productPriceDetail" name="priceDetail">
+                                        <input class="form-control" type="number" id="productPriceDetail" name="priceDetail" min="0">
                                         <span class="input-group-text">₫</span>
                                     </div>
                                 </div>
