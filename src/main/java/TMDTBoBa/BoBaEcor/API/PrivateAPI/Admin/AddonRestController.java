@@ -36,7 +36,9 @@ public class AddonRestController {
     }
 
     @PostMapping("/brand")
-    public ResponseEntity<StoreResponse> addonBrand(@ModelAttribute("brand") Brand brand){
+    public ResponseEntity<StoreResponse> addonBrand(@ModelAttribute("brand") Brand brand) throws InterruptedException {
+        Thread thread = new Thread();
+        thread.sleep(3000);
         StoreResponse brandResult = brandService.addonBrand(brand);
         return ResponseEntity.status(HttpStatusCode.valueOf(brandResult.getCode())).body(brandResult);
     }

@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Timestamp;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -50,11 +51,15 @@ public class CategoryService implements ICategoryService {
         try {
             Optional<User> user = iUserRepository.findById(1);
             if(user.isPresent()){
+                category.setCategoryId(4);
                 category.setCategorySlug(Contains.convertToURL(category.getCategoryName()));
                 category.setUserCreate(user.get());
                 category.setUserUpdate(user.get());
-                iCategoryRepository.save(category);
-                return new StoreResponse(200,"Addon Category " + category.getCategoryName() + " success",category);
+                category.setUpdatedOn(Timestamp.valueOf(LocalDateTime.now()));
+                category.setCreatedOn(Timestamp.valueOf(LocalDateTime.now()));
+                category.setUserUpdate(user.get());
+//                iCategoryRepository.save(category);
+                return new StoreResponse(200,"Addon Category " + category.getCategoryName() + " success",StoreResponse.returnCategory(category));
             }else{
                 return new StoreResponse(500,"Addon Fail! Server Error. ",null);
             }

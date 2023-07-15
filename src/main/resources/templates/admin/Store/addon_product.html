@@ -214,7 +214,7 @@
                                     <div id="typeProduct">
                                         <div class="type-item d-flex flex-row type-product">
                                             <div class="col-lg-1 text-center m-auto">
-                                                <input type="checkbox" class="checkbox-type item-type" name="removeType" onclick="checkboxChild()">
+                                                <input type="checkbox" class="checkbox-type item-type"  onclick="checkboxChild()">
                                             </div>
                                             <div class="col-lg-3 m-2">
                                                 <div class="col-lg-12">
@@ -258,8 +258,8 @@
                             <div class="row mb-3 mt-3">
                                 <div class="col-lg-12">
                                     <select class="form-select" aria-label="Default select example" id="inputStatus" th:field="*{status}">
-                                        <option value="1">True</option>
-                                        <option value="2">False</option>
+                                        <option value="1">Activity</option>
+                                        <option value="2">Disable</option>
                                     </select>
                                 </div>
                             </div>
@@ -271,8 +271,9 @@
                             <div class="row mb-3 mt-3">
                                 <div class="col-lg-12">
                                     <select class="form-select" aria-label="Default select example" id="inputCategory" th:field="*{category}">
-                                        <option value="1">True</option>
-                                        <option value="2">False</option>
+                                        <th:block th:each="categories : ${listCategory}">
+                                            <option th:value="${categories.getCategoryId()}" th:text="${categories.getCategoryName()}">Category Name</option>
+                                        </th:block>
                                     </select>
                                 </div>
                             </div>
@@ -284,8 +285,9 @@
                             <div class="row mb-3 mt-3">
                                 <div class="col-lg-12">
                                     <select class="form-select" aria-label="Default select example" id="inputBrand" th:field="*{brand}">
-                                        <option value="1">True</option>
-                                        <option value="2">False</option>
+                                        <th:block th:each="brand : ${listBrand}">
+                                            <option th:value="${brand.getBrandId()}" th:text="${brand.getBrandName()}">Brand Name</option>
+                                        </th:block>
                                     </select>
                                 </div>
                             </div>
@@ -353,6 +355,7 @@
     </section>
 
 </main><!-- End #main -->
+<div th:replace="~{admin/Fragment/layout :: loading}"></div>
 <footer th:replace="~{admin/Fragment/layout :: footer}"></footer>
 <div th:replace="~{admin/Fragment/layout :: js}"></div>
 
@@ -386,7 +389,7 @@
         const rootType = document.getElementById("typeProduct");
         const node = '<div class="type-item d-flex flex-row">'+
             '<div class="col-lg-1 text-center m-auto">'+
-                '<input type="checkbox" class="checkbox-type" name="removeType" onclick="checkboxChild()">'+
+                '<input type="checkbox" class="checkbox-type"  onclick="checkboxChild()">'+
             '</div>'+
             '<div class="col-lg-3 m-2">'+
                 '<div class="col-lg-12">'+
@@ -527,6 +530,7 @@
 
 <script>
     $("#form").submit(function(e) {
+        document.getElementById("loading-wrapper").style.display = "block";
         tinyMCE.triggerSave();
 
         e.preventDefault(); // avoid to execute the actual submit of the form.
@@ -541,6 +545,7 @@
             contentType: false,
             success: function(data)
             {
+                document.getElementById("loading-wrapper").style.display = "none";
                 if(data){
                     Swal.fire({
                         position: 'center',
@@ -560,6 +565,7 @@
                 }
             },
             error: function ($xhr,textStatus,errorThrown) {
+                document.getElementById("loading-wrapper").style.display = "none";
                 var data = $xhr.responseJSON;
                 Swal.fire({
                     position: 'center',
@@ -570,7 +576,6 @@
 
             }
         });
-
     });
 </script>
 </body>

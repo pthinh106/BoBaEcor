@@ -4,13 +4,6 @@
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
-<style>
-    .category-status{
-        background: aquamarine;
-        border-radius: 15px;
-        padding: 0 15px;
-    }
-</style>
 <body>
 <header th:replace="~{admin/Fragment/layout :: header}"></header>
 <aside th:replace="~{admin/Fragment/layout :: sidebar}"></aside>
@@ -21,7 +14,7 @@
         <nav>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                <li class="breadcrumb-item">Category</li>
+                <li class="breadcrumb-item">Categories</li>
                 <li class="breadcrumb-item active">Management</li>
             </ol>
         </nav>
@@ -33,7 +26,7 @@
 
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title">Category</h5>
+                        <h5 class="card-title">Categories</h5>
                         <form id="form" class="row g-3" style="padding: 10px" th:object="${category}">
                             <input type="hidden" th:field="*{categoryId}">
                             <div class="col-md-6">
@@ -55,7 +48,7 @@
                                 </div>
                             </div>
                         </form>
-                        <table class="table datatable" id="listCategory">
+                        <table class="table" id="listCategory">
                             <thead>
                             <tr>
                                 <th scope="col" >#</th>
@@ -73,12 +66,12 @@
                                         <td th:text="${categories.getCategoryName()}">Category Name</td>
                                         <th:block th:if="${categories.getStatus() == 1}">
                                             <td>
-                                                <span class="category-status">Activity</span>
+                                                <span class="status Activity">Activity</span>
                                             </td>
                                         </th:block>
                                         <th:block th:if="${categories.getStatus() == 0}">
                                             <td>
-                                                <span>Disable</span>
+                                                <span class="status Disable">Disable</span>
                                             </td>
                                         </th:block>
                                         <td th:text="${categories.getProducts().size()}">2016-05-25</td>
@@ -104,11 +97,16 @@
     </section>
 
 </main><!-- End #main -->
+<div th:replace="~{admin/Fragment/layout :: loading}"></div>
 <footer th:replace="~{admin/Fragment/layout :: footer}"></footer>
 <div th:replace="~{admin/Fragment/layout :: js}"></div>
-<script>
-    $("#form").submit(function(e) {
+<div th:replace="~{admin/Fragment/layout :: jsDataTable}"></div>
 
+<script>
+    var dataTable = new DataTable('#listCategory');
+
+    $("#form").submit(function(e) {
+        document.getElementById("loading-wrapper").style.display = "block";
         e.preventDefault(); // avoid to execute the actual submit of the form.
 
         var form = $(this);
@@ -118,6 +116,7 @@
             data: form.serialize(), // serializes the form's elements.
             success: function(data)
             {
+                document.getElementById("loading-wrapper").style.display = "none";
                 if(data){
                     Swal.fire({
                         position: 'center',
@@ -125,7 +124,8 @@
                         title: data.message,
                         showConfirmButton: true
                     }).then((result) =>{
-                        window.location.reload();
+                        console.log(data);
+                        updateCategory(data.data)
                     })
                 }else{
                     Swal.fire({
@@ -137,6 +137,7 @@
                 }
             },
             error: function ($xhr,textStatus,errorThrown) {
+                document.getElementById("loading-wrapper").style.display = "none";
                 var data = $xhr.responseJSON;
                 Swal.fire({
                     position: 'center',
@@ -149,6 +150,27 @@
         });
 
     });
+    function updateCategory(dataApi){
+        const table =  $('#listCategory').dataTable();
+        const index = table.fnGetData().length + 1;
+        const result = '<tr class="'+dataApi.trClass+'">' +
+            '     <th scope="row" class="sorting_1">'+dataApi.index+'</th>' +
+            '     <td>'+dataApi.name+'</td>' +
+            '     <td>' +
+            '         <span class="status '+ dataApi.status+'">'+ dataApi.status+'</span>' +
+            '     </td>' +
+            '     <td>0</td>' +
+            '     <td>'+ dataApi.user+'</td>' +
+            '     <td>' +
+            '     <div class="d-flex justify-content-evenly">\n' +
+            '          <a href="/admin/update/category/'+ dataApi.index+'"><span style="font-size: 20px;color: #4154f1;"><i class="bi bi-pencil-fill"></i></span></a>' +
+            '          <a href="/'+ dataApi.slug+'"><span style="font-size: 20px;color: #2f412e;"><i class="bi bi-eye-fill"></i></span></a>' +
+            '          <span style="font-size: 20px;color: #ff1205;" onclick="updateCategory()"><i class="bi bi-trash-fill"></i></span>' +
+            '      </div>' +
+            '      </td>' +
+            ' </tr>';
+        dataTable.row.add($(result)).draw();
+    }
 </script>
 </body>
 </html>

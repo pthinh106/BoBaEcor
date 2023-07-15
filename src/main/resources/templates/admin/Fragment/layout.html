@@ -23,7 +23,9 @@
     <link th:href="@{/admin/assets/vendor/quill/quill.snow.css}" rel="stylesheet">
     <link th:href="@{/admin/assets/vendor/quill/quill.bubble.css}" rel="stylesheet">
     <link th:href="@{/admin/assets/vendor/remixicon/remixicon.css}" rel="stylesheet">
-    <link th:href="@{/admin/assets/vendor/simple-datatables/style.css}" rel="stylesheet">
+<!--    <link th:href="@{/admin/assets/vendor/simple-datatables/style.css}" rel="stylesheet">-->
+    <link th:href="@{/admin/assets/vendor/datattable/datatable.min.css}" rel="stylesheet">
+    <link th:href="@{/admin/assets/vendor/datattable/twitter.min.css}" rel="stylesheet">
 
     <!-- Template Main CSS File -->
     <link th:href="@{/admin/assets/css/style.css}" rel="stylesheet">
@@ -490,6 +492,10 @@
     </ul>
 
 </aside><!-- End Sidebar-->
+<div id="loading-wrapper" th:fragment="loading">
+    <div id="loading-text">LOADING</div>
+    <div id="loading-content"></div>
+</div>
 <footer id="footer" class="footer" th:fragment="footer">
     <div class="copyright">
         &copy; Copyright <strong><span>NiceAdmin</span></strong>. All Rights Reserved
@@ -509,13 +515,19 @@
     <script th:src="@{/admin/assets/vendor/chart.js/chart.umd.js}"></script>
     <script th:src="@{/admin/assets/vendor/echarts/echarts.min.js}"></script>
     <script th:src="@{/admin/assets/vendor/quill/quill.min.js}"></script>
-    <script th:src="@{/admin/assets/vendor/simple-datatables/simple-datatables.js}"></script>
+<!--    <script th:src="@{/admin/assets/vendor/simple-datatables/simple-datatables.js}"></script>-->
     <script th:src="@{/admin/assets/vendor/tinymce/tinymce.min.js}"></script>
     <script th:src="@{/admin/assets/vendor/php-email-form/validate.js}"></script>
     <script th:src="@{/sweetalert2/sweetalert2.min.js}"></script>
     <script th:src="@{/JQuery/jQuery.min.js}"></script>
 
+
     <!-- Template Main JS File -->
     <script th:src="@{/admin/assets/js/main.js}"></script>
+</div>
+<div th:fragment="jsDataTable">
+    <script th:src="@{/JQuery/jQuery3.7.js}"></script>
+    <script th:src="@{/JQuery/jQuery-datatable.min.js}"></script>
+    <script th:src="@{/JQuery/JQuery-bootstrapDatatable.min.js}"></script>
 </div>
 </html>

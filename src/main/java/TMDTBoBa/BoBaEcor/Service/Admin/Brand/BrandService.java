@@ -48,7 +48,7 @@ public class BrandService implements IBrandService {
             brand.setUserCreate(user.get());
             brand.setUserUpdate(user.get());
             iBrandRepository.save(brand);
-            return new StoreResponse(200,"Addon Brand " + brand.getBrandName() + " success",brand);
+            return new StoreResponse(200,"Addon Brand " + brand.getBrandName() + " success",StoreResponse.returnBrand(brand));
             }else{
                 return new StoreResponse(200,"Addon Fail! Server Error. ",null);
             }

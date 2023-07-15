@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
+
 <body>
 <header th:replace="~{admin/Fragment/layout :: header}"></header>
 <aside th:replace="~{admin/Fragment/layout :: sidebar}"></aside>
@@ -26,11 +27,11 @@
 
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title">Category</h5>
+                        <h5 class="card-title">Brands</h5>
                         <form id="form" class="row g-3" style="padding: 10px" th:object="${brand}">
                             <input type="hidden" th:field="*{brandId}">
                             <div class="col-md-6">
-                                <label for="inputName" class="form-label" >Category Name</label>
+                                <label for="inputName" class="form-label" >Brand Name</label>
                                 <input type="text" class="form-control" id="inputName" th:field="*{brandName}">
                             </div>
                             <div class="col-md-4">
@@ -48,7 +49,7 @@
                                 </div>
                             </div>
                         </form>
-                        <table class="table datatable" id="listCategory">
+                        <table class="table" id="listBrands">
                             <thead>
                             <tr>
                                 <th scope="col" >#</th>
@@ -66,12 +67,12 @@
                                     <td th:text="${brands.getBrandName()}">Brand Name</td>
                                     <th:block th:if="${brands.getStatus() == 1}">
                                         <td>
-                                            <span class="category-status">Activity</span>
+                                            <span class="status Activity">Activity</span>
                                         </td>
                                     </th:block>
                                     <th:block th:if="${brands.getStatus() == 0}">
                                         <td>
-                                            <span>Disable</span>
+                                            <span class="status Disable">Disable</span>
                                         </td>
                                     </th:block>
                                     <td th:text="${brands.getProducts().size()}">20</td>
@@ -97,13 +98,17 @@
     </section>
 
 </main><!-- End #main -->
+<div th:replace="~{admin/Fragment/layout :: loading}"></div>
 <footer th:replace="~{admin/Fragment/layout :: footer}"></footer>
 <div th:replace="~{admin/Fragment/layout :: js}"></div>
+<div th:replace="~{admin/Fragment/layout :: jsDataTable}"></div>
 <script>
+    var dataTable = new DataTable('#listBrands');
+
     $("#form").submit(function(e) {
 
         e.preventDefault(); // avoid to execute the actual submit of the form.
-
+        document.getElementById("loading-wrapper").style.display = "block";
         var form = $(this);
         $.ajax({
             type: "POST",
@@ -111,6 +116,8 @@
             data: form.serialize(), // serializes the form's elements.
             success: function(data)
             {
+
+                document.getElementById("loading-wrapper").style.display = "none";
                 if(data){
                     Swal.fire({
                         position: 'center',
@@ -118,7 +125,8 @@
                         title: data.message,
                         showConfirmButton: true
                     }).then((result) =>{
-                        window.location.reload();
+                        updateBrands(data.data);
+                        // window.location.reload();
                     })
                 }else{
                     Swal.fire({
@@ -130,6 +138,7 @@
                 }
             },
             error: function ($xhr,textStatus,errorThrown) {
+                document.getElementById("loading-wrapper").style.display = "none";
                 var data = $xhr.responseJSON;
                 Swal.fire({
                     position: 'center',
@@ -142,6 +151,27 @@
         });
 
     });
+    function updateBrands(dataApi){
+        const table =  $('#listBrands').dataTable();
+        const index = table.fnGetData().length + 1;
+        const result = '<tr class="'+dataApi.trClass+'">' +
+            '     <th scope="row" class="sorting_1">'+index+'</th>' +
+            '     <td>'+dataApi.name+'</td>' +
+            '     <td>' +
+            '         <span class="status '+ dataApi.status+'">'+ dataApi.status+'</span>' +
+            '     </td>' +
+            '     <td>0</td>' +
+            '     <td>'+ dataApi.user+'</td>' +
+            '     <td>' +
+            '     <div class="d-flex justify-content-evenly">\n' +
+            '          <a href="/admin/update/brand/'+ dataApi.index+'"><span style="font-size: 20px;color: #4154f1;"><i class="bi bi-pencil-fill"></i></span></a>' +
+            '          <a href="/'+ dataApi.slug+'"><span style="font-size: 20px;color: #2f412e;"><i class="bi bi-eye-fill"></i></span></a>' +
+            '          <span style="font-size: 20px;color: #ff1205;" onclick="updateCategory()"><i class="bi bi-trash-fill"></i></span>' +
+            '      </div>' +
+            '      </td>' +
+            ' </tr>';
+        dataTable.row.add($(result)).draw();
+    }
 </script>
 </body>
 </html>
