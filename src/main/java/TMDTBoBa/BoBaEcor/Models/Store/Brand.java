@@ -1,6 +1,7 @@
 package TMDTBoBa.BoBaEcor.Models.Store;
 
 import TMDTBoBa.BoBaEcor.Models.User.User;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -31,6 +32,7 @@ public class Brand {
     private String brandSlug;
 
     @OneToMany(mappedBy = "brand")
+    @JsonIgnore
     private Set<Product> products;
 
     @Column(name = "status",columnDefinition = "tinyint(1) default 1")

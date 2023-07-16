@@ -104,6 +104,7 @@
 <div th:replace="~{admin/Fragment/layout :: jsDataTable}"></div>
 <script>
     var dataTable = new DataTable('#listBrands');
+    // var dataTable = new DataTable('#listBrands', {paging: false,info: false,});
 
     $("#form").submit(function(e) {
 

@@ -1,5 +1,6 @@
 package TMDTBoBa.BoBaEcor.Service.Admin.Product;
 
+import TMDTBoBa.BoBaEcor.API.CustomeHttpRe.Store.StoreResponse;
 import TMDTBoBa.BoBaEcor.Models.Store.Product;
 
 import java.util.List;
@@ -11,6 +12,7 @@ public interface IProductService {
     Optional<Product> findBySlug(String productSlug);
     Optional<Product> findByStatus(Integer status);
     List<Product> findAll();
+    StoreResponse findPage(Integer page);
     Product addonProduct(Product product);
     Product editProduct(Product product);
     Product hiddenProduct(Integer productId);

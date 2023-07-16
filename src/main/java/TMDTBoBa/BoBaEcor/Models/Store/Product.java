@@ -1,6 +1,7 @@
 package TMDTBoBa.BoBaEcor.Models.Store;
 
 import TMDTBoBa.BoBaEcor.Models.User.User;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -15,6 +16,7 @@ import java.util.concurrent.atomic.AtomicReference;
 @Table(name = "table_products")
 @Setter
 @Getter
+@Data
 @RequiredArgsConstructor
 @AllArgsConstructor
 public class Product {
@@ -76,13 +78,13 @@ public class Product {
     @ManyToOne
     @JoinColumn(name = "user_update_id")
     private User userUpdate;
-
+    @JsonIgnore
     public Set<ProductColor> getAllProductColor(){
         Set<ProductColor> productColors = new HashSet<>();
         productDetails.forEach(productDetail -> productColors.add(productDetail.getProductColor()));
         return productColors;
     }
-
+    @JsonIgnore
     public Set<ProductSize> getAllProductSize(){
         Set<ProductSize> productSizes = new HashSet<>();
         productDetails.forEach(productDetail -> productSizes.add(productDetail.getProductSize()));

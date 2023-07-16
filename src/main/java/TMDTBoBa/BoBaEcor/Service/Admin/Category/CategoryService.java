@@ -46,7 +46,7 @@ public class CategoryService implements ICategoryService {
     @Override
     public StoreResponse addonCategory(Category category) {
         if (category.getCategoryName().isEmpty()){
-            return new StoreResponse(500,"Category name not empty!",null);
+            return new StoreResponse(500,"Category name not empty!",null,null,null,null);
         }
         try {
             Optional<User> user = iUserRepository.findById(1);
@@ -59,13 +59,13 @@ public class CategoryService implements ICategoryService {
                 category.setCreatedOn(Timestamp.valueOf(LocalDateTime.now()));
                 category.setUserUpdate(user.get());
 //                iCategoryRepository.save(category);
-                return new StoreResponse(200,"Addon Category " + category.getCategoryName() + " success",StoreResponse.returnCategory(category));
+                return new StoreResponse(200,"Addon Category " + category.getCategoryName() + " success",StoreResponse.returnCategory(category),category,null,null);
             }else{
-                return new StoreResponse(500,"Addon Fail! Server Error. ",null);
+                return new StoreResponse(500,"Addon Fail! Server Error. ",null,null,null,null);
             }
 
         }catch (Exception e){
-            return new StoreResponse(500,"Addon Fail! Server Error. " + e.getMessage(),null);
+            return new StoreResponse(500,"Addon Fail! Server Error. " + e.getMessage(),null,null,null,null);
         }
     }
 

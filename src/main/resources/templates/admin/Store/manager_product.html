@@ -1,10 +1,243 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{admin/Fragment/layout :: head}">
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
+<style>
+    .add-product {
+        background: #e4e5ed;;
+        padding: 10px;
+        border-radius: 15px;
+        color: black;
+    }
+    .a-url{
+        margin: auto 0;
+        padding-left: 20px;
+    }
+    .image_box{
+        width: 100%;
+    }
+    .text-product{
+        word-wrap: break-word;
+        max-width: 300px;
+        width: 100%;
+    }
+</style>
 <body>
+<header th:replace="~{admin/Fragment/layout :: header}"></header>
+<aside th:replace="~{admin/Fragment/layout :: sidebar}"></aside>
+<main id="main" class="main">
 
+    <div class="pagetitle">
+        <h1>Product Management</h1>
+        <nav>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                <li class="breadcrumb-item">Product</li>
+                <li class="breadcrumb-item active">Management</li>
+            </ol>
+        </nav>
+    </div><!-- End Page Title -->
+
+    <section class="section">
+        <div class="row">
+            <div class="col-lg-12">
+
+                <div class="card">
+                    <div class="card-body">
+                        <div class="d-flex flex-row">
+                            <h5 class="card-title">Product</h5>
+                            <a th:href="@{~/admin/addon/product}" class="a-url"><span class="add-product"><i class="bi bi-plus-lg" style="font-size: 18px;"></i>   Addon Product</span></a>
+                        </div>
+                        <table class="table" id="listProduct">
+                            <thead>
+                            <tr>
+                                <th scope="col" >#</th>
+                                <th scope="col">Name</th>
+                                <th scope="col">Status</th>
+                                <th scope="col">Category</th>
+                                <th scope="col">Brand</th>
+                                <th scope="col">Thumbnail</th>
+                                <th scope="col">Product Quantity</th>
+<!--                                <th scope="col">Update By</th>-->
+                                <th scope="col">Action</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <th:block th:each="product,cout : ${listProduct}">
+                                <tr>
+                                    <th scope="row" th:text="${cout.index + 1}">1</th>
+                                    <td >
+                                        <p class="text-product" th:text="${product.getProductName()}"></p>
+                                    </td>
+                                    <th:block th:if="${product.getStatus() == 1}">
+                                        <td>
+                                            <span class="status Activity">Activity</span>
+                                        </td>
+                                    </th:block>
+                                    <th:block th:if="${product.getStatus() == 0}">
+                                        <td>
+                                            <span class="status Disable">Disable</span>
+                                        </td>
+                                    </th:block>
+                                    <td th:text="${product.getCategory().getCategoryName()}">Category Name</td>
+                                    <td th:text="${product.getBrand().getBrandName()}">Brand Name</td>
+                                    <td>
+                                        <div class="image_box">
+                                            <div class="img-pre">
+                                                <img th:src="${product.getProductThumbnail()}">
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td th:text="${product.getProductDetails().size()}">20</td>
+<!--                                    <td th:text="${product.getUserUpdate().getFullName()}">Nguyen Phuoc Thinh</td>-->
+                                    <td >
+                                        <div class="d-flex justify-content-evenly">
+                                            <a th:href="@{~/admin/update/product/{id}(id = ${product.getProductId()})}"><span style="font-size: 20px;color: #4154f1;"><i class="bi bi-pencil-fill"></i></span></a>
+                                            <a th:href="@{'~/san-pham/' + ${product.getProductSlug()}}"><span style="font-size: 20px;color: #2f412e;"><i class="bi bi-eye-fill"></i></span></a>
+                                            <span style="font-size: 20px;color: #ff1205;cursor: pointer" ><i class="bi bi-trash-fill"></i></span>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </th:block>
+                            </tbody>
+                        </table>
+                        <!-- End Table with stripped rows -->
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="row" >
+            <nav aria-label="..." class="d-flex justify-content-center" th:if="${page != null}" id="paging">
+                <ul class="pagination" >
+                    <li class="page-item" th:classappend="${page} == 1 ? 'disabled' : ''">
+                        <span class="page-link" href="#" th:if="${page > 1}" th:onclick="getProductPage(1)">First</span>
+                        <span class="page-link" href="#" th:unless="${page > 1}">First</span>
+                    </li>
+                    <li class="page-item " th:classappend="${page == 1 ? 'disabled' : ''}">
+                        <span class="page-link"  tabindex="-1 " th:if="${page > 1}" th:onclick="getProductPage([[${page - 1}]])">Previous</span>
+                    </li>
+                    <li class="page-item" th:if="${page > 1}">
+                        <span class="page-link"  tabindex="-1 "  th:onclick="getProductPage([[${page -1}]])" th:text="${page - 1}"></span>
+                    </li>
+                    <li class="page-item active">
+                        <span class="page-link" href="#" th:text="${page}"></span>
+                    </li>
+                    <li class="page-item" th:if="${page < totalPage}">
+                        <span class="page-link"  tabindex="-1 "  th:onclick="getProductPage([[${page + 1}]])" th:text="${page  + 1}"></span>
+                    </li>
+                    <li class="page-item " th:classappend="${page >= totalPage ? 'disabled':''}">
+                        <span class="page-link"  th:onclick="getProductPage([[${page + 1}]])">Next</span>
+                    </li>
+                    <li class="page-item" th:classappend="${page == totalPage || totalPage == 0 ? 'disabled':''}">
+                        <span class="page-link" th:onclick="getProductPage([[${totalPage}]])">Last</span>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </section>
+
+</main><!-- End #main -->
+<div th:replace="~{admin/Fragment/layout :: loading}"></div>
+<footer th:replace="~{admin/Fragment/layout :: footer}"></footer>
+<div th:replace="~{admin/Fragment/layout :: js}"></div>
+<div th:replace="~{admin/Fragment/layout :: jsDataTable}"></div>
+<script>
+    var dataTable = new DataTable('#listProduct', {paging: false,info: false,oLanguage: {
+            sSearch: "Search Current Page"}});
+
+    function updatePageProduct(dataApi){
+        for (const data of dataApi.data){
+            const result = '<tr class="'+dataApi.trClass+'">' +
+                '      <th scope="row" class="sorting_1">'+data.index+'</th>' +
+                '      <td>' +
+                '          <p class="text-product">'+data.name+'</p>' +
+                '      </td>' +
+                '      ' +
+                '          <td>' +
+                '              <span class="status '+ data.status+'">'+ data.status+'</span>' +
+                '          </td>' +
+                '      <td>'+ data.category +'</td>' +
+                '      <td>'+ data.brand +'</td>' +
+                '      <td>' +
+                '          <div class="image_box">' +
+                '             <div class="img-pre">' +
+                '                  <img src="'+data.thumbnail+'">' +
+                '              </div>' +
+                '          </div>' +
+                '      </td>' +
+                '      <td>0</td>' +
+                '<!--      <td th:text="${product.getUserUpdate().getFullName()}">Nguyen Phuoc Thinh</td>-->\n' +
+                '      <td>' +
+                '          <div class="d-flex justify-content-evenly">\n' +
+                '              <a href="/admin/update/product/'+data.id+'"><span style="font-size: 20px;color: #4154f1;"><i class="bi bi-pencil-fill"></i></span></a>' +
+                '              <a href="/san-pham/'+data.slug+'"><span style="font-size: 20px;color: #2f412e;"><i class="bi bi-eye-fill"></i></span></a>' +
+                '              <span style="font-size: 20px;color: #ff1205;cursor: pointer"><i class="bi bi-trash-fill"></i></span>' +
+                '          </div>' +
+                '      </td>' +
+                '  </tr>';
+            dataTable.row.add($(result)).draw();
+        }
+        const paging = document.getElementById("paging");
+        const cur = parseInt(dataApi.paging, 10);
+        const totalPage = parseInt(dataApi.totalPage, 10);
+        const next = cur + 1;
+        const pre = cur - 1;
+        const dataPaging = '<ul class="pagination">' +
+            '                    <li class="page-item '+ (cur === 1 ? 'disabled' : '')+'">' +
+            '                        <span class="page-link" href="#" onclick="getProductPage(1)">First</span>' +
+            '                    </li>' +
+            '                    <li class="page-item '+ (cur === 1 ? 'disabled' : '')+'">' +
+            '                        <span class="page-link" tabindex="-1 " '+(cur === 1  ? '' : 'onclick="getProductPage('+ pre +')"') +' >Previous</span>' +
+            '                    </li>' +(cur > 1 ?
+            '                    <li class="page-item">' +
+            '                        <span class="page-link" onclick="getProductPage('+ pre +')">'+ pre +'</span>' +
+            '                    </li>': '') +
+            '                    <li class="page-item active">' +
+            '                        <span class="page-link" >'+cur+'</span>' +
+            '                    </li>'+(cur < totalPage ?
+            '                    <li class="page-item">' +
+            '                        <span class="page-link" tabindex="-1 " onclick="getProductPage('+ next +')">'+next+'</span>' +
+            '                    </li>' : '') +
+            '                    <li class="page-item '+ (cur === totalPage ? 'disabled' : '')+'">' +
+            '                        <span class="page-link"'+(cur === totalPage  ? '' : 'onclick="getProductPage('+ next +')"') +' >Next</span>' +
+            '                    </li>' +
+            '                    <li class="page-item '+ (cur === totalPage  || totalPage == 0 ? 'disabled' : '')+'">' +
+            '                        <span class="page-link"'+(cur === totalPage  ? '' : 'onclick="getProductPage('+ totalPage +')"') +'>Last</span>' +
+            '                    </li>' +
+            '                </ul>';
+        paging.innerHTML = dataPaging;
+        // tabindex="-1 " '+ (dataApi.paging > 1 ? '' : 'onclick="getProductPage('+ dataApi.paging -1 +')'+'
+    }
+    function getProductPage(page){
+        document.getElementById("loading-wrapper").style.display = "block";
+        $.ajax({
+            type: "POST",
+            url: "http://localhost:8060/api/v1/private/page/product/" + page,
+            success: function(data)
+            {
+                if(data.data.length !== 0){
+                    dataTable.clear().draw();
+                    updatePageProduct(data);
+                }
+                document.getElementById("loading-wrapper").style.display = "none";
+            },
+            error: function ($xhr,textStatus,errorThrown) {
+                document.getElementById("loading-wrapper").style.display = "none";
+                var data = $xhr.responseJSON;
+                Swal.fire({
+                    position: 'center',
+                    icon: 'error',
+                    title: data.message ,
+                    showConfirmButton: true
+                })
+
+            }
+        });
+    }
+</script>
 </body>
 </html>

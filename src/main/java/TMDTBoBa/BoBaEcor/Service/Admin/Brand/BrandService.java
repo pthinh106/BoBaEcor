@@ -40,7 +40,7 @@ public class BrandService implements IBrandService {
     @Override
     public StoreResponse addonBrand(Brand brand) {
         if (brand.getBrandName().isEmpty()){
-            return new StoreResponse(500,"Brand name not empty!",null);
+            return new StoreResponse(500,"Brand name not empty!",null,null,null,null);
         }
         try {Optional<User> user = iUserRepository.findById(1);
             if(user.isPresent()){
@@ -48,12 +48,12 @@ public class BrandService implements IBrandService {
             brand.setUserCreate(user.get());
             brand.setUserUpdate(user.get());
             iBrandRepository.save(brand);
-            return new StoreResponse(200,"Addon Brand " + brand.getBrandName() + " success",StoreResponse.returnBrand(brand));
+            return new StoreResponse(200,"Addon Brand " + brand.getBrandName() + " success",StoreResponse.returnBrand(brand),brand,null,null);
             }else{
-                return new StoreResponse(200,"Addon Fail! Server Error. ",null);
+                return new StoreResponse(200,"Addon Fail! Server Error. ",null,null,null,null);
             }
         }catch (Exception e){
-            return new StoreResponse(500,"Addon Fail! Server Error. "+ e.getMessage(),null);
+            return new StoreResponse(500,"Addon Fail! Server Error. "+ e.getMessage(),null,null,null,null);
         }
     }
 
