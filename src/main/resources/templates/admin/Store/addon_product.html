@@ -4,6 +4,11 @@
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
+<style>
+    #noType{
+        display: none;
+    }
+</style>
 <body>
 <header th:replace="~{admin/Fragment/layout :: header}"></header>
 <aside th:replace="~{admin/Fragment/layout :: sidebar}"></aside>
@@ -99,6 +104,9 @@
                                             <span  class="form-label">Price</span>
                                         </div>
                                         <div class="col-lg-3 m-2">
+                                            <span  class="form-label">Price Sale</span>
+                                        </div>
+                                        <div class="col-lg-3 m-2">
                                             <span class="form-label">Quantity Inventory</span>
                                         </div>
                                         <div class="col-lg-3 m-2">
@@ -111,29 +119,22 @@
                                                 <input type="checkbox" class="checkbox-type item-type"  onclick="checkboxChild()">
                                             </div>
                                             <div class="col-lg-3 m-2">
-                                                <div class="col-lg-12">
-                                                    <select class="form-select" aria-label="Default select example" id="productSize">
-                                                        <option value="1">True</option>
-                                                        <option value="2">False</option>
-                                                    </select>
-                                                </div>
+                                                <input type="text" class="form-control" id="size" min="0" name="tSize">
                                             </div>
                                             <div class="col-lg-3 m-2">
-                                                <div class="col-lg-12">
-                                                    <select class="form-select" aria-label="Default select example" id="priceDetail">
-                                                        <option value="1">True</option>
-                                                        <option value="2">False</option>
-                                                    </select>
-                                                </div>
+                                                <input type="text" class="form-control" id="color" min="0" name="tColor">
                                             </div>
                                             <div class="col-lg-3 m-2">
-                                                <input type="number" class="form-control" id="price" min="0">
+                                                <input type="number" class="form-control" id="price" min="0" name="tPrice" value="0">
                                             </div>
                                             <div class="col-lg-3 m-2">
-                                                <input type="number" class="form-control" id="inventory" min="0">
+                                                <input type="number" class="form-control" id="sale" min="0" name="tSale" value="0">
                                             </div>
                                             <div class="col-lg-3 m-2">
-                                                <input type="number" class="form-control" id="Solid" min="0">
+                                                <input type="number" class="form-control" id="inventory" min="0" name="tInventory" value="0">
+                                            </div>
+                                            <div class="col-lg-3 m-2">
+                                                <input type="number" class="form-control" id="Solid" min="0" name="tSolid" value="0">
                                             </div>
                                             <div class="col-lg-1 m-auto text-center">
                                                 <span id="removeType" class="remove-item-type" onclick="removeItemType(this)"  data-index = "0"><i class="bi bi-trash-fill"></i></span>
@@ -187,41 +188,49 @@
                             </div>
                         </div>
                     </div>
-                    <div class="card">
+<!--                    <div class="card">-->
+<!--                        <div class="card-body">-->
+<!--                            <h5 class="card-title">Collection</h5>-->
+<!--                            <div class="row mb-3 mt-3">-->
+<!--                                <div class="col-lg-12">-->
+<!--                                    <select class="form-select" aria-label="Default select example" id="inputCollection">-->
+<!--                                        <option value="1">True</option>-->
+<!--                                        <option value="2">False</option>-->
+<!--                                    </select>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+                    <div class="card" id="noType">
                         <div class="card-body">
-                            <h5 class="card-title">Collection</h5>
-                            <div class="row mb-3 mt-3">
-                                <div class="col-lg-12">
-                                    <select class="form-select" aria-label="Default select example" id="inputCollection">
-                                        <option value="1">True</option>
-                                        <option value="2">False</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <div class="card-body">
+                            <input type="hidden" id="noTypeItem" th:field="*{noTypeStatus}" th:value="0">
                             <h5 class="card-title">Valuation</h5>
                             <div class="row mb-3">
                                 <div class="col-lg-6">
                                     <label for="productPrice" class="form-label">Price</label>
                                     <div class="col-lg-12 input-group mb-3">
-                                        <input class="form-control" type="number" id="productPrice" name="price" min="0">
+                                        <input class="form-control" type="number" id="productPrice" th:field="*{productPrice}" >
                                         <span class="input-group-text">₫</span>
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
-                                    <label for="productSale" class="form-label">Price Detail</label>
+                                    <label for="productSale1" class="form-label">Sale</label>
                                     <div class="col-lg-12 input-group mb-3">
-                                        <input class="form-control" type="number" id="productSale" name="sale" min="0">
+                                        <input class="form-control" type="number" id="productSale1" th:field="*{productPriceSale}">
                                         <span class="input-group-text">₫</span>
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
-                                    <label for="productPriceDetail" class="form-label">Sale</label>
+                                    <label for="quantityInventory" class="form-label">Quantity Inventory</label>
                                     <div class="col-lg-12 input-group mb-3">
-                                        <input class="form-control" type="number" id="productPriceDetail" name="priceDetail" min="0">
+                                        <input class="form-control" type="number" id="quantityInventory" th:field="*{quantityInventory}">
+                                        <span class="input-group-text">₫</span>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <label for="quantitySolid" class="form-label">Quantity Solid</label>
+                                    <div class="col-lg-12 input-group mb-3">
+                                        <input class="form-control" type="number" id="quantitySolid" th:field="*{quantitySolid}" >
                                         <span class="input-group-text">₫</span>
                                     </div>
                                 </div>
@@ -257,6 +266,7 @@
 <script>
     var flag = true;
     var index = 1;
+    document.getElementById("noTypeItem").value = 0;
     document.getElementById('removeAll').onclick = function (){
         const itemType = document.getElementsByClassName("checkbox-type");
         for(const item of itemType){
@@ -276,6 +286,14 @@
             cur++;
         }
         document.getElementById('removeAll').checked = false;
+        const rootType = document.getElementById("typeProduct");
+        if(rootType.children.length === 0 ){
+            document.getElementById("noTypeItem").value = 1;
+            document.getElementById("noType").style.display = "block";
+        }else{
+            document.getElementById("noType").style.display = "none";
+            document.getElementById("noTypeItem").value = 0;
+        }
     }
 
 
@@ -283,40 +301,35 @@
         const rootType = document.getElementById("typeProduct");
         const node = '<div class="type-item d-flex flex-row">'+
             '<div class="col-lg-1 text-center m-auto">'+
-                '<input type="checkbox" class="checkbox-type"  onclick="checkboxChild()">'+
+            '<input type="checkbox" class="checkbox-type"  onclick="checkboxChild()">'+
             '</div>'+
             '<div class="col-lg-3 m-2">'+
-                '<div class="col-lg-12">'+
-                    '<select class="form-select" aria-label="Default select example" id="productSize">'+
-                        '<option value="1">True</option>'+
-                        '<option value="2">False</option>'+
-                    '</select>'+
-                '</div>'+
+            '<input type="text" class="form-control" id="size" name="tSize">'+
             '</div>'+
             '<div class="col-lg-3 m-2">'+
-                '<div class="col-lg-12">'+
-                    '<select class="form-select" aria-label="Default select example" id="priceDetail">'+
-                        '<option value="1">True</option>'+
-                        '<option value="2">False</option>'+
-                    '</select>'+
-                '</div>'+
+            '<input type="text" class="form-control" id="color" name="tColor">'+
             '</div>'+
             '<div class="col-lg-3 m-2">'+
-                '<input type="number" class="form-control" id="price">'+
+            '<input type="number" class="form-control" id="price" name="tPrice" value="0">'+
             '</div>'+
             '<div class="col-lg-3 m-2">'+
-                '<input type="number" class="form-control" id="inventory">'+
+            '<input type="number" class="form-control" id="sale" name="tSale" value="0">'+
             '</div>'+
             '<div class="col-lg-3 m-2">'+
-                '<input type="number" class="form-control" id="Solid">'+
+            '<input type="number" class="form-control" id="inventory" name="tInventory" value="0">'+
+            '</div>'+
+            '<div class="col-lg-3 m-2">'+
+            '<input type="number" class="form-control" id="Solid" name="tSolid" value="0">'+
             '</div>'+
             '<div class="col-lg-1 m-auto text-center">'+
-                '<span id="removeType" class="remove-item-type" onclick="removeItemType(this)"  data-index ="'+ index+'"><i class="bi bi-trash-fill"></i></span>'+
+            '<span id="removeType" class="remove-item-type" onclick="removeItemType(this)"  data-index ="'+ index+'"><i class="bi bi-trash-fill"></i></span>'+
             '</div>'+
-        '</div>'
+            '</div>'
         rootType.insertAdjacentHTML('beforeend',node);
         index++;
-        };
+        document.getElementById("noType").style.display = "none";
+        document.getElementById("noTypeItem").value = 0;
+    };
     function removeItemType(curr){
         const listItemType =document.getElementById("typeProduct");
         const index1 = curr.getAttribute("data-index");
@@ -356,6 +369,7 @@
         setup();
     }
 
+
 </script>
 
 <script>
@@ -365,7 +379,6 @@
     // Listen to the change event on the <input> element
     fileInput.addEventListener('change', (event) => {
         const imageFiles = event.target.files;
-        images.innerHTML = '';
 
         if (imageFiles.length > 0) {
             let index = 0;
@@ -412,7 +425,7 @@
             listPreview.removeChild(listPreview.children[index]);
         }
         if(input.files.length > 0){
-            const listChild = document.getElementsByClassName("image_box");
+            const listChild = document.getElementsByClassName("toggle-remove-image");
             let cur = 0;
             for(const child of listChild){
                 child.setAttribute("data-index",cur);
@@ -448,6 +461,7 @@
                         showConfirmButton: true
                     }).then((result) =>{
                         // window.location.reload();
+                        $("#form")[0].reset()
                     })
                 }else{
                     Swal.fire({

@@ -1,19 +1,15 @@
 package TMDTBoBa.BoBaEcor.Controller.Admin;
 
 import TMDTBoBa.BoBaEcor.API.CustomeHttpRe.Store.StoreResponse;
-import TMDTBoBa.BoBaEcor.Models.Store.Brand;
-import TMDTBoBa.BoBaEcor.Models.Store.Category;
-import TMDTBoBa.BoBaEcor.Models.Store.Product;
-import TMDTBoBa.BoBaEcor.Service.Admin.Brand.BrandService;
-import TMDTBoBa.BoBaEcor.Service.Admin.Category.CategoryService;
-import TMDTBoBa.BoBaEcor.Service.Admin.Product.ProductService;
+import TMDTBoBa.BoBaEcor.Models.Store.*;
+import TMDTBoBa.BoBaEcor.Service.store.Brand.BrandService;
+import TMDTBoBa.BoBaEcor.Service.store.Category.CategoryService;
+import TMDTBoBa.BoBaEcor.Service.store.Product.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-
-import java.util.List;
 
 @Controller
 @RequestMapping(path = "/admin")
@@ -55,7 +51,6 @@ public class AdminController {
         model.addAttribute("listBrand",brandService.findAll());
         return "admin/Store/manager_brands";
     }
-
     @GetMapping("/management/collections")
     public String collections(){
         return "admin/Store/manager_collections";

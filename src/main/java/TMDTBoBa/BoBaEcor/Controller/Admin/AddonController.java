@@ -1,9 +1,8 @@
 package TMDTBoBa.BoBaEcor.Controller.Admin;
 
-import TMDTBoBa.BoBaEcor.Models.Store.Category;
 import TMDTBoBa.BoBaEcor.Models.Store.Product;
-import TMDTBoBa.BoBaEcor.Service.Admin.Brand.BrandService;
-import TMDTBoBa.BoBaEcor.Service.Admin.Category.CategoryService;
+import TMDTBoBa.BoBaEcor.Service.store.Brand.BrandService;
+import TMDTBoBa.BoBaEcor.Service.store.Category.CategoryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

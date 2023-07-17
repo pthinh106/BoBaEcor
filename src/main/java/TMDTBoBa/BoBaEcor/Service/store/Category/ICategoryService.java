@@ -1,4 +1,4 @@
-package TMDTBoBa.BoBaEcor.Service.Admin.Category;
+package TMDTBoBa.BoBaEcor.Service.store.Category;
 
 import TMDTBoBa.BoBaEcor.API.CustomeHttpRe.Store.StoreResponse;
 import TMDTBoBa.BoBaEcor.Models.Store.Category;

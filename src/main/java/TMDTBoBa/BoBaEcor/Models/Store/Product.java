@@ -1,16 +1,13 @@
 package TMDTBoBa.BoBaEcor.Models.Store;
 
 import TMDTBoBa.BoBaEcor.Models.User.User;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.sql.Timestamp;
-import java.util.HashSet;
 import java.util.Set;
-import java.util.concurrent.atomic.AtomicReference;
 
 @Entity
 @Table(name = "table_products")
@@ -42,13 +39,28 @@ public class Product {
     @Column(name = "product_slug", columnDefinition = "Varchar(255) NOT NULL", unique = true)
     private String productSlug;
 
+    @Column(name = "no_type_status", columnDefinition = "tinyint(1) default 0")
+    private Integer noTypeStatus;
+
+    @Column(name = "quantity_inventory", columnDefinition = "INT(11) DEFAULT 0")
+    private Integer quantityInventory;
+
+    @Column(name = "quantity_solid", columnDefinition = "INT(11) DEFAULT 0")
+    private Integer quantitySolid;
+
+    @Column(name = "product_price", columnDefinition = "INT(11) DEFAULT 0")
+    private Integer productPrice;
+
+    @Column(name = "product_price_sale", columnDefinition = "INT(11) DEFAULT 0")
+    private Integer productPriceSale;
+
     @OneToMany(cascade = CascadeType.ALL,mappedBy = "product")
     private Set<ProductDetail> productDetails;
 
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
     private Set<ProductImages> productImages;
 
-    @Column(name = "product_thumbnail", columnDefinition = "Varchar(255) NOT NULL")
+    @Column(name = "product_thumbnail", columnDefinition = "Varchar(255) NOT NULL", unique = true)
     private String productThumbnail;
 
     @Column(name = "product_description",columnDefinition = "Text NULL")
@@ -78,36 +90,5 @@ public class Product {
     @ManyToOne
     @JoinColumn(name = "user_update_id")
     private User userUpdate;
-    @JsonIgnore
-    public Set<ProductColor> getAllProductColor(){
-        Set<ProductColor> productColors = new HashSet<>();
-        productDetails.forEach(productDetail -> productColors.add(productDetail.getProductColor()));
-        return productColors;
-    }
-    @JsonIgnore
-    public Set<ProductSize> getAllProductSize(){
-        Set<ProductSize> productSizes = new HashSet<>();
-        productDetails.forEach(productDetail -> productSizes.add(productDetail.getProductSize()));
-        return productSizes;
-    }
 
-
-    public Integer getTotalQuantityColor(ProductColor productColor){
-        AtomicReference<Integer> total = new AtomicReference<>(0);
-        productDetails.forEach(productDetail -> {
-            if (productDetail.getProductColor() == productColor){
-                total.updateAndGet(v -> v + productDetail.getQuantityInventory());
-            }
-        });
-        return total.get();
-    }
-    public Integer getTotalQuantitySize(ProductSize productSize){
-        AtomicReference<Integer> total = new AtomicReference<>(0);
-        productDetails.forEach(productDetail -> {
-            if (productDetail.getProductSize() == productSize){
-                total.updateAndGet(v -> v + productDetail.getQuantityInventory());
-            }
-        });
-        return total.get();
-    }
 }

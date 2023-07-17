@@ -1,4 +1,4 @@
-package TMDTBoBa.BoBaEcor.Service.Admin.Brand;
+package TMDTBoBa.BoBaEcor.Service.store.Brand;
 
 import TMDTBoBa.BoBaEcor.API.CustomeHttpRe.Store.StoreResponse;
 import TMDTBoBa.BoBaEcor.Models.Store.Brand;

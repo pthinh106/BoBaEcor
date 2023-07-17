@@ -1,4 +1,4 @@
-package TMDTBoBa.BoBaEcor.Service.Admin.Category;
+package TMDTBoBa.BoBaEcor.Service.store.Category;
 
 import TMDTBoBa.BoBaEcor.API.CustomeHttpRe.Store.StoreResponse;
 import TMDTBoBa.BoBaEcor.Models.Store.Category;
@@ -8,10 +8,8 @@ import TMDTBoBa.BoBaEcor.Repository.User.IUserRepository;
 import TMDTBoBa.BoBaEcor.Utilities.Contains;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Timestamp;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -51,14 +49,10 @@ public class CategoryService implements ICategoryService {
         try {
             Optional<User> user = iUserRepository.findById(1);
             if(user.isPresent()){
-                category.setCategoryId(4);
                 category.setCategorySlug(Contains.convertToURL(category.getCategoryName()));
                 category.setUserCreate(user.get());
                 category.setUserUpdate(user.get());
-                category.setUpdatedOn(Timestamp.valueOf(LocalDateTime.now()));
-                category.setCreatedOn(Timestamp.valueOf(LocalDateTime.now()));
-                category.setUserUpdate(user.get());
-//                iCategoryRepository.save(category);
+                iCategoryRepository.save(category);
                 return new StoreResponse(200,"Addon Category " + category.getCategoryName() + " success",StoreResponse.returnCategory(category),category,null,null);
             }else{
                 return new StoreResponse(500,"Addon Fail! Server Error. ",null,null,null,null);
