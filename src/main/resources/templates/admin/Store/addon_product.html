@@ -460,8 +460,11 @@
                         title: data.message,
                         showConfirmButton: true
                     }).then((result) =>{
-                        // window.location.reload();
                         $("#form")[0].reset()
+                        const listPreview = document.getElementById("images");
+                        while  (listPreview.hasChildNodes()) {
+                            listPreview.removeChild(listPreview.firstChild);
+                        }
                     })
                 }else{
                     Swal.fire({

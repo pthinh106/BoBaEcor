@@ -165,12 +165,13 @@ public class ProductService implements IProductService {
                 product.setQuantitySolid(totalQuantitySolid);
                 product.setQuantityInventory(totalQuantityInventory);
             }
-            if(product.getProductPriceSale() != null || productSale == 1){
+            if(product.getProductPriceSale() != null || productSale == 1){ .
                 product.setSaleStatus(1);
             }
             iProductRepository.save(product);
             return new StoreResponse(200,"Addon Product Success",null,null,null,null);
         }catch (TransactionException | IOException e){
+            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
             return new StoreResponse(500,"Server Error! ",null,null,null,null);
         }
     }
