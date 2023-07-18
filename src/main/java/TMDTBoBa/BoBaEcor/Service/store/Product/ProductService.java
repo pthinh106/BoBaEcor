@@ -165,7 +165,7 @@ public class ProductService implements IProductService {
                 product.setQuantitySolid(totalQuantitySolid);
                 product.setQuantityInventory(totalQuantityInventory);
             }
-            if(product.getProductPriceSale() != null || productSale == 1){ .
+            if(product.getProductPriceSale() != null || productSale == 1){
                 product.setSaleStatus(1);
             }
             iProductRepository.save(product);
