@@ -61,6 +61,7 @@ public class domoController {
             listImg.add("/images1");
             listImg.add("/images2");
             listImg.add("/images3");
+            listImg.add("/images3");
             String data = new Gson().toJson(listImg);
             List<String> list = gson.fromJson(data, ArrayList.class);
             list.forEach(System.out::println);
