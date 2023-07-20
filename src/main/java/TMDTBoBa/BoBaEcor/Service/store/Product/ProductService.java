@@ -52,7 +52,7 @@ public class ProductService implements IProductService {
 
     @Override
     public Optional<Product> findBySlug(String productSlug) {
-        return Optional.empty();
+        return iProductRepository.findProductByProductSlugAndStatus(productSlug,1);
     }
 
     @Override
@@ -80,7 +80,7 @@ public class ProductService implements IProductService {
 
     @Override
     @Transactional
-    public StoreResponse addonProduct(Product product, MultipartFile[] multipartFiles, Optional<String[]> tSize, Optional<String[]> tColor, Optional<Integer[]> tPrice,
+    public StoreResponse addonProduct(Product product, MultipartFile[] multipartFiles, Optional<String[]> tSize, Optional<String[]> tColor, Optional<String[]> tCodeColor,Optional<Integer[]> tPrice,
                                       Optional<Integer[]> tSale, Optional<Integer[]> tInventory, Optional<Integer[]> tSolid) throws RuntimeException{
         try {
             if(product.getProductName().isEmpty()){
@@ -103,14 +103,14 @@ public class ProductService implements IProductService {
             Integer totalQuantitySolid = 0;
             Integer totalQuantityInventory = 0;
             Integer productSale = 0;
-            if(product.getNoTypeStatus() == 0 && (tSize.isEmpty() || tColor.isEmpty() || tPrice.isEmpty())){
+            if(product.getNoTypeStatus() == 0 && (tSize.isEmpty() || tColor.isEmpty() || tPrice.isEmpty() || tCodeColor.isEmpty())){
                 TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
                 return new StoreResponse(500,"Color, Size, Price are required",null,null,null,null);
             }
-            if(product.getNoTypeStatus() == 0 && tSize.isPresent() && tColor.isPresent() && tPrice.isPresent() && tSale.isPresent() && tInventory.isPresent() && tSolid.isPresent()) {
+            if(product.getNoTypeStatus() == 0 && tSize.isPresent() && tColor.isPresent() && tCodeColor.isPresent() && tPrice.isPresent() && tSale.isPresent() && tInventory.isPresent() && tSolid.isPresent()) {
                 List<ProductDetail> productDetails = new ArrayList<>();
                 for(int i = 0; i < tSize.get().length; i++){
-                    if(tColor.get()[i].isEmpty() || tSize.get()[i].isEmpty() || tPrice.get()[i] < 0 ||
+                    if(tCodeColor.get()[i].isEmpty() ||tColor.get()[i].isEmpty() || tSize.get()[i].isEmpty() || tPrice.get()[i] < 0 ||
                             tInventory.get()[i] < 0 || tSale.get()[i] < 0 || tSolid.get()[i] < 0){
                         TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
                         return new StoreResponse(500,"Color, Size, Price are required and remaining values are not negative",null,null,null,null);
@@ -119,6 +119,7 @@ public class ProductService implements IProductService {
                     productDetail.setProduct(product);
                     productDetail.setSize(tSize.get()[i]);
                     productDetail.setColor(tColor.get()[i]);
+                    productDetail.setCodeColor(tCodeColor.get()[i]);
                     productDetail.setProductPrice(tPrice.get()[i]);
                     productDetail.setProductPriceSale(tSale.get()[i]);
                     productDetail.setQuantityInventory(tInventory.get()[i]);

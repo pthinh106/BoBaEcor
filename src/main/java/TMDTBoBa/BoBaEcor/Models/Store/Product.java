@@ -1,13 +1,14 @@
 package TMDTBoBa.BoBaEcor.Models.Store;
 
 import TMDTBoBa.BoBaEcor.Models.User.User;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.sql.Timestamp;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 @Table(name = "table_products")
@@ -90,5 +91,24 @@ public class Product {
     @ManyToOne
     @JoinColumn(name = "user_update_id")
     private User userUpdate;
+
+    @JsonIgnore
+    public LinkedHashSet<Map<String,String>> getItemColor(){
+        LinkedHashSet<Map<String,String>> item = new LinkedHashSet<>();
+        productDetails.forEach(productDetail -> {
+            Map<String,String> data = new HashMap<>();
+            data.put("color",productDetail.getColor());
+            data.put("code",productDetail.getCodeColor());
+            item.add(data);
+        });
+        return item;
+    }
+
+    @JsonIgnore
+    public LinkedHashSet<String> getItemSize(){
+        LinkedHashSet<String> item = new LinkedHashSet<>();
+        productDetails.forEach(productDetail -> item.add(productDetail.getSize()));
+        return item;
+    }
 
 }

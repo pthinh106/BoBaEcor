@@ -3,6 +3,7 @@ package TMDTBoBa.BoBaEcor.Utilities;
 import java.sql.Timestamp;
 import java.text.Normalizer;
 import java.text.SimpleDateFormat;
+import java.util.List;
 import java.util.regex.Pattern;
 
 public class Contains {
@@ -20,7 +21,15 @@ public class Contains {
         try {
             String format = Normalizer.normalize(value,Normalizer.Form.NFD);
             Pattern pattern = Pattern.compile("\\p{InCOMBINING_DIACRITICAL_MARKS}+");
-            return pattern.matcher(format).replaceAll("").toLowerCase().replaceAll(" ","-").replaceAll("đ","d");
+            String result = pattern.matcher(format).replaceAll("").toLowerCase().replaceAll("[^a-z\\s]", "").replaceAll(" ","-");
+            List<String> url = List.of(result.split("-"));
+            final String[] data = {""};
+            url.forEach(s -> {
+                if(!s.isEmpty()){
+                    data[0] += s + "-";
+                }
+            });
+            return data[0].substring(0,data[0].length() - 1);
         }catch (Exception e){
             return null;
         }

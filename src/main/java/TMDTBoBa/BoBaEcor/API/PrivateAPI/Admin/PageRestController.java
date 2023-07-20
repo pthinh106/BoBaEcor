@@ -25,6 +25,4 @@ public class PageRestController {
         StoreResponse productPageResponse = productService.findPage(page);
         return ResponseEntity.status(HttpStatus.SC_OK).body(productPageResponse);
     }
-
-
 }

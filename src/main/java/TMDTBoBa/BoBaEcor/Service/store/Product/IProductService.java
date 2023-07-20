@@ -14,7 +14,7 @@ public interface IProductService {
     Optional<Product> findByStatus(Integer status);
     List<Product> findAll();
     StoreResponse findPage(Integer page);
-    StoreResponse addonProduct(Product product, MultipartFile[] multipartFiles, Optional<String[]>  tSize, Optional<String[]> tColor,
+    StoreResponse addonProduct(Product product, MultipartFile[] multipartFiles, Optional<String[]>  tSize, Optional<String[]> tColor,Optional<String[]> tCodeColor,
                          Optional<Integer[]> tPrice, Optional<Integer[]> tSale, Optional<Integer[]> tInventory, Optional<Integer[]> tSolid);
 
     StoreResponse editProduct(Product product);

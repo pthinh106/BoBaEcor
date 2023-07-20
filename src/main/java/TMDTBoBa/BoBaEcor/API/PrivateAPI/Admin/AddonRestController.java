@@ -7,6 +7,7 @@ import TMDTBoBa.BoBaEcor.Models.Store.Product;
 import TMDTBoBa.BoBaEcor.Service.store.Brand.BrandService;
 import TMDTBoBa.BoBaEcor.Service.store.Category.CategoryService;
 import TMDTBoBa.BoBaEcor.Service.store.Product.ProductService;
+import TMDTBoBa.BoBaEcor.Utilities.Contains;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
@@ -30,12 +31,13 @@ public class AddonRestController {
 
     @PostMapping(value = "/product", consumes = { "multipart/form-data"})
     public ResponseEntity<StoreResponse> addonProduct(@ModelAttribute("product") Product product, @RequestParam("files") MultipartFile[] multipartFiles,
-                                                @RequestParam("tSize") Optional<String[]>  tSize, @RequestParam("tColor") Optional<String[]> tColor, @RequestParam("tPrice")  Optional<Integer[]> tPrice,
+                                                @RequestParam("tSize") Optional<String[]>  tSize, @RequestParam("tColor") Optional<String[]> tColor,@RequestParam("tCodeColor") Optional<String[]> tCodeColor, @RequestParam("tPrice")  Optional<Integer[]> tPrice,
                                                 @RequestParam("tSale") Optional<Integer[]> tSale, @RequestParam("tInventory") Optional<Integer[]> tInventory, @RequestParam("tSolid") Optional<Integer[]> tSolid)
                                                {
-        StoreResponse productResult = productService.addonProduct(product,multipartFiles,tSize,tColor,tPrice,tSale,tInventory,tSolid);
+        StoreResponse productResult = productService.addonProduct(product,multipartFiles,tSize,tColor,tCodeColor,tPrice,tSale,tInventory,tSolid);
         return ResponseEntity.status(HttpStatusCode.valueOf(productResult.getCode())).body(productResult);
     }
+
 
 
     @PostMapping("/brand")

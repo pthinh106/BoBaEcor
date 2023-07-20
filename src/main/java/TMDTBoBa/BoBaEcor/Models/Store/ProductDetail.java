@@ -27,6 +27,9 @@ public class ProductDetail {
     @Column(name = "color",columnDefinition = "Varchar(255) NOT NULL")
     private String color;
 
+    @Column(name = "code_color",columnDefinition = "Varchar(255) NOT NULL")
+    private String codeColor;
+
     @Column(name = "quantity_inventory", columnDefinition = "INT(11) DEFAULT 0")
     private Integer quantityInventory;
 

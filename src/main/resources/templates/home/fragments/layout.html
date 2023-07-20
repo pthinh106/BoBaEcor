@@ -1,25 +1,25 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
-<head th:fragment="head">
+<head th:fragment="head(title,type,url,site_name,image,description,page)">
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Uthr – Fashion eCommerce HTML Template </title>
-      <meta name="description" content="Uthr Fashion eCommerce Bootstrap 5 Template is an innovative and modern e-commerce online store website template." />
-      <meta name="viewport" content="width=device-width, initial-scale=1">
-      <link rel="profile" href="https://gmpg.org/xfn/11">
-      <link rel="canonical" href="" />
+    <title th:text="${title}">Uthr – Fashion eCommerce HTML Template </title>
+    <meta name="description" th:content="${title}" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="profile" href="https://gmpg.org/xfn/11">
+    <link rel="canonical" href="" />
 
 <!--     Open Graph (OG) meta tags are snippets of code that control how URLs are displayed when shared on social media  -->
-     <meta property="og:locale" content="en_US" />
-    <meta property="og:type" content="website" />
-    <meta property="og:title" content="Uthr – Fashion eCommerce HTML Template" />
-    <meta property="og:url" content="PAGE_URL" />
-    <meta property="og:site_name" content="SITE_NAME" />
+    <meta property="og:locale" content="vn_VN" />
+    <meta property="og:type" th:content="${type}" />
+    <meta property="og:title" th:content="${title}" />
+    <meta property="og:url" th:content="${url}" />
+    <meta property="og:site_name" th:content="${site_name}" />
 <!--     For the og:image content, replace the # with a link of an image -->
-     <meta property="og:image" content="#" />
+     <meta property="og:image" th:content="${image}" />
     <meta property="og:description"
-        content="240+ Best Bootstrap Templates are available on this website. Find your template for your project compatible with the most popular HTML library in the world." />
+        th:content="${description}" />
 
 <!--     Add site Favicon -->
       <link rel="icon" href="https://hasthemes.com/wp-content/uploads/2019/04/cropped-favicon-32x32.png" sizes="32x32" />
@@ -160,7 +160,7 @@
             </div>
             <div class="cart_item">
                 <div class="cart_img">
-                    <a href="#"><img src="assets/img/product/product1.jpg" alt=""></a>
+                    <a href="#"><img src="/assets/img/product/product1.jpg" alt=""></a>
                 </div>
                 <div class="cart_info">
                     <a href="#">Primis In Faucibus</a>
@@ -172,7 +172,7 @@
             </div>
             <div class="cart_item">
                 <div class="cart_img">
-                    <a href="#"><img src="assets/img/product/product2.jpg" alt=""></a>
+                    <a href="#"><img src="/assets/img/product/product2.jpg" alt=""></a>
                 </div>
                 <div class="cart_info">
                     <a href="#">Letraset Sheets</a>
@@ -271,23 +271,23 @@
                                 <a href="javascript:void(0)"><i class="ion-navicon"></i></a>
                             </div>
                             <div class="header_logo">
-                                <a class="sticky_none" href="../index.html"><img src="assets/img/logo/logo.png" alt=""></a>
+                                <a class="sticky_none" href="../index.html"><img src="/assets/img/logo/logo.png" alt=""></a>
                             </div>
                             <!--main menu start-->
                             <div class="main_menu d-none d-lg-block">
                                 <nav>
                                     <ul class="d-flex">
-                                        <li><a class="active" href="../index.html">demo</a> </li>
-                                        <li><a href="../shop.html">shop</a></li>
-                                        <li><a href="../product-details.html">product</a></li>
-                                        <li><a href="#">sale</a></li>
-                                        <li><a href="#">pages</a>
-                                            <ul class="sub_menu">
-                                                <li><a href="../cart.html">Cart Pages</a></li>
-                                                <li><a href="../checkout.html">Checkout Pages</a></li>
-                                            </ul>
-                                        </li>
-                                        <li><a href="../blog.html">blog</a>
+                                        <li><a class="active" th:href="@{/}">Trang Chu</a> </li>
+                                        <li><a th:href="@{/cua-hang}">shop</a></li>
+<!--                                        <li><a href="../product-details.html">product</a></li>-->
+<!--                                        <li><a href="#">sale</a></li>-->
+<!--                                        <li><a href="#">pages</a>-->
+<!--                                            <ul class="sub_menu">-->
+<!--                                                <li><a href="../cart.html">Cart Pages</a></li>-->
+<!--                                                <li><a href="../checkout.html">Checkout Pages</a></li>-->
+<!--                                            </ul>-->
+<!--                                        </li>-->
+                                        <li><a th:href="@{/tin-tuc}">blog</a>
                                             <ul class="sub_menu">
                                                 <li><a href="../blog.html">Blog Pages</a></li>
                                                 <li><a href="../blog-details.html">Blog Details</a></li>
@@ -357,11 +357,9 @@
                 <div class="footer_widget_list text-right">
                     <div class="footer_menu">
                         <ul class="d-flex justify-content-end">
-                            <li><a href="../index.html">home</a></li>
-                            <li><a href="../shop.html">Shop</a></li>
-                            <li><a href="../product-details.html">Product</a></li>
-                            <li><a href="#">pages</a></li>
-                            <li><a href="../blog.html">Blog</a></li>
+                            <li><a th:href="@{/}">Trang Chủ</a></li>
+                            <li><a th:href="@{/cua-hang}">Cửa Hàng</a></li>
+                            <li><a th:href="@{/tin-tuc}">Tin Tức</a></li>
                         </ul>
                     </div>
                     <div class="footer_social">
