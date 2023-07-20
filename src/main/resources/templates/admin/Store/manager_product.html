@@ -216,7 +216,7 @@
         document.getElementById("loading-wrapper").style.display = "block";
         $.ajax({
             type: "POST",
-            url: "http://localhost:8060/api/v1/private/page/product/" + page,
+            url: "/api/v1/private/page/product/" + page,
             success: function(data)
             {
                 if(data.data.length !== 0){

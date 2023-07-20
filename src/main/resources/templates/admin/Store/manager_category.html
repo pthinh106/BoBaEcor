@@ -114,7 +114,7 @@
         var form = $(this);
         $.ajax({
             type: "POST",
-            url: "http://localhost:8060/api/v1/private/addon/category",
+            url: "/v1/private/addon/category",
             data: form.serialize(), // serializes the form's elements.
             success: function(data)
             {
