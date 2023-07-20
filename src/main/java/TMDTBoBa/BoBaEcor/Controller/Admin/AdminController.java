@@ -63,7 +63,7 @@ public class AdminController {
         return "redirect:/error";
     }
     @GetMapping("/management/collections")
-    public String collections(){
+    public String collections( @Param("q") String q){
         return "admin/Store/manager_collections";
     }
 }
