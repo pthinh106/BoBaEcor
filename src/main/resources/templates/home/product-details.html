@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html class="no-js" lang="en" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="~{home/fragments/layout :: head(${product.getProductName()},'artical',${curURL},${curURL},${baseUrl + product.getProductThumbnail()},${product.getProductShortDes()},'page')}"></head>
+<head th:replace="~{home/fragments/layout :: head(${product.getProductName()},'artical',${curURL},${curURL},${product.getProductThumbnail()},${product.getProductShortDes()},'page')}"></head>
 <style>
     .zoom_tab_img .slick-slide{
         width: 70px!important;
