@@ -114,7 +114,7 @@
         var form = $(this);
         $.ajax({
             type: "POST",
-            url: "/v1/private/addon/category",
+            url: "https://bobaecor.azurewebsites.net/api/v1/private/addon/category",
             data: form.serialize(), // serializes the form's elements.
             success: function(data)
             {
