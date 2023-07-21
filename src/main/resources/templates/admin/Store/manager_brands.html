@@ -28,7 +28,7 @@
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title">Brands</h5>
-                        <form id="form" class="row g-3" style="padding: 10px" th:object="${brand}">
+                        <form id="form" th:action="@{/api/v1/private/addon/brand}" class="row g-3" style="padding: 10px" th:object="${brand}">
                             <input type="hidden" th:field="*{brandId}">
                             <div class="col-md-6">
                                 <label for="inputName" class="form-label" >Brand Name</label>
@@ -113,7 +113,7 @@
         var form = $(this);
         $.ajax({
             type: "POST",
-            url: "https://bobaecor.azurewebsites.net/api/v1/private/addon/brand",
+            url: form.attr("action"),
             data: form.serialize(), // serializes the form's elements.
             success: function(data)
             {
