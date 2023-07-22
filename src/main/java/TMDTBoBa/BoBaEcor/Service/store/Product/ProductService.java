@@ -184,7 +184,7 @@ public class ProductService implements IProductService {
             return new StoreResponse(200,"Addon Product Success",null,null,null,null);
         }catch (RuntimeException  e ){
             TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
-            return new StoreResponse(500,"Server Error! ",null,null,null,null);
+            return new StoreResponse(500,"Server Error! "+ e.getMessage(),null,null,null,null);
         }
     }
 
