@@ -146,9 +146,10 @@ public class ProductService implements IProductService {
                 String fileExtension = FilenameUtils.getExtension(multipartFile.getOriginalFilename());
                 String generatedFileName = UUID.randomUUID().toString().replace("-", "");
                 generatedFileName = generatedFileName+"."+fileExtension;
-                String uploadDir = "/src/main/resources/static/images/product" + "/"+ product.getProductId();
+//                String uploadDir = "/src/main/resources/static/images/product" + "/"+ product.getProductId();
+                String uploadDir = "/src/main/resources/static/images/product";
                 String urlImg = new String();
-                urlImg = "/images/product/" + product.getProductId() +"/"+ generatedFileName;
+                urlImg = "/images/product/" +"/"+ generatedFileName;
                 FileUploadUtil.saveFile(uploadDir,generatedFileName,multipartFile);
                 productImages.setProduct(product);
                 productImages.setProductImage(urlImg);
