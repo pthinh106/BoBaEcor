@@ -29,7 +29,7 @@ public class AddonRestController {
 
     private final ProductService productService;
 
-    @PostMapping(value = "/product", consumes = { "multipart/form-data"})
+    @PostMapping(value = "/product")
     public ResponseEntity<StoreResponse> addonProduct(@ModelAttribute("product") Product product, @RequestParam("files") MultipartFile[] multipartFiles,
                                                 @RequestParam("tSize") Optional<String[]>  tSize, @RequestParam("tColor") Optional<String[]> tColor,@RequestParam("tCodeColor") Optional<String[]> tCodeColor, @RequestParam("tPrice")  Optional<Integer[]> tPrice,
                                                 @RequestParam("tSale") Optional<Integer[]> tSale, @RequestParam("tInventory") Optional<Integer[]> tInventory, @RequestParam("tSolid") Optional<Integer[]> tSolid)
