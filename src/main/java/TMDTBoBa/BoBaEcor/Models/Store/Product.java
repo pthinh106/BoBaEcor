@@ -61,7 +61,7 @@ public class Product {
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
     private Set<ProductImages> productImages;
 
-    @Column(name = "product_thumbnail", columnDefinition = "Varchar(255) NOT NULL", unique = true)
+    @Column(name = "product_thumbnail", columnDefinition = "Varchar(255) NULL", unique = true)
     private String productThumbnail;
 
     @Column(name = "product_description",columnDefinition = "Text NULL")

@@ -137,42 +137,41 @@ public class ProductService implements IProductService {
                 }
                 iProductDetailRepository.saveAll(productDetails);
             }
-//            List<ProductImages> imagesList = new ArrayList<>();
-//            for(MultipartFile multipartFile : multipartFiles){
-//                if(multipartFile.isEmpty()){
-//                    continue;
-//                }
-//                ProductImages productImages = new ProductImages();
-//                String fileExtension = FilenameUtils.getExtension(multipartFile.getOriginalFilename());
-//                String generatedFileName = UUID.randomUUID().toString().replace("-", "");
-//                generatedFileName = generatedFileName+"."+fileExtension;
-//                String uploadDir = "/src/main/resources/static/images/product" + "/"+ product.getProductId();
-//                String urlImg = new String();
-//                urlImg = "/images/product/" + product.getProductId() +"/"+ generatedFileName;
-//                FileUploadUtil.saveFile(uploadDir,generatedFileName,multipartFile);
-//                productImages.setProduct(product);
-//                productImages.setProductImage(urlImg);
-//                imagesList.add(productImages);
-//            }
-//            if(!imagesList.isEmpty()){
-//                iProductImagesRepository.saveAll(imagesList);
-//                product.setProductThumbnail(imagesList.get(0).getProductImage());
-//            }else{
-//                TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
-//                return new StoreResponse(500,"File is empty!",null,null,null,null);
-//            }
-//            if(product.getNoTypeStatus() == 0 ){
-//                product.setProductPrice(null);
-//                product.setQuantitySolid(totalQuantitySolid);
-//                product.setQuantityInventory(totalQuantityInventory);
-//            }
-//            if(product.getProductPriceSale() != null || productSale == 1){
-//                product.setSaleStatus(1);
-//            }
-//            | IOException
-//            iProductRepository.save(product);
+            List<ProductImages> imagesList = new ArrayList<>();
+            for(MultipartFile multipartFile : multipartFiles){
+                if(multipartFile.isEmpty()){
+                    continue;
+                }
+                ProductImages productImages = new ProductImages();
+                String fileExtension = FilenameUtils.getExtension(multipartFile.getOriginalFilename());
+                String generatedFileName = UUID.randomUUID().toString().replace("-", "");
+                generatedFileName = generatedFileName+"."+fileExtension;
+                String uploadDir = "/src/main/resources/static/images/product" + "/"+ product.getProductId();
+                String urlImg = new String();
+                urlImg = "/images/product/" + product.getProductId() +"/"+ generatedFileName;
+                FileUploadUtil.saveFile(uploadDir,generatedFileName,multipartFile);
+                productImages.setProduct(product);
+                productImages.setProductImage(urlImg);
+                imagesList.add(productImages);
+            }
+            if(!imagesList.isEmpty()){
+                iProductImagesRepository.saveAll(imagesList);
+                product.setProductThumbnail(imagesList.get(0).getProductImage());
+            }else{
+                TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+                return new StoreResponse(500,"File is empty!",null,null,null,null);
+            }
+            if(product.getNoTypeStatus() == 0 ){
+                product.setProductPrice(null);
+                product.setQuantitySolid(totalQuantitySolid);
+                product.setQuantityInventory(totalQuantityInventory);
+            }
+            if(product.getProductPriceSale() != null || productSale == 1){
+                product.setSaleStatus(1);
+            }
+            iProductRepository.save(product);
             return new StoreResponse(200,"Addon Product Success",null,null,null,null);
-        }catch (TransactionException  e){
+        }catch (RuntimeException | IOException e ){
             TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
             return new StoreResponse(500,"Server Error! ",null,null,null,null);
         }
