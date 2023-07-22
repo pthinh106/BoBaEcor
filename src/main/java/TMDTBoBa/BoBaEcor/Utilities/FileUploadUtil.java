@@ -14,7 +14,10 @@ public class FileUploadUtil {
         String UPLOAD_DIRECTORY = Paths.get("")
                 .toAbsolutePath()
                 .toString();
-        Path uploadPath = Paths.get(UPLOAD_DIRECTORY + uploadDir);
+//        Path uploadPath = Paths.get(UPLOAD_DIRECTORY + uploadDir);
+        Path uploadPath = Paths.get(uploadDir);
+
+
         System.out.println(uploadPath);
 
 
