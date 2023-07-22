@@ -9,6 +9,7 @@ import TMDTBoBa.BoBaEcor.Service.store.Category.CategoryService;
 import TMDTBoBa.BoBaEcor.Service.store.Product.ProductService;
 import TMDTBoBa.BoBaEcor.Utilities.Contains;
 import lombok.RequiredArgsConstructor;
+import org.apache.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -34,8 +35,9 @@ public class AddonRestController {
                                                 @RequestParam("tSize") Optional<String[]>  tSize, @RequestParam("tColor") Optional<String[]> tColor,@RequestParam("tCodeColor") Optional<String[]> tCodeColor, @RequestParam("tPrice")  Optional<Integer[]> tPrice,
                                                 @RequestParam("tSale") Optional<Integer[]> tSale, @RequestParam("tInventory") Optional<Integer[]> tInventory, @RequestParam("tSolid") Optional<Integer[]> tSolid)
                                                {
-        StoreResponse productResult = productService.addonProduct(product,multipartFiles,tSize,tColor,tCodeColor,tPrice,tSale,tInventory,tSolid);
-        return ResponseEntity.status(HttpStatusCode.valueOf(productResult.getCode())).body(productResult);
+//        StoreResponse productResult = productService.addonProduct(product,multipartFiles,tSize,tColor,tCodeColor,tPrice,tSale,tInventory,tSolid);
+//        return ResponseEntity.status(HttpStatusCode.valueOf(productResult.getCode())).body(productResult);
+                                                   return ResponseEntity.status(HttpStatus.SC_OK).body(new StoreResponse(200,"yup",null,null,null,null));
     }
 
 
