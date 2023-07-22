@@ -155,12 +155,12 @@ public class ProductService implements IProductService {
                 String fileExtension = FilenameUtils.getExtension(multipartFile.getOriginalFilename());
                 String generatedFileName = UUID.randomUUID().toString().replace("-", "");
                 generatedFileName = generatedFileName+"."+fileExtension;
-//                String uploadDir = "/src/main/resources/static/images/product" + "/"+ product.getProductId();
-                String uploadDir = "/src/main/resources/static/images/product";
+                String uploadDir = "/src/main/resources/static/images/product" + "/"+ product.getProductId();
+//                String uploadDir = "/src/main/resources/static/images/product";
                 String urlImg = new String();
-//                urlImg = "/images/product/"+ generatedFileName;
-//                FileUploadUtil.saveFile(uploadDir,generatedFileName,multipartFile);
-                urlImg = storeFile(multipartFile);
+                urlImg = "/images/product/"+ product.getProductId() +"/" +generatedFileName;
+                FileUploadUtil.saveFile(uploadDir,generatedFileName,multipartFile);
+//                urlImg = storeFile(multipartFile);
                 productImages.setProduct(product);
                 productImages.setProductImage(urlImg);
                 imagesList.add(productImages);
@@ -182,7 +182,7 @@ public class ProductService implements IProductService {
             }
             iProductRepository.save(product);
             return new StoreResponse(200,"Addon Product Success",null,null,null,null);
-        }catch (RuntimeException  e ){
+        }catch (RuntimeException | IOException e ){
             TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
             return new StoreResponse(500,"Server Error! "+ e.getMessage(),null,null,null,null);
         }

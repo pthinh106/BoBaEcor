@@ -11,12 +11,9 @@ import java.nio.file.StandardCopyOption;
 public class FileUploadUtil {
     public static void saveFile(String uploadDir, String fileName,
                                 MultipartFile multipartFile) throws IOException {
-        String UPLOAD_DIRECTORY = Paths.get("")
-                .toAbsolutePath()
+        String UPLOAD_DIRECTORY = Paths.get(".").normalize().toAbsolutePath()
                 .toString();
-//        Path uploadPath = Paths.get(UPLOAD_DIRECTORY + uploadDir);
-        Path uploadPath = Paths.get(uploadDir);
-
+        Path uploadPath = Paths.get(UPLOAD_DIRECTORY + uploadDir);
 
         System.out.println(uploadPath);
 
