@@ -149,7 +149,7 @@ public class ProductService implements IProductService {
 //                String uploadDir = "/src/main/resources/static/images/product" + "/"+ product.getProductId();
                 String uploadDir = "/src/main/resources/static/images/product";
                 String urlImg = new String();
-                urlImg = "/images/product/" +"/"+ generatedFileName;
+                urlImg = "/images/product/"+ generatedFileName;
                 FileUploadUtil.saveFile(uploadDir,generatedFileName,multipartFile);
                 productImages.setProduct(product);
                 productImages.setProductImage(urlImg);
