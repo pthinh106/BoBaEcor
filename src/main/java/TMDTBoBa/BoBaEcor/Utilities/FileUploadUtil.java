@@ -15,8 +15,6 @@ public class FileUploadUtil {
                 .toString();
         Path uploadPath = Paths.get(UPLOAD_DIRECTORY + uploadDir);
 
-        System.out.println(uploadPath);
-
 
         if (!Files.exists(uploadPath)) {
             Files.createDirectories(uploadPath);
@@ -30,3 +28,5 @@ public class FileUploadUtil {
         }
     }
 }
+
+

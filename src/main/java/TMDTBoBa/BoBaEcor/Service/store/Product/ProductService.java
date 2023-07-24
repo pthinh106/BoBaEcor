@@ -12,30 +12,37 @@ import TMDTBoBa.BoBaEcor.Repository.Store.IProductRepository;
 import TMDTBoBa.BoBaEcor.Repository.User.IUserRepository;
 import TMDTBoBa.BoBaEcor.Utilities.Contains;
 import TMDTBoBa.BoBaEcor.Utilities.FileUploadUtil;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.paypal.base.codec.binary.Base64;
 import lombok.RequiredArgsConstructor;
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.TransactionException;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.interceptor.TransactionAspectSupport;
-import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 import net.bytebuddy.utility.RandomString;
 
+import javax.net.ssl.HttpsURLConnection;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URI;
+import java.net.URL;
+import java.net.http.HttpRequest;
+import java.nio.ByteBuffer;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
-import java.sql.SQLDataException;
-import java.sql.SQLException;
-import java.sql.SQLTransactionRollbackException;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.*;
+import java.util.concurrent.Flow;
 
 @Service
 @RequiredArgsConstructor
@@ -93,13 +100,13 @@ public class ProductService implements IProductService {
                                       Optional<Integer[]> tSale, Optional<Integer[]> tInventory, Optional<Integer[]> tSolid) throws RuntimeException{
         try {
             if(product.getProductName().isEmpty()){
-                return new StoreResponse(500,"Product name is required",null,null,null,null);
+                throw new RuntimeException("Product name is required");
             }
             if (iProductRepository.existsByProductSlug(Contains.convertToURL(product.getProductName()))){
-                return new StoreResponse(500,"Can't initialize url because it already exists",null,null,null,null);
+                throw new RuntimeException("Can't initialize url because it already exists");
             }
             if(product.getProductPrice() == null && product.getNoTypeStatus() == 1){
-                return new StoreResponse(500,"Product price is required",null,null,null,null);
+                throw new RuntimeException("Product price is required");
             }
             Optional<User> user = iUserRepository.findById(1);
             if(user.isPresent()){
@@ -113,16 +120,14 @@ public class ProductService implements IProductService {
             Integer totalQuantityInventory = 0;
             Integer productSale = 0;
             if(product.getNoTypeStatus() == 0 && (tSize.isEmpty() || tColor.isEmpty() || tPrice.isEmpty() || tCodeColor.isEmpty())){
-                TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
-                return new StoreResponse(500,"Color, Size, Price are required",null,null,null,null);
+                throw new RuntimeException("Color, Size, Price are required");
             }
             if(product.getNoTypeStatus() == 0 && tSize.isPresent() && tColor.isPresent() && tCodeColor.isPresent() && tPrice.isPresent() && tSale.isPresent() && tInventory.isPresent() && tSolid.isPresent()) {
                 List<ProductDetail> productDetails = new ArrayList<>();
                 for(int i = 0; i < tSize.get().length; i++){
                     if(tCodeColor.get()[i].isEmpty() ||tColor.get()[i].isEmpty() || tSize.get()[i].isEmpty() || tPrice.get()[i] < 0 ||
                             tInventory.get()[i] < 0 || tSale.get()[i] < 0 || tSolid.get()[i] < 0){
-                        TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
-                        return new StoreResponse(500,"Color, Size, Price are required and remaining values are not negative",null,null,null,null);
+                        throw new RuntimeException("Color, Size, Price are required");
                     }
                     ProductDetail productDetail = new ProductDetail();
                     productDetail.setProduct(product);
@@ -159,8 +164,8 @@ public class ProductService implements IProductService {
 //                String uploadDir = "/src/main/resources/static/images/product";
                 String urlImg = new String();
                 urlImg = "/images/product/"+ product.getProductId() +"/" +generatedFileName;
+
                 FileUploadUtil.saveFile(uploadDir,generatedFileName,multipartFile);
-//                urlImg = storeFile(multipartFile);
                 productImages.setProduct(product);
                 productImages.setProductImage(urlImg);
                 imagesList.add(productImages);
@@ -169,8 +174,7 @@ public class ProductService implements IProductService {
                 iProductImagesRepository.saveAll(imagesList);
                 product.setProductThumbnail(imagesList.get(0).getProductImage());
             }else{
-                TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
-                return new StoreResponse(500,"File is empty!",null,null,null,null);
+                throw new RuntimeException("File is empty!");
             }
             if(product.getNoTypeStatus() == 0 ){
                 product.setProductPrice(null);
