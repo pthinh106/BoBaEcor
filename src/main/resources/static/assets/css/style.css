@@ -223,7 +223,7 @@ input:-ms-input-placeholder, textarea:-ms-input-placeholder {
 -----------------------------------------*/
 #scrollUp {
   background: #6a7964 none repeat scroll 0 0;
-  bottom: 85px;
+  bottom: 22px;
   color: #ffffff;
   cursor: pointer;
   display: none;
@@ -231,7 +231,7 @@ input:-ms-input-placeholder, textarea:-ms-input-placeholder {
   height: 45px;
   line-height: 39px;
   position: fixed;
-  right: 12px;
+  right: 135px;
   text-align: center;
   width: 45px;
   z-index: 9999;
