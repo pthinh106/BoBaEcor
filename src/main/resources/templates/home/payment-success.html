@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{home/fragments/layout :: head('Blog','type','url','site_name','image','description','page')}">
+</head>
+
+<body>
+<div th:replace="~{home/fragments/layout :: header}"></div>
+<!--breadcrumbs area start-->
+<div class="breadcrumbs_area breadcrumbs_blog">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="breadcrumb_content text-center">
+                    <ul>
+                        <li><a href="index.html">home</a></li>
+                        <li><a href="payment-success.html">Blog</a></li>
+                    </ul>
+                    <h3>Write, Share & Discuss <br> Together</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--breadcrumbs area end-->
+
+
+<!--payment success page section start-->
+<div class="container mb-140 ">
+    <div  class="collapse show" >
+        <div class="checkout_info col-lg-5 col-md-7 m-auto mt-5">
+            <div class=" content-modal-box">
+                <h3 class="alert-heading text-center " style="color: #6a7964;">Payment Successful! <br> <img
+                        class="mt-3" src="assets/img/icon/money.png"></img></h3>
+                <br>
+                <p>Payment made successfully. Within 30 minutes, the staff will contact you to confirm the
+                    order! </p>
+                <hr>
+                <div class="text-start">
+                    <p><span>Payments:</span> <span>ABC Bank</span></p>
+                    <p><span>Delivery address:</span> <span>123456</span></p>
+                    <p><span>Phone Number:</span> <span>090945174</span></p>
+                    <p><strong>Total Amount:</strong> <span>$100.00</span> </p>
+                    <p><span>Trading code:</span> <span>001348941</span></p>
+                </div>
+
+                <a href="/shop.html"> <button class="btn btn-primary mx-auto d-block mt-3" type="button">Continue
+                    shopping</button></a>
+                <hr>
+                <p class="text-center"><span>Order date:</span> <span>15:30 July 18, 2023</span></p>
+
+            </div>
+
+
+        </div>
+    </div>
+
+
+</div>
+<!--payment success section end-->
+
+<!--newsletter section start-->
+<section th:replace="~{home/fragments/layout :: newsletter}"></section>
+<!--newsletter section end-->
+
+<!--footer area start-->
+<footer th:replace="~{home/fragments/layout :: footer}"></footer>
+<!--footer area end-->
+
+<!-- JS
+============================================ -->
+
+<div th:replace="~{home/fragments/layout :: js}"></div>
+
+
+</body>
+
+</html>

@@ -9436,6 +9436,10 @@ svg:not(:root) {
 #mc_embed_signup .mc-field-group input {
   padding: 0 110px 0 37px !important;
 }
+.text-start p{
+  display: flex;
+  justify-content: space-between;
+}
 /*modal css end*/
 
 /*# sourceMappingURL=style.css.map */
