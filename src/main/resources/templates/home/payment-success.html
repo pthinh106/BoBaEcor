@@ -1,12 +1,28 @@
 <!DOCTYPE html>
 <html class="no-js" lang="en" xmlns:th="http://www.thymeleaf.org">
 
-<head th:replace="~{home/fragments/layout :: head('Title','type','url','site_name','image','description','page')}">
+<head th:replace="~{home/fragments/layout :: head('title','type','url','site_name','image','description','page')}">
 </head>
 
 <body>
 <div th:replace="~{home/fragments/layout :: header}"></div>
-
+<!--breadcrumbs area start-->
+<div class="breadcrumbs_area breadcrumbs_blog">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="breadcrumb_content text-center">
+                    <ul>
+                        <li><a href="index.html">home</a></li>
+                        <li><a href="payment-success.html">payment</a></li>
+                    </ul>
+                    <h3>Payment Success</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--breadcrumbs area end-->
 
 
 <!--payment success page section start-->
