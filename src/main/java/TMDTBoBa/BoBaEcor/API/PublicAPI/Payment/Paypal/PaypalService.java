@@ -76,7 +76,6 @@ public class PaypalService {
         // Payment success url
         redirectUrls.setReturnUrl("http://localhost:8060" + "/thanh-toan/thanh-cong?guid=" + guid);
         payment.setRedirectUrls(redirectUrls);
-        payment.setRedirectUrls(redirectUrls);
         Payment createdPayment = null;
         try {
             createdPayment = payment.create(apiContext);
@@ -92,7 +91,7 @@ public class PaypalService {
         }
         return "";
     }
-    public Payment executePayment(String paymentId, String payerId) throws PayPalRESTException{
+    public Payment executePayment(String paymentId, String payerId,String guild) throws PayPalRESTException{
         Payment payment = new Payment();
         payment.setId(paymentId);
         PaymentExecution paymentExecute = new PaymentExecution();
