@@ -72,9 +72,10 @@ public class PaypalService {
         RedirectUrls redirectUrls = new RedirectUrls();
         String guid = UUID.randomUUID().toString().replaceAll("-", ""); // Not necessary, just demonstrating how we can add the order/user id as a param.
         // Payment cancellation url
-        redirectUrls.setCancelUrl("http://localhost:8060" + "/paypal/payment/cancel?guid=" + guid);
+        redirectUrls.setCancelUrl("http://localhost:8060" + "/thanh-toan/that-bai?guid=" + guid);
         // Payment success url
-        redirectUrls.setReturnUrl("http://localhost:8060" + "/paypal/payment/success?guid=" + guid);
+        redirectUrls.setReturnUrl("http://localhost:8060" + "/thanh-toan/thanh-cong?guid=" + guid);
+        payment.setRedirectUrls(redirectUrls);
         payment.setRedirectUrls(redirectUrls);
         Payment createdPayment = null;
         try {
