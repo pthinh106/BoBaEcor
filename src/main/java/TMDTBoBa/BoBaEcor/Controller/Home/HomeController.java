@@ -45,6 +45,11 @@ public class HomeController {
         return "home/checkout";
     }
 
+    @GetMapping("/thanh-toan-thanh-cong")
+    public String checkOut_Success(){
+        return "home/payment-success";
+    }
+
     @Autowired
     private Kenh14RSSReader rssReader;
     @GetMapping("/tin-tuc")
