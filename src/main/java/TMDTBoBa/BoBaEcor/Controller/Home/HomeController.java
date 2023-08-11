@@ -50,6 +50,11 @@ public class HomeController {
         return "home/payment-success";
     }
 
+    @GetMapping("/thanh-toan-that-bai")
+    public String checkOut_Error(){
+        return "home/payment-error";
+    }
+
     @Autowired
     private Kenh14RSSReader rssReader;
     @GetMapping("/tin-tuc")
