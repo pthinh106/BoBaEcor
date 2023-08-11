@@ -64,7 +64,9 @@
                                     <li><span th:text="${item.publishedDate}"></span></li>
                                 </ul>
                             </div>
-                            <h3 th:text="${item.title}"><a th:href="${item.link}" th:text="${item.link}"></a></h3>
+                            <h3 >
+                                <a th:href="${item.link}" th:text="${item.title}"></a>
+                            </h3>
                         </figcaption>
                     </figure>
                 </article>
