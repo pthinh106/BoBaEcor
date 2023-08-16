@@ -1,7 +1,8 @@
 package TMDTBoBa.BoBaEcor.API.PublicAPI.Auth;
 
-import TMDT.BoBa.API.CustomeHttpRe.Auth.Login.AuthenticationRequest;
-import TMDT.BoBa.API.CustomeHttpRe.Auth.Login.AuthenticationResponse;
+
+import TMDTBoBa.BoBaEcor.API.CustomeHttpRe.Auth.Login.AuthenticationRequest;
+import TMDTBoBa.BoBaEcor.API.CustomeHttpRe.Auth.Login.AuthenticationResponse;
 import TMDTBoBa.BoBaEcor.Service.Auth.AuthService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

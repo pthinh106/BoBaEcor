@@ -1,7 +1,7 @@
 package TMDTBoBa.BoBaEcor.Service.Auth;
 
-import TMDT.BoBa.API.CustomeHttpRe.Auth.Login.AuthenticationRequest;
-import TMDT.BoBa.API.CustomeHttpRe.Auth.Login.AuthenticationResponse;
+import TMDTBoBa.BoBaEcor.API.CustomeHttpRe.Auth.Login.AuthenticationRequest;
+import TMDTBoBa.BoBaEcor.API.CustomeHttpRe.Auth.Login.AuthenticationResponse;
 import TMDTBoBa.BoBaEcor.Models.User.User;
 import TMDTBoBa.BoBaEcor.Repository.User.IUserRepository;
 import TMDTBoBa.BoBaEcor.Utilities.Contains;
