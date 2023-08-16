@@ -1,4 +1,4 @@
-package TMDT.BoBa.API.CustomeHttpRe.Auth.Login;
+package TMDTBoBa.BoBaEcor.API.CustomeHttpRe.Auth.Login;
 
 import lombok.*;
 

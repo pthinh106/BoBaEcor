@@ -1,4 +1,4 @@
-package TMDT.BoBa.API.CustomeHttpRe.Auth.Login;
+package TMDTBoBa.BoBaEcor.API.CustomeHttpRe.Auth.Login;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -11,5 +11,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class AuthenticationRequest {
     private String username;
+
     private String password;
 }
