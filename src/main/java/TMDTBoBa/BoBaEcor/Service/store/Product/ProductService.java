@@ -118,11 +118,11 @@ public class ProductService implements IProductService {
             iProductRepository.save(product);
             Integer totalQuantitySolid = 0;
             Integer totalQuantityInventory = 0;
-            Integer productSale = 0;
+            int productSale = 0;
             if(product.getNoTypeStatus() == 0 && (tSize.isEmpty() || tColor.isEmpty() || tPrice.isEmpty() || tCodeColor.isEmpty())){
                 throw new RuntimeException("Color, Size, Price are required");
             }
-            if(product.getNoTypeStatus() == 0 && tSize.isPresent() && tColor.isPresent() && tCodeColor.isPresent() && tPrice.isPresent() && tSale.isPresent() && tInventory.isPresent() && tSolid.isPresent()) {
+            if(product.getNoTypeStatus() == 0 && tSale.isPresent() && tInventory.isPresent() && tSolid.isPresent()) {
                 List<ProductDetail> productDetails = new ArrayList<>();
                 for(int i = 0; i < tSize.get().length; i++){
                     if(tCodeColor.get()[i].isEmpty() ||tColor.get()[i].isEmpty() || tSize.get()[i].isEmpty() || tPrice.get()[i] < 0 ||
@@ -162,10 +162,11 @@ public class ProductService implements IProductService {
                 generatedFileName = generatedFileName+"."+fileExtension;
                 String uploadDir = "/src/main/resources/static/images/product" + "/"+ product.getProductId();
 //                String uploadDir = "/src/main/resources/static/images/product";
-                String urlImg = new String();
-                urlImg = "/images/product/"+ product.getProductId() +"/" +generatedFileName;
+                String urlImg;
+//                urlImg = "/images/product/"+ product.getProductId() +"/" +generatedFileName;
 
-                FileUploadUtil.saveFile(uploadDir,generatedFileName,multipartFile);
+//                FileUploadUtil.saveFile(uploadDir,generatedFileName,multipartFile);
+                urlImg = FileUploadUtil.upLoadCloud(generatedFileName,multipartFile);
                 productImages.setProduct(product);
                 productImages.setProductImage(urlImg);
                 imagesList.add(productImages);
@@ -211,6 +212,7 @@ public class ProductService implements IProductService {
     private boolean isImageFile(MultipartFile file) {
         //Let install FileNameUtils
         String fileExtension = FilenameUtils.getExtension(file.getOriginalFilename());
+        assert fileExtension != null;
         return Arrays.asList(new String[] {"png","jpg","jpeg", "bmp"})
                 .contains(fileExtension.trim().toLowerCase());
     }
