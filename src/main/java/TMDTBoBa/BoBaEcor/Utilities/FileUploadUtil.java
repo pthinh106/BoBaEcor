@@ -34,7 +34,7 @@ public class FileUploadUtil {
     }
     public static String upLoadCloud(String fileName,
                                   MultipartFile multipartFile) throws IOException {
-        var result = cloudinary.uploader().upload(multipartFile.getBytes(), ObjectUtils.emptyMap());
+        var result = cloudinary.uploader().upload(multipartFile.getBytes(), (Map.of("public_id", fileName)));
         System.out.println(result);
         return  result.get("url").toString();
     }
