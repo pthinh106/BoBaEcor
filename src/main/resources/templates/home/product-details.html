@@ -18,366 +18,395 @@
 </style>
 <body>
 
-    <div th:replace="~{home/fragments/layout :: header}"></div>
+<div th:replace="~{home/fragments/layout :: header}"></div>
 
-    <!--breadcrumbs area start-->
-    <div class="breadcrumbs_area breadcrumbs_product">
-        <div class="container">
-            <div class="row">
-                <div class="col-12">
-                    <div class="breadcrumb_content">
-                        <ul>
-                            <li><a href="index.html">home</a></li>
-                            <li><a href="shop.html">shop</a></li>
-                            <li>Product Example</li>
-                        </ul>
-                    </div>
+<!--breadcrumbs area start-->
+<div class="breadcrumbs_area breadcrumbs_product">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="breadcrumb_content">
+                    <ul>
+                        <li><a href="index.html">home</a></li>
+                        <li><a href="shop.html">shop</a></li>
+                        <li>Product Example</li>
+                    </ul>
                 </div>
             </div>
         </div>
     </div>
-    <!--breadcrumbs area end-->
+</div>
+<!--breadcrumbs area end-->
 
-    <!--product details start-->
-    <section class="product_details mb-135">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-6 col-md-6">
-                    <div class="product_zoom_gallery">
-                       <div class="zoom_gallery_inner d-flex">
-                           <div class="zoom_tab_img">
-                               <th:block th:each="img : ${product.getProductImages()}">
-                                   <a class="zoom_tabimg_list" href="javascript:void(0)"><img th:src="${img.getProductImage()}" th:alt="${product.getProductName()}"></a>
-                               </th:block>
-<!--                                <a class="zoom_tabimg_list" href="javascript:void(0)"><img src="/assets/img/product/small-product/product1.png" alt="tab-thumb"></a>-->
-<!--                                <a class="zoom_tabimg_list" href="javascript:void(0)"><img src="/assets/img/product/small-product/product2.png" alt="tab-thumb"></a>-->
-<!--                                <a class="zoom_tabimg_list" href="javascript:void(0)"><img src="/assets/img/product/small-product/product3.png" alt="tab-thumb"></a>-->
-<!--                                <a class="zoom_tabimg_list" href="javascript:void(0)"><img src="/assets/img/product/small-product/product4.png" alt="tab-thumb"></a>-->
-<!--                                <a class="zoom_tabimg_list" href="javascript:void(0)"><img src="/assets/img/product/small-product/product1.png" alt="tab-thumb"></a>-->
-<!--                                <a class="zoom_tabimg_list" href="javascript:void(0)"><img src="/assets/img/product/small-product/product2.png" alt="tab-thumb"></a>-->
-<!--                                <a class="zoom_tabimg_list" href="javascript:void(0)"><img src="/assets/img/product/small-product/product3.png" alt="tab-thumb"></a>-->
-<!--                                <a class="zoom_tabimg_list" href="javascript:void(0)"><img src="/assets/img/product/small-product/product4.png" alt="tab-thumb"></a>-->
-                           </div>
-                           <div class="product_zoom_main_img">
-                               <th:block th:each="img : ${product.getProductImages()}">
-                                   <div class="product_zoom_thumb">
-                                       <img th:attr="data-image=${img.getProductImage()}" th:src="${img.getProductImage()}" th:alt="${product.getProductName()}">
-                                   </div>
-                               </th:block>
-<!--                                <div class="product_zoom_thumb">-->
-<!--                                    <img data-image="assets/img/product/big-product/product1.png" src="/assets/img/product/big-product/product1.png" alt="">-->
-<!--                                </div>-->
-<!--                                <div class="product_zoom_thumb">-->
-<!--                                    <img data-image="assets/img/product/big-product/product1.png" src="/assets/img/product/big-product/product1.png" alt="">-->
-<!--                                </div>-->
-<!--                                <div class="product_zoom_thumb">-->
-<!--                                    <img data-image="assets/img/product/big-product/product1.png" src="/assets/img/product/big-product/product1.png" alt="">-->
-<!--                                </div>-->
-<!--                                <div class="product_zoom_thumb">-->
-<!--                                    <img data-image="assets/img/product/big-product/product1.png" src="/assets/img/product/big-product/product1.png" alt="">-->
-<!--                                </div>-->
-<!--                                <div class="product_zoom_thumb">-->
-<!--                                    <img data-image="assets/img/product/big-product/product1.png" src="/assets/img/product/big-product/product1.png" alt="">-->
-<!--                                </div>-->
-<!--                                <div class="product_zoom_thumb">-->
-<!--                                    <img data-image="assets/img/product/big-product/product1.png" src="/assets/img/product/big-product/product1.png" alt="">-->
-<!--                                </div>-->
-<!--                                <div class="product_zoom_thumb">-->
-<!--                                    <img data-image="assets/img/product/big-product/product1.png" src="/assets/img/product/big-product/product1.png" alt="">-->
-<!--                                </div>-->
-<!--                                <div class="product_zoom_thumb">-->
-<!--                                    <img data-image="assets/img/product/big-product/product1.png" src="/assets/img/product/big-product/product1.png" alt="">-->
-<!--                                </div>-->
-                            </div>
+<!--product details start-->
+<section class="product_details mb-135">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 col-md-6">
+                <div class="product_zoom_gallery">
+                    <div class="zoom_gallery_inner d-flex">
+                        <div class="zoom_tab_img">
+                            <th:block th:each="img : ${product.getProductImages()}">
+                                <a class="zoom_tabimg_list" href="javascript:void(0)"><img
+                                        th:src="${img.getProductImage()}" th:alt="${product.getProductName()}"></a>
+                            </th:block>
+                            <!--                                <a class="zoom_tabimg_list" href="javascript:void(0)"><img src="/assets/img/product/small-product/product1.png" alt="tab-thumb"></a>-->
+                            <!--                                <a class="zoom_tabimg_list" href="javascript:void(0)"><img src="/assets/img/product/small-product/product2.png" alt="tab-thumb"></a>-->
+                            <!--                                <a class="zoom_tabimg_list" href="javascript:void(0)"><img src="/assets/img/product/small-product/product3.png" alt="tab-thumb"></a>-->
+                            <!--                                <a class="zoom_tabimg_list" href="javascript:void(0)"><img src="/assets/img/product/small-product/product4.png" alt="tab-thumb"></a>-->
+                            <!--                                <a class="zoom_tabimg_list" href="javascript:void(0)"><img src="/assets/img/product/small-product/product1.png" alt="tab-thumb"></a>-->
+                            <!--                                <a class="zoom_tabimg_list" href="javascript:void(0)"><img src="/assets/img/product/small-product/product2.png" alt="tab-thumb"></a>-->
+                            <!--                                <a class="zoom_tabimg_list" href="javascript:void(0)"><img src="/assets/img/product/small-product/product3.png" alt="tab-thumb"></a>-->
+                            <!--                                <a class="zoom_tabimg_list" href="javascript:void(0)"><img src="/assets/img/product/small-product/product4.png" alt="tab-thumb"></a>-->
+                        </div>
+                        <div class="product_zoom_main_img">
+                            <th:block th:each="img : ${product.getProductImages()}">
+                                <div class="product_zoom_thumb">
+                                    <img th:attr="data-image=${img.getProductImage()}" th:src="${img.getProductImage()}"
+                                         th:alt="${product.getProductName()}">
+                                </div>
+                            </th:block>
+                            <!--                                <div class="product_zoom_thumb">-->
+                            <!--                                    <img data-image="assets/img/product/big-product/product1.png" src="/assets/img/product/big-product/product1.png" alt="">-->
+                            <!--                                </div>-->
+                            <!--                                <div class="product_zoom_thumb">-->
+                            <!--                                    <img data-image="assets/img/product/big-product/product1.png" src="/assets/img/product/big-product/product1.png" alt="">-->
+                            <!--                                </div>-->
+                            <!--                                <div class="product_zoom_thumb">-->
+                            <!--                                    <img data-image="assets/img/product/big-product/product1.png" src="/assets/img/product/big-product/product1.png" alt="">-->
+                            <!--                                </div>-->
+                            <!--                                <div class="product_zoom_thumb">-->
+                            <!--                                    <img data-image="assets/img/product/big-product/product1.png" src="/assets/img/product/big-product/product1.png" alt="">-->
+                            <!--                                </div>-->
+                            <!--                                <div class="product_zoom_thumb">-->
+                            <!--                                    <img data-image="assets/img/product/big-product/product1.png" src="/assets/img/product/big-product/product1.png" alt="">-->
+                            <!--                                </div>-->
+                            <!--                                <div class="product_zoom_thumb">-->
+                            <!--                                    <img data-image="assets/img/product/big-product/product1.png" src="/assets/img/product/big-product/product1.png" alt="">-->
+                            <!--                                </div>-->
+                            <!--                                <div class="product_zoom_thumb">-->
+                            <!--                                    <img data-image="assets/img/product/big-product/product1.png" src="/assets/img/product/big-product/product1.png" alt="">-->
+                            <!--                                </div>-->
+                            <!--                                <div class="product_zoom_thumb">-->
+                            <!--                                    <img data-image="assets/img/product/big-product/product1.png" src="/assets/img/product/big-product/product1.png" alt="">-->
+                            <!--                                </div>-->
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-6 col-md-6">
-                    <div class="product_d_right">
-                       <form action="#" th:object="${product}">
-                            <h1 th:field="*{productName}">Edwin T-Shirt Logo Script Print in Navy</h1>
-                            <div class="product_ratting_review d-flex align-items-center">
-                                <div class=" product_ratting">
-                                    <ul class="d-flex">
-                                        <li><a href="#"><i class="ion-ios-star"></i></a></li>
-                                        <li><a href="#"><i class="ion-ios-star"></i></a></li>
-                                        <li><a href="#"><i class="ion-ios-star"></i></a></li>
-                                        <li><a href="#"><i class="ion-ios-star"></i></a></li>
-                                        <li><a href="#"><i class="ion-ios-star"></i></a></li>
-                                    </ul>
-                                </div>
-                                <div class="product_review">
-                                    <ul class="d-flex">
-                                        <li>4 reviews</li>
-                                        <li>Write your review</li>
-                                    </ul>
-                                </div>
+            </div>
+            <div class="col-lg-6 col-md-6">
+                <div class="product_d_right">
+                    <form action="#" th:object="${product}">
+                        <h1 th:field="*{productName}">Edwin T-Shirt Logo Script Print in Navy</h1>
+                        <div class="product_ratting_review d-flex align-items-center">
+                            <div class=" product_ratting">
+                                <ul class="d-flex">
+                                    <li><a href="#"><i class="ion-ios-star"></i></a></li>
+                                    <li><a href="#"><i class="ion-ios-star"></i></a></li>
+                                    <li><a href="#"><i class="ion-ios-star"></i></a></li>
+                                    <li><a href="#"><i class="ion-ios-star"></i></a></li>
+                                    <li><a href="#"><i class="ion-ios-star"></i></a></li>
+                                </ul>
                             </div>
-                            <div class="price_box">
-                                <th:block th:if="${!product.getProductDetails().isEmpty()}">
-                                    <th:block th:each="item: ${product.getProductDetails()}">
-                                        <th:block th:if="${item.getCodeColor().toString() == productFirstColor.get('code').toString() && item.getSize().toString() == productFirstSize.toString()}">
-                                            <span class="current_price" th:text="${item.getProductPrice()}">$39.00</span>
-                                            <input type="hidden" name="idDetail" th:value="${item.getProductDetailId()}">
-                                        </th:block>
+                            <div class="product_review">
+                                <ul class="d-flex">
+                                    <li>4 reviews</li>
+                                    <li>Write your review</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="price_box">
+                            <th:block th:if="${!product.getProductDetails().isEmpty()}">
+                                <th:block th:each="item: ${product.getProductDetails()}">
+                                    <th:block
+                                            th:if="${item.getCodeColor().toString() == productFirstColor.get('code').toString() && item.getSize().toString() == productFirstSize.toString()}">
+                                        <span class="current_price" th:text="${item.getProductPrice()}">$39.00</span>
+                                        <input type="hidden" name="idDetail" th:value="${item.getProductDetailId()}">
                                     </th:block>
                                 </th:block>
-                                <th:block th:if="${product.getProductDetails().isEmpty()}">
-                                    <span class="current_price" th:text="${product.getProductPrice()}">$39.00</span>
-                                </th:block>
-                                <input type="hidden" th:field="*{productId}">
-                            </div>
-                            <div class="product_availalbe">
-                                <ul class="d-flex">
-                                    <li><i class="icon-layers icons"></i> Only <span>15</span> left </li>
-                                    <li>Availalbe: <span class="stock">In Stock</span></li>
-                                </ul>
-                            </div>
-                            <div class="product_desc" >
-                                <p th:field="*{productShortDes}">A t-shirt that comes in three colors (red, white and blue) and three sizes (small, medium, large) is a configurable product.  </p>
-                            </div>
-                            <div class="product_variant">
-                                <th:block th:if="${!product.getProductDetails().isEmpty()}">
-                                    <div class="filter__list widget_color d-flex align-items-center">
-                                        <div>
-                                            <h3>select color</h3>
-                                            <p id="colorName" th:text="${productFirstColor.get('color')}">Xanh</p>
-                                        </div>
-                                        <ul>
-                                            <th:block th:each="item,count : ${product.getItemColor()}">
-                                                <li>
-                                                    <th:block th:if="${item.get('code').toString() == productFirstColor.get('code').toString()}">
-                                                        <input type="radio" name="color" th:attrappend="data-color=${item.get('color')}" onclick="getQuantity(this)" checked>
-                                                        <span class="checkmark data-color" th:attr="data-code-color=${item.get('code')}"></span>
-                                                    </th:block>
-                                                    <th:block th:unless="${item.get('code').toString() == productFirstColor.get('code').toString()}">
-                                                        <input type="radio" name="color" th:attrappend="data-color=${item.get('color')}" onclick="getQuantity(this)">
-                                                        <span class="checkmark data-color" th:attr="data-code-color=${item.get('code')}"></span>
-                                                    </th:block>
-                                                </li>
-                                            </th:block>
-                                        </ul>
+                            </th:block>
+                            <th:block th:if="${product.getProductDetails().isEmpty()}">
+                                <span class="current_price" th:text="${product.getProductPrice()}">$39.00</span>
+                            </th:block>
+                            <input type="hidden" th:field="*{productId}">
+                        </div>
+                        <div class="product_availalbe">
+                            <ul class="d-flex">
+                                <li><i class="icon-layers icons"></i> Only <span>15</span> left</li>
+                                <li>Availalbe: <span class="stock">In Stock</span></li>
+                            </ul>
+                        </div>
+                        <div class="product_desc">
+                            <p th:field="*{productShortDes}">A t-shirt that comes in three colors (red, white and blue)
+                                and three sizes (small, medium, large) is a configurable product. </p>
+                        </div>
+                        <div class="product_variant">
+                            <th:block th:if="${!product.getProductDetails().isEmpty()}">
+                                <div class="filter__list widget_color d-flex align-items-center">
+                                    <div>
+                                        <h3>select color</h3>
+                                        <p id="colorName" th:text="${productFirstColor.get('color')}">Xanh</p>
                                     </div>
-                                    <div class="filter__list widget_size d-flex align-items-center">
-                                        <h3>select size</h3>
-                                        <ul>
-                                            <th:block th:each="item,count : ${product.getItemSize()}">
-                                                <li>
-                                                    <th:block th:if="${item.toString() == productFirstSize.toString()}">
-                                                        <input type="radio" name="size" onclick="getQuantity()" checked>
-                                                        <span class="checkmark" th:text="${item}"  ></span>
-                                                    </th:block>
-                                                    <th:block th:unless="${item.toString() == productFirstSize.toString()}">
-                                                        <input type="radio" name="size" onclick="getQuantity()">
-                                                        <span class="checkmark" th:text="${item}"  ></span>
-                                                    </th:block>
-                                                </li>
-                                            </th:block>
-                                        </ul>
-                                    </div>
-                                </th:block>
-                                <div class="variant_quantity_btn d-flex">
-                                    <div class="pro-qty border">
-                                        <input min="1" max="100" type="number" value="1">
-                                    </div>
-                                    <button class="button btn btn-primary" type="submit"><i class="ion-android-add"></i> Add To Cart</button>
-                                    <a class="wishlist" href="#"><i class="ion-ios-heart"></i></a>
+                                    <ul>
+                                        <th:block th:each="item,count : ${product.getItemColor()}">
+                                            <li>
+                                                <th:block
+                                                        th:if="${item.get('code').toString() == productFirstColor.get('code').toString()}">
+                                                    <input type="radio" name="color"
+                                                           th:attrappend="data-color=${item.get('color')}"
+                                                           onclick="getQuantity(this)" checked>
+                                                    <span class="checkmark data-color"
+                                                          th:attr="data-code-color=${item.get('code')}"></span>
+                                                </th:block>
+                                                <th:block
+                                                        th:unless="${item.get('code').toString() == productFirstColor.get('code').toString()}">
+                                                    <input type="radio" name="color"
+                                                           th:attrappend="data-color=${item.get('color')}"
+                                                           onclick="getQuantity(this)">
+                                                    <span class="checkmark data-color"
+                                                          th:attr="data-code-color=${item.get('code')}"></span>
+                                                </th:block>
+                                            </li>
+                                        </th:block>
+                                    </ul>
                                 </div>
+                                <div class="filter__list widget_size d-flex align-items-center">
+                                    <h3>select size</h3>
+                                    <ul>
+                                        <th:block th:each="item,count : ${product.getItemSize()}">
+                                            <li>
+                                                <th:block th:if="${item.toString() == productFirstSize.toString()}">
+                                                    <input type="radio" name="size" onclick="getQuantity()" checked>
+                                                    <span class="checkmark" th:text="${item}"></span>
+                                                </th:block>
+                                                <th:block th:unless="${item.toString() == productFirstSize.toString()}">
+                                                    <input type="radio" name="size" onclick="getQuantity()">
+                                                    <span class="checkmark" th:text="${item}"></span>
+                                                </th:block>
+                                            </li>
+                                        </th:block>
+                                    </ul>
+                                </div>
+                            </th:block>
+                            <div class="variant_quantity_btn d-flex">
+                                <div class="pro-qty border">
+                                    <input min="1" max="100" type="number" value="1">
+                                </div>
+                                <button class="button btn btn-primary" type="submit"><i class="ion-android-add"></i> Add
+                                    To Cart
+                                </button>
+                                <a class="wishlist" href="#"><i class="ion-ios-heart"></i></a>
                             </div>
-                            <div class="product_sku">
-                                <p><span>SKU: </span> #ABC123456</p>
-                            </div>
-                            <div class="product_tags d-flex">
-                                <span>tags: </span>
-                                <ul class="d-flex">
-                                    <li><a href="#">fashion,</a></li>
-                                    <li><a href="#">clothings,</a></li>
-                                    <li><a href="#">accessorires</a></li>
-                                </ul>
-                            </div>
-                            <div class="priduct_social d-flex">
-                                <span>SHARE: </span>
-                                <ul>
-                                    <li><a href="#"><i class="ion-social-twitter"></i></a></li>
-                                    <li><a href="#"><i class="ion-social-facebook"></i></a></li>
-                                    <li><a href="#"><i class="ion-social-googleplus-outline"></i></a></li>
-                                    <li><a href="#"><i class="ion-social-pinterest"></i></a></li>
-                                    <li><a href="#"><i class="ion-social-instagram-outline"></i></a></li>
-                                </ul>
-                            </div>
-                        </form>
-                    </div>
+                        </div>
+                        <div class="product_sku">
+                            <p><span>SKU: </span> #ABC123456</p>
+                        </div>
+                        <div class="product_tags d-flex">
+                            <span>tags: </span>
+                            <ul class="d-flex">
+                                <li><a href="#">fashion,</a></li>
+                                <li><a href="#">clothings,</a></li>
+                                <li><a href="#">accessorires</a></li>
+                            </ul>
+                        </div>
+                        <div class="priduct_social d-flex">
+                            <span>SHARE: </span>
+                            <ul class="d-flex">
+                                <li><a target="_blank" class="facebook"><i class="ion-social-facebook"></i></a></li>
+                                <li><a target="_blank" class="twitter"><i class="ion-social-twitter"></i></a></li>
+                                <li><a target="_blank" class="pinterest"><i class="icon-social-pinterest"></i></a>
+                                </li>
+                            </ul>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
-    </section>
-    <!--product details end-->
+    </div>
+</section>
+<!--product details end-->
 
-    <!--product info start-->
-    <div class="product_d_info mb-118">
-        <div class="container">
-            <div class="row">
-                <div class="col-12">
-                    <div class="product_d_inner">
-                        <div class="product_info_button border-bottom">
-                            <ul class="nav" role="tablist">
-                                <li >
-                                    <a class="active" data-toggle="tab" href="#info" role="tab" aria-controls="info" aria-selected="false">Product Description</a>
-                                </li>
-                                <li>
-                                   <a data-toggle="tab" href="#reviews" role="tab" aria-controls="reviews" aria-selected="false">Reviews          </a>
-                                </li>
-                                 <li>
-                                   <a data-toggle="tab" href="#tags" role="tab" aria-controls="tags" aria-selected="false">Tags </a>
-                                </li>
-                                <li>
-                                     <a data-toggle="tab" href="#additional" role="tab" aria-controls="additional" aria-selected="false">Additional Information </a>
-                                </li>
-                                <li>
-                                     <a data-toggle="tab" href="#tabinfo" role="tab" aria-controls="tabinfo" aria-selected="false">Custom Tab Info  </a>
-                                </li>
-                                <li>
-                                     <a data-toggle="tab" href="#video" role="tab" aria-controls="video" aria-selected="false">Custom Tab Video </a>
-                                </li>
+<!--product info start-->
+<div class="product_d_info mb-118">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="product_d_inner">
+                    <div class="product_info_button border-bottom">
+                        <ul class="nav" role="tablist">
+                            <li>
+                                <a class="active" data-toggle="tab" href="#info" role="tab" aria-controls="info"
+                                   aria-selected="false">Product Description</a>
+                            </li>
+                            <li>
+                                <a data-toggle="tab" href="#reviews" role="tab" aria-controls="reviews"
+                                   aria-selected="false">Reviews </a>
+                            </li>
+                            <li>
+                                <a data-toggle="tab" href="#tags" role="tab" aria-controls="tags" aria-selected="false">Tags </a>
+                            </li>
+                            <li>
+                                <a data-toggle="tab" href="#additional" role="tab" aria-controls="additional"
+                                   aria-selected="false">Additional Information </a>
+                            </li>
+                            <li>
+                                <a data-toggle="tab" href="#tabinfo" role="tab" aria-controls="tabinfo"
+                                   aria-selected="false">Custom Tab Info </a>
+                            </li>
+                            <li>
+                                <a data-toggle="tab" href="#" role="tab" aria-controls="video"
+                                   aria-selected="false">Custom Tab Video </a>
+                            </li>
 
-                            </ul>
+                        </ul>
+                    </div>
+                    <div class="tab-content">
+                        <div class="tab-pane fade show active" id="info" role="tabpanel">
+                            <div class="product_info_content" th:utext="${product.getProductDescription()}">
+
+                                <!--                                    <p>Coupling a blended linen construction with tailored style, the River Island HR Jasper Blazer will imprint a touch of dapper charm into your after-dark wardrobe. <br> Our model wearing a size medium blazer, and usually takes a size medium/38L shirt. <br> He is 6’2 1/2” (189cm) tall with a 38” (96 cm) chest and a 31” (78 cm) waist.</p>-->
+                                <!--                                    <ul>-->
+                                <!--                                        <li>Length: 74cm</li>-->
+                                <!--                                        <li>Regular fit</li>-->
+                                <!--                                        <li>Notched lapels</li>-->
+                                <!--                                        <li>Twin button front fastening</li>-->
+                                <!--                                        <li>Front patch pockets; chest pocket</li>-->
+                                <!--                                        <li> Internal pockets</li>-->
+                                <!--                                    </ul>-->
+                            </div>
                         </div>
-                        <div class="tab-content">
-                            <div class="tab-pane fade show active" id="info" role="tabpanel" >
-                                <div class="product_info_content" th:utext="${product.getProductDescription()}">
-
-<!--                                    <p>Coupling a blended linen construction with tailored style, the River Island HR Jasper Blazer will imprint a touch of dapper charm into your after-dark wardrobe. <br> Our model wearing a size medium blazer, and usually takes a size medium/38L shirt. <br> He is 6’2 1/2” (189cm) tall with a 38” (96 cm) chest and a 31” (78 cm) waist.</p>-->
-<!--                                    <ul>-->
-<!--                                        <li>Length: 74cm</li>-->
-<!--                                        <li>Regular fit</li>-->
-<!--                                        <li>Notched lapels</li>-->
-<!--                                        <li>Twin button front fastening</li>-->
-<!--                                        <li>Front patch pockets; chest pocket</li>-->
-<!--                                        <li> Internal pockets</li>-->
-<!--                                    </ul>-->
-                                </div>
-                            </div>
-                            <div class="tab-pane fade" id="reviews" role="tabpanel" >
-                                <div class="reviews_wrapper">
-                                    <h2>1 review for Donec eu furniture</h2>
-                                    <div class="reviews_comment_box">
-                                        <div class="comment_thmb">
-                                            <img src="/assets/img/blog/comment2.jpg" alt="">
-                                        </div>
-                                        <div class="comment_text">
-                                            <div class="reviews_meta">
-                                                <div class="star_rating">
-                                                    <ul class="d-flex">
-                                                        <li><a href="#"><i class="icon-star"></i></a></li>
-                                                       <li><a href="#"><i class="icon-star"></i></a></li>
-                                                       <li><a href="#"><i class="icon-star"></i></a></li>
-                                                       <li><a href="#"><i class="icon-star"></i></a></li>
-                                                       <li><a href="#"><i class="icon-star"></i></a></li>
-                                                    </ul>
-                                                </div>
-                                                <p><strong>admin </strong>- September 12, 2018</p>
-                                                <span>roadthemes</span>
+                        <div class="tab-pane fade" id="reviews" role="tabpanel">
+                            <div class="reviews_wrapper">
+                                <h2>1 review for Donec eu furniture</h2>
+                                <div class="reviews_comment_box">
+                                    <div class="comment_thmb">
+                                        <img src="/assets/img/blog/comment2.jpg" alt="">
+                                    </div>
+                                    <div class="comment_text">
+                                        <div class="reviews_meta">
+                                            <div class="star_rating">
+                                                <ul class="d-flex">
+                                                    <li><a href="#"><i class="icon-star"></i></a></li>
+                                                    <li><a href="#"><i class="icon-star"></i></a></li>
+                                                    <li><a href="#"><i class="icon-star"></i></a></li>
+                                                    <li><a href="#"><i class="icon-star"></i></a></li>
+                                                    <li><a href="#"><i class="icon-star"></i></a></li>
+                                                </ul>
                                             </div>
+                                            <p><strong>admin </strong>- September 12, 2018</p>
+                                            <span>roadthemes</span>
                                         </div>
+                                    </div>
 
-                                    </div>
-                                    <div class="comment_title">
-                                        <h2>Add a review </h2>
-                                        <p>Your email address will not be published.  Required fields are marked </p>
-                                    </div>
-                                    <div class="product_ratting mb-10">
-                                       <h3>Your rating</h3>
-                                        <ul class="d-flex">
-                                            <li><a href="#"><i class="icon-star"></i></a></li>
-                                               <li><a href="#"><i class="icon-star"></i></a></li>
-                                               <li><a href="#"><i class="icon-star"></i></a></li>
-                                               <li><a href="#"><i class="icon-star"></i></a></li>
-                                               <li><a href="#"><i class="icon-star"></i></a></li>
-                                        </ul>
-                                    </div>
-                                    <div class="product_review_form">
-                                        <form action="#">
-                                            <div class="row">
-                                                <div class="col-12">
-                                                    <label for="review_comment">Your review </label>
-                                                    <textarea name="comment" id="review_comment" ></textarea>
-                                                </div>
-                                                <div class="col-lg-6 col-md-6">
-                                                    <label for="author">Name</label>
-                                                    <input id="author"  type="text">
-
-                                                </div>
-                                                <div class="col-lg-6 col-md-6">
-                                                    <label for="email">Email </label>
-                                                    <input id="email"  type="text">
-                                                </div>
-                                            </div>
-                                            <button type="submit">Submit</button>
-                                         </form>
-                                    </div>
                                 </div>
-                            </div>
-                            <div class="tab-pane fade" id="tags" role="tabpanel" >
-                                <div class="product_info_content">
-                                    <ul>
-                                        <li>Length: 74cm</li>
-                                        <li>Regular fit</li>
-                                        <li>Notched lapels</li>
-                                        <li>Twin button front fastening</li>
-                                        <li>Front patch pockets; chest pocket</li>
-                                        <li> Internal pockets</li>
+                                <div class="comment_title">
+                                    <h2>Add a review </h2>
+                                    <p>Your email address will not be published. Required fields are marked </p>
+                                </div>
+                                <div class="product_ratting mb-10">
+                                    <h3>Your rating</h3>
+                                    <ul class="d-flex">
+                                        <li><a href="#"><i class="icon-star"></i></a></li>
+                                        <li><a href="#"><i class="icon-star"></i></a></li>
+                                        <li><a href="#"><i class="icon-star"></i></a></li>
+                                        <li><a href="#"><i class="icon-star"></i></a></li>
+                                        <li><a href="#"><i class="icon-star"></i></a></li>
                                     </ul>
                                 </div>
-                            </div>
-                            <div class="tab-pane fade" id="additional" role="tabpanel" >
-                                <div class="product_d_table">
-                                   <form action="#">
-                                        <table>
-                                            <tbody>
-                                                <tr>
-                                                    <td class="first_child">Compositions</td>
-                                                    <td>Polyester</td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="first_child">Styles</td>
-                                                    <td>Girly</td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="first_child">Properties</td>
-                                                    <td>Short Dress</td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
+                                <div class="product_review_form">
+                                    <form action="#">
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <label for="review_comment">Your review </label>
+                                                <textarea name="comment" id="review_comment"></textarea>
+                                            </div>
+                                            <div class="col-lg-6 col-md-6">
+                                                <label for="author">Name</label>
+                                                <input id="author" type="text">
+
+                                            </div>
+                                            <div class="col-lg-6 col-md-6">
+                                                <label for="email">Email </label>
+                                                <input id="email" type="text">
+                                            </div>
+                                        </div>
+                                        <button type="submit">Submit</button>
                                     </form>
                                 </div>
-                                <div class="product_info_content">
-                                    <p>Fashion has been creating well-designed collections since 2010. The brand offers feminine designs delivering stylish separates and statement dresses which have since evolved into a full ready-to-wear collection in which every item is a vital part of a woman's wardrobe. The result? Cool, easy, chic looks with youthful elegance and unmistakable signature style. All the beautiful pieces are made in Italy and manufactured with the greatest attention. Now Fashion extends to a range of accessories including shoes, hats, belts and more!</p>
-                                </div>
                             </div>
-                             <div class="tab-pane fade" id="tabinfo" role="tabpanel" >
-                                <div class="product_d_table">
-                                   <form action="#">
-                                        <table>
-                                            <tbody>
-                                                <tr>
-                                                    <td class="first_child">Compositions</td>
-                                                    <td>Polyester</td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="first_child">Styles</td>
-                                                    <td>Girly</td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="first_child">Properties</td>
-                                                    <td>Short Dress</td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </form>
-                                </div>
-                                <div class="product_info_content">
-                                    <p>Fashion has been creating well-designed collections since 2010. The brand offers feminine designs delivering stylish separates and statement dresses which have since evolved into a full ready-to-wear collection in which every item is a vital part of a woman's wardrobe. The result? Cool, easy, chic looks with youthful elegance and unmistakable signature style. All the beautiful pieces are made in Italy and manufactured with the greatest attention. Now Fashion extends to a range of accessories including shoes, hats, belts and more!</p>
-                                </div>
+                        </div>
+                        <div class="tab-pane fade" id="tags" role="tabpanel">
+                            <div class="product_info_content">
+                                <ul>
+                                    <li>Length: 74cm</li>
+                                    <li>Regular fit</li>
+                                    <li>Notched lapels</li>
+                                    <li>Twin button front fastening</li>
+                                    <li>Front patch pockets; chest pocket</li>
+                                    <li> Internal pockets</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="additional" role="tabpanel">
+                            <div class="product_d_table">
+                                <form action="#">
+                                    <table>
+                                        <tbody>
+                                        <tr>
+                                            <td class="first_child">Compositions</td>
+                                            <td>Polyester</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="first_child">Styles</td>
+                                            <td>Girly</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="first_child">Properties</td>
+                                            <td>Short Dress</td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </form>
+                            </div>
+                            <div class="product_info_content">
+                                <p>Fashion has been creating well-designed collections since 2010. The brand offers
+                                    feminine designs delivering stylish separates and statement dresses which have since
+                                    evolved into a full ready-to-wear collection in which every item is a vital part of
+                                    a woman's wardrobe. The result? Cool, easy, chic looks with youthful elegance and
+                                    unmistakable signature style. All the beautiful pieces are made in Italy and
+                                    manufactured with the greatest attention. Now Fashion extends to a range of
+                                    accessories including shoes, hats, belts and more!</p>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="tabinfo" role="tabpanel">
+                            <div class="product_d_table">
+                                <form action="#">
+                                    <table>
+                                        <tbody>
+                                        <tr>
+                                            <td class="first_child">Compositions</td>
+                                            <td>Polyester</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="first_child">Styles</td>
+                                            <td>Girly</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="first_child">Properties</td>
+                                            <td>Short Dress</td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </form>
+                            </div>
+                            <div class="product_info_content">
+                                <p>Fashion has been creating well-designed collections since 2010. The brand offers
+                                    feminine designs delivering stylish separates and statement dresses which have since
+                                    evolved into a full ready-to-wear collection in which every item is a vital part of
+                                    a woman's wardrobe. The result? Cool, easy, chic looks with youthful elegance and
+                                    unmistakable signature style. All the beautiful pieces are made in Italy and
+                                    manufactured with the greatest attention. Now Fashion extends to a range of
+                                    accessories including shoes, hats, belts and more!</p>
                             </div>
                         </div>
                     </div>
@@ -385,20 +414,21 @@
             </div>
         </div>
     </div>
-    <!--product info end-->
+</div>
+<!--product info end-->
 
-    <!--product area start-->
-    <section class="product_area related_products mb-118">
-        <div class="container">
-            <div class="row">
-                <div class="col-12">
-                    <div class="section_title mb-50">
-                        <h2>Related Products</h2>
-                    </div>
+<!--product area start-->
+<section class="product_area related_products mb-118">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="section_title mb-50">
+                    <h2>Related Products</h2>
                 </div>
             </div>
-            <div class="product_container row">
-                <div class=" product_slick slick_slider_activation" data-slick='{
+        </div>
+        <div class="product_container row">
+            <div class=" product_slick slick_slider_activation" data-slick='{
                     "slidesToShow": 4,
                     "slidesToScroll": 1,
                     "arrows": true,
@@ -412,342 +442,410 @@
                       {"breakpoint":300, "settings": { "slidesToShow": 1 } }
                      ]
                 }'>
-                    <div class="col-lg-3">
-                        <article class="single_product">
-                            <figure>
-                                <div class="product_thumb">
-                                    <a href="product-details.html" >
-                                        <img class="primary_img" src="/assets/img/product/product1.jpg" alt="consectetur">
-                                    </a>
-                                    <div class="product_action">
-                                        <ul>
-                                            <li class="wishlist"><a href="#" data-tippy="Wishlist" data-tippy-inertia="true" data-tippy-delay="50"
-                                            data-tippy-arrow="true" data-tippy-placement="left"><i class="icon-heart icons"></i></a></li>
+                <div class="col-lg-3">
+                    <article class="single_product">
+                        <figure>
+                            <div class="product_thumb">
+                                <a href="product-details.html">
+                                    <img class="primary_img" src="/assets/img/product/product1.jpg" alt="consectetur">
+                                </a>
+                                <div class="product_action">
+                                    <ul>
+                                        <li class="wishlist"><a href="#" data-tippy="Wishlist" data-tippy-inertia="true"
+                                                                data-tippy-delay="50"
+                                                                data-tippy-arrow="true" data-tippy-placement="left"><i
+                                                class="icon-heart icons"></i></a></li>
 
-                                            <li class="quick_view"><a data-toggle="modal" data-target="#modal_box" data-tippy="Quick View" href="#" data-tippy-inertia="true" data-tippy-delay="50" data-tippy-arrow="true" data-tippy-placement="left"><i class="icon-size-fullscreen icons"></i></a></li>
-                                            <li class="compare"><a data-tippy="Compare" href="#" data-tippy-inertia="true" data-tippy-delay="50"
-                                            data-tippy-arrow="true" data-tippy-placement="left"><i class="icon-refresh icons"></i></a></li>
-                                        </ul>
-                                    </div>
+                                        <li class="quick_view"><a data-toggle="modal" data-target="#modal_box"
+                                                                  data-tippy="Quick View" href="#"
+                                                                  data-tippy-inertia="true" data-tippy-delay="50"
+                                                                  data-tippy-arrow="true" data-tippy-placement="left"><i
+                                                class="icon-size-fullscreen icons"></i></a></li>
+                                        <li class="compare"><a data-tippy="Compare" href="#" data-tippy-inertia="true"
+                                                               data-tippy-delay="50"
+                                                               data-tippy-arrow="true" data-tippy-placement="left"><i
+                                                class="icon-refresh icons"></i></a></li>
+                                    </ul>
                                 </div>
-                                <figcaption class="product_content text-center">
-                                    <div class="product_ratting">
-                                        <ul class="d-flex justify-content-center">
-                                            <li><a href="#"><i class="ion-android-star"></i></a></li>
-                                            <li><a href="#"><i class="ion-android-star"></i></a></li>
-                                            <li><a href="#"><i class="ion-android-star"></i></a></li>
-                                            <li><a href="#"><i class="ion-android-star"></i></a></li>
-                                            <li><a href="#"><i class="ion-android-star"></i></a></li>
-                                            <li><span>(4)</span></li>
-                                        </ul>
-                                    </div>
-                                    <h4 class="product_name"><a href="product-details.html">Basic Joggin Shorts</a></h4>
-                                    <div class="price_box">
-                                        <span class="current_price">$26.00</span>
-                                        <span class="old_price">$62.00</span>
-                                    </div>
-                                    <div class="add_to_cart">
-                                        <a class="btn btn-primary" href="#" data-tippy="Add To Cart"  data-tippy-inertia="true" data-tippy-delay="50" data-tippy-arrow="true" data-tippy-placement="top">Add To Cart</a>
-                                    </div>
-                                </figcaption>
-                            </figure>
-                        </article>
-                    </div>
-                    <div class="col-lg-3">
-                        <article class="single_product">
-                            <figure>
-                                <div class="product_thumb">
-                                    <a href="product-details.html" >
-                                        <img class="primary_img" src="/assets/img/product/product2.jpg" alt="consectetur">
-                                    </a>
-                                    <div class="product_action">
-                                        <ul>
-                                            <li class="wishlist"><a href="#" data-tippy="Wishlist" data-tippy-inertia="true" data-tippy-delay="50"
-                                            data-tippy-arrow="true" data-tippy-placement="left"><i class="icon-heart icons"></i></a></li>
-
-                                            <li class="quick_view"><a data-toggle="modal" data-target="#modal_box" data-tippy="Quick View" href="#" data-tippy-inertia="true" data-tippy-delay="50" data-tippy-arrow="true" data-tippy-placement="left"><i class="icon-size-fullscreen icons"></i></a></li>
-                                            <li class="compare"><a data-tippy="Compare" href="#" data-tippy-inertia="true" data-tippy-delay="50"
-                                            data-tippy-arrow="true" data-tippy-placement="left"><i class="icon-refresh icons"></i></a></li>
-                                        </ul>
-                                    </div>
-                                    <div class="product_label">
-                                        <span>-20%</span>
-                                    </div>
+                            </div>
+                            <figcaption class="product_content text-center">
+                                <div class="product_ratting">
+                                    <ul class="d-flex justify-content-center">
+                                        <li><a href="#"><i class="ion-android-star"></i></a></li>
+                                        <li><a href="#"><i class="ion-android-star"></i></a></li>
+                                        <li><a href="#"><i class="ion-android-star"></i></a></li>
+                                        <li><a href="#"><i class="ion-android-star"></i></a></li>
+                                        <li><a href="#"><i class="ion-android-star"></i></a></li>
+                                        <li><span>(4)</span></li>
+                                    </ul>
                                 </div>
-                                <figcaption class="product_content text-center">
-                                    <div class="product_ratting">
-                                        <ul class="d-flex justify-content-center">
-                                            <li><a href="#"><i class="ion-android-star"></i></a></li>
-                                            <li><a href="#"><i class="ion-android-star"></i></a></li>
-                                            <li><a href="#"><i class="ion-android-star"></i></a></li>
-                                            <li><a href="#"><i class="ion-android-star"></i></a></li>
-                                            <li><a href="#"><i class="ion-android-star"></i></a></li>
-                                            <li><span>(6)</span></li>
-                                        </ul>
-                                    </div>
-                                    <h4 class="product_name"><a href="product-details.html">Make Thing Happen T-Shirts</a></h4>
-                                    <div class="price_box">
-                                        <span class="text-black">$38.00</span>
-
-                                    </div>
-                                    <div class="add_to_cart">
-                                        <a class="btn btn-primary" href="#" data-tippy="Add To Cart"  data-tippy-inertia="true" data-tippy-delay="50" data-tippy-arrow="true" data-tippy-placement="top">Add To Cart</a>
-                                    </div>
-                                </figcaption>
-                            </figure>
-                        </article>
-                    </div>
-                    <div class="col-lg-3">
-                        <article class="single_product">
-                            <figure>
-                                <div class="product_thumb">
-                                    <a href="product-details.html" >
-                                        <img class="primary_img" src="/assets/img/product/product3.jpg" alt="consectetur">
-                                    </a>
-                                    <div class="product_action">
-                                        <ul>
-                                            <li class="wishlist"><a href="#" data-tippy="Wishlist" data-tippy-inertia="true" data-tippy-delay="50"
-                                            data-tippy-arrow="true" data-tippy-placement="left"><i class="icon-heart icons"></i></a></li>
-
-                                            <li class="quick_view"><a data-toggle="modal" data-target="#modal_box" data-tippy="Quick View" href="#" data-tippy-inertia="true" data-tippy-delay="50" data-tippy-arrow="true" data-tippy-placement="left"><i class="icon-size-fullscreen icons"></i></a></li>
-                                            <li class="compare"><a data-tippy="Compare" href="#" data-tippy-inertia="true" data-tippy-delay="50"
-                                            data-tippy-arrow="true" data-tippy-placement="left"><i class="icon-refresh icons"></i></a></li>
-                                        </ul>
-                                    </div>
-                                    <div class="product_label">
-                                        <span>-18%</span>
-                                    </div>
+                                <h4 class="product_name"><a href="product-details.html">Basic Joggin Shorts</a></h4>
+                                <div class="price_box">
+                                    <span class="current_price">$26.00</span>
+                                    <span class="old_price">$62.00</span>
                                 </div>
-                                <figcaption class="product_content text-center">
-                                    <div class="product_ratting">
-                                        <ul class="d-flex justify-content-center">
-                                            <li><a href="#"><i class="ion-android-star"></i></a></li>
-                                            <li><a href="#"><i class="ion-android-star"></i></a></li>
-                                            <li><a href="#"><i class="ion-android-star"></i></a></li>
-                                            <li><a href="#"><i class="ion-android-star"></i></a></li>
-                                            <li><a href="#"><i class="ion-android-star"></i></a></li>
-                                            <li><span>(2)</span></li>
-                                        </ul>
-                                    </div>
-                                    <h4 class="product_name"><a href="product-details.html">Basic White Simple Sneaker</a></h4>
-                                    <div class="price_box">
-                                        <span class="current_price">$43.00</span>
-                                        <span class="old_price">$46.00</span>
-                                    </div>
-                                    <div class="add_to_cart">
-                                        <a class="btn btn-primary" href="#" data-tippy="Add To Cart"  data-tippy-inertia="true" data-tippy-delay="50" data-tippy-arrow="true" data-tippy-placement="top">Add To Cart</a>
-                                    </div>
-                                </figcaption>
-                            </figure>
-                        </article>
-                    </div>
-                    <div class="col-lg-3">
-                        <article class="single_product">
-                            <figure>
-                                <div class="product_thumb">
-                                    <a href="product-details.html" >
-                                        <img class="primary_img" src="/assets/img/product/product4.jpg" alt="consectetur">
-                                    </a>
-                                    <div class="product_action">
-                                        <ul>
-                                            <li class="wishlist"><a href="#" data-tippy="Wishlist" data-tippy-inertia="true" data-tippy-delay="50"
-                                            data-tippy-arrow="true" data-tippy-placement="left"><i class="icon-heart icons"></i></a></li>
-
-                                            <li class="quick_view"><a data-toggle="modal" data-target="#modal_box" data-tippy="Quick View" href="#" data-tippy-inertia="true" data-tippy-delay="50" data-tippy-arrow="true" data-tippy-placement="left"><i class="icon-size-fullscreen icons"></i></a></li>
-                                            <li class="compare"><a data-tippy="Compare" href="#" data-tippy-inertia="true" data-tippy-delay="50"
-                                            data-tippy-arrow="true" data-tippy-placement="left"><i class="icon-refresh icons"></i></a></li>
-                                        </ul>
-                                    </div>
+                                <div class="add_to_cart">
+                                    <a class="btn btn-primary" href="#" data-tippy="Add To Cart"
+                                       data-tippy-inertia="true" data-tippy-delay="50" data-tippy-arrow="true"
+                                       data-tippy-placement="top">Add To Cart</a>
                                 </div>
-                                <figcaption class="product_content text-center">
-                                    <div class="product_ratting">
-                                        <ul class="d-flex justify-content-center">
-                                            <li><a href="#"><i class="ion-android-star"></i></a></li>
-                                            <li><a href="#"><i class="ion-android-star"></i></a></li>
-                                            <li><a href="#"><i class="ion-android-star"></i></a></li>
-                                            <li><a href="#"><i class="ion-android-star"></i></a></li>
-                                            <li><a href="#"><i class="ion-android-star"></i></a></li>
-                                            <li><span>(8)</span></li>
-                                        </ul>
-                                    </div>
-                                    <h4 class="product_name"><a href="product-details.html">Simple Rounded Sunglasses</a></h4>
-                                    <div class="price_box">
-                                       <span class="text-black">$42.00</span>
-                                    </div>
-                                    <div class="add_to_cart">
-                                        <a class="btn btn-primary" href="#" data-tippy="Add To Cart"  data-tippy-inertia="true" data-tippy-delay="50" data-tippy-arrow="true" data-tippy-placement="top">Add To Cart</a>
-                                    </div>
-                                </figcaption>
-                            </figure>
-                        </article>
-                    </div>
-                    <div class="col-lg-3">
-                        <article class="single_product">
-                            <figure>
-                                <div class="product_thumb">
-                                    <a href="product-details.html" >
-                                        <img class="primary_img" src="/assets/img/product/product1.jpg" alt="consectetur">
-                                    </a>
-                                    <div class="product_action">
-                                        <ul>
-                                            <li class="wishlist"><a href="#" data-tippy="Wishlist" data-tippy-inertia="true" data-tippy-delay="50"
-                                            data-tippy-arrow="true" data-tippy-placement="left"><i class="icon-heart icons"></i></a></li>
+                            </figcaption>
+                        </figure>
+                    </article>
+                </div>
+                <div class="col-lg-3">
+                    <article class="single_product">
+                        <figure>
+                            <div class="product_thumb">
+                                <a href="product-details.html">
+                                    <img class="primary_img" src="/assets/img/product/product2.jpg" alt="consectetur">
+                                </a>
+                                <div class="product_action">
+                                    <ul>
+                                        <li class="wishlist"><a href="#" data-tippy="Wishlist" data-tippy-inertia="true"
+                                                                data-tippy-delay="50"
+                                                                data-tippy-arrow="true" data-tippy-placement="left"><i
+                                                class="icon-heart icons"></i></a></li>
 
-                                            <li class="quick_view"><a data-toggle="modal" data-target="#modal_box" data-tippy="Quick View" href="#" data-tippy-inertia="true" data-tippy-delay="50" data-tippy-arrow="true" data-tippy-placement="left"><i class="icon-size-fullscreen icons"></i></a></li>
-                                            <li class="compare"><a data-tippy="Compare" href="#" data-tippy-inertia="true" data-tippy-delay="50"
-                                            data-tippy-arrow="true" data-tippy-placement="left"><i class="icon-refresh icons"></i></a></li>
-                                        </ul>
-                                    </div>
+                                        <li class="quick_view"><a data-toggle="modal" data-target="#modal_box"
+                                                                  data-tippy="Quick View" href="#"
+                                                                  data-tippy-inertia="true" data-tippy-delay="50"
+                                                                  data-tippy-arrow="true" data-tippy-placement="left"><i
+                                                class="icon-size-fullscreen icons"></i></a></li>
+                                        <li class="compare"><a data-tippy="Compare" href="#" data-tippy-inertia="true"
+                                                               data-tippy-delay="50"
+                                                               data-tippy-arrow="true" data-tippy-placement="left"><i
+                                                class="icon-refresh icons"></i></a></li>
+                                    </ul>
                                 </div>
-                                <figcaption class="product_content text-center">
-                                    <div class="product_ratting">
-                                        <ul class="d-flex justify-content-center">
-                                            <li><a href="#"><i class="ion-android-star"></i></a></li>
-                                            <li><a href="#"><i class="ion-android-star"></i></a></li>
-                                            <li><a href="#"><i class="ion-android-star"></i></a></li>
-                                            <li><a href="#"><i class="ion-android-star"></i></a></li>
-                                            <li><a href="#"><i class="ion-android-star"></i></a></li>
-                                            <li><span>(12)</span></li>
-                                        </ul>
-                                    </div>
-                                    <h4 class="product_name"><a href="product-details.html">Basic Joggin Shorts</a></h4>
-                                    <div class="price_box">
-                                        <span class="current_price">$26.00</span>
-                                        <span class="old_price">$362.00</span>
-                                    </div>
-                                    <div class="add_to_cart">
-                                        <a class="btn btn-primary" href="#" data-tippy="Add To Cart"  data-tippy-inertia="true" data-tippy-delay="50" data-tippy-arrow="true" data-tippy-placement="top">Add To Cart</a>
-                                    </div>
-                                </figcaption>
-                            </figure>
-                        </article>
-                    </div>
-                    <div class="col-lg-3">
-                        <article class="single_product">
-                            <figure>
-                                <div class="product_thumb">
-                                    <a href="product-details.html" >
-                                        <img class="primary_img" src="/assets/img/product/product2.jpg" alt="consectetur">
-                                    </a>
-                                    <div class="product_action">
-                                        <ul>
-                                            <li class="wishlist"><a href="#" data-tippy="Wishlist" data-tippy-inertia="true" data-tippy-delay="50"
-                                            data-tippy-arrow="true" data-tippy-placement="left"><i class="icon-heart icons"></i></a></li>
+                                <div class="product_label">
+                                    <span>-20%</span>
+                                </div>
+                            </div>
+                            <figcaption class="product_content text-center">
+                                <div class="product_ratting">
+                                    <ul class="d-flex justify-content-center">
+                                        <li><a href="#"><i class="ion-android-star"></i></a></li>
+                                        <li><a href="#"><i class="ion-android-star"></i></a></li>
+                                        <li><a href="#"><i class="ion-android-star"></i></a></li>
+                                        <li><a href="#"><i class="ion-android-star"></i></a></li>
+                                        <li><a href="#"><i class="ion-android-star"></i></a></li>
+                                        <li><span>(6)</span></li>
+                                    </ul>
+                                </div>
+                                <h4 class="product_name"><a href="product-details.html">Make Thing Happen T-Shirts</a>
+                                </h4>
+                                <div class="price_box">
+                                    <span class="text-black">$38.00</span>
 
-                                            <li class="quick_view"><a data-toggle="modal" data-target="#modal_box" data-tippy="Quick View" href="#" data-tippy-inertia="true" data-tippy-delay="50" data-tippy-arrow="true" data-tippy-placement="left"><i class="icon-size-fullscreen icons"></i></a></li>
-                                            <li class="compare"><a data-tippy="Compare" href="#" data-tippy-inertia="true" data-tippy-delay="50"
-                                            data-tippy-arrow="true" data-tippy-placement="left"><i class="icon-refresh icons"></i></a></li>
-                                        </ul>
-                                    </div>
-                                    <div class="product_label">
-                                        <span>-20%</span>
-                                    </div>
                                 </div>
-                                <figcaption class="product_content text-center">
-                                    <div class="product_ratting">
-                                        <ul class="d-flex justify-content-center">
-                                            <li><a href="#"><i class="ion-android-star"></i></a></li>
-                                            <li><a href="#"><i class="ion-android-star"></i></a></li>
-                                            <li><a href="#"><i class="ion-android-star"></i></a></li>
-                                            <li><a href="#"><i class="ion-android-star"></i></a></li>
-                                            <li><a href="#"><i class="ion-android-star"></i></a></li>
-                                            <li><span>(14)</span></li>
-                                        </ul>
-                                    </div>
-                                    <h4 class="product_name"><a href="product-details.html">Simple Rounded Sunglasses</a></h4>
-                                    <div class="price_box">
-                                        <span class="current_price">$35.00</span>
-                                        <span class="old_price">$38.00</span>
-                                    </div>
-                                    <div class="add_to_cart">
-                                        <a class="btn btn-primary" href="#" data-tippy="Add To Cart"  data-tippy-inertia="true" data-tippy-delay="50" data-tippy-arrow="true" data-tippy-placement="top">Add To Cart</a>
-                                    </div>
-                                </figcaption>
-                            </figure>
-                        </article>
-                    </div>
+                                <div class="add_to_cart">
+                                    <a class="btn btn-primary" href="#" data-tippy="Add To Cart"
+                                       data-tippy-inertia="true" data-tippy-delay="50" data-tippy-arrow="true"
+                                       data-tippy-placement="top">Add To Cart</a>
+                                </div>
+                            </figcaption>
+                        </figure>
+                    </article>
+                </div>
+                <div class="col-lg-3">
+                    <article class="single_product">
+                        <figure>
+                            <div class="product_thumb">
+                                <a href="product-details.html">
+                                    <img class="primary_img" src="/assets/img/product/product3.jpg" alt="consectetur">
+                                </a>
+                                <div class="product_action">
+                                    <ul>
+                                        <li class="wishlist"><a href="#" data-tippy="Wishlist" data-tippy-inertia="true"
+                                                                data-tippy-delay="50"
+                                                                data-tippy-arrow="true" data-tippy-placement="left"><i
+                                                class="icon-heart icons"></i></a></li>
+
+                                        <li class="quick_view"><a data-toggle="modal" data-target="#modal_box"
+                                                                  data-tippy="Quick View" href="#"
+                                                                  data-tippy-inertia="true" data-tippy-delay="50"
+                                                                  data-tippy-arrow="true" data-tippy-placement="left"><i
+                                                class="icon-size-fullscreen icons"></i></a></li>
+                                        <li class="compare"><a data-tippy="Compare" href="#" data-tippy-inertia="true"
+                                                               data-tippy-delay="50"
+                                                               data-tippy-arrow="true" data-tippy-placement="left"><i
+                                                class="icon-refresh icons"></i></a></li>
+                                    </ul>
+                                </div>
+                                <div class="product_label">
+                                    <span>-18%</span>
+                                </div>
+                            </div>
+                            <figcaption class="product_content text-center">
+                                <div class="product_ratting">
+                                    <ul class="d-flex justify-content-center">
+                                        <li><a href="#"><i class="ion-android-star"></i></a></li>
+                                        <li><a href="#"><i class="ion-android-star"></i></a></li>
+                                        <li><a href="#"><i class="ion-android-star"></i></a></li>
+                                        <li><a href="#"><i class="ion-android-star"></i></a></li>
+                                        <li><a href="#"><i class="ion-android-star"></i></a></li>
+                                        <li><span>(2)</span></li>
+                                    </ul>
+                                </div>
+                                <h4 class="product_name"><a href="product-details.html">Basic White Simple Sneaker</a>
+                                </h4>
+                                <div class="price_box">
+                                    <span class="current_price">$43.00</span>
+                                    <span class="old_price">$46.00</span>
+                                </div>
+                                <div class="add_to_cart">
+                                    <a class="btn btn-primary" href="#" data-tippy="Add To Cart"
+                                       data-tippy-inertia="true" data-tippy-delay="50" data-tippy-arrow="true"
+                                       data-tippy-placement="top">Add To Cart</a>
+                                </div>
+                            </figcaption>
+                        </figure>
+                    </article>
+                </div>
+                <div class="col-lg-3">
+                    <article class="single_product">
+                        <figure>
+                            <div class="product_thumb">
+                                <a href="product-details.html">
+                                    <img class="primary_img" src="/assets/img/product/product4.jpg" alt="consectetur">
+                                </a>
+                                <div class="product_action">
+                                    <ul>
+                                        <li class="wishlist"><a href="#" data-tippy="Wishlist" data-tippy-inertia="true"
+                                                                data-tippy-delay="50"
+                                                                data-tippy-arrow="true" data-tippy-placement="left"><i
+                                                class="icon-heart icons"></i></a></li>
+
+                                        <li class="quick_view"><a data-toggle="modal" data-target="#modal_box"
+                                                                  data-tippy="Quick View" href="#"
+                                                                  data-tippy-inertia="true" data-tippy-delay="50"
+                                                                  data-tippy-arrow="true" data-tippy-placement="left"><i
+                                                class="icon-size-fullscreen icons"></i></a></li>
+                                        <li class="compare"><a data-tippy="Compare" href="#" data-tippy-inertia="true"
+                                                               data-tippy-delay="50"
+                                                               data-tippy-arrow="true" data-tippy-placement="left"><i
+                                                class="icon-refresh icons"></i></a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <figcaption class="product_content text-center">
+                                <div class="product_ratting">
+                                    <ul class="d-flex justify-content-center">
+                                        <li><a href="#"><i class="ion-android-star"></i></a></li>
+                                        <li><a href="#"><i class="ion-android-star"></i></a></li>
+                                        <li><a href="#"><i class="ion-android-star"></i></a></li>
+                                        <li><a href="#"><i class="ion-android-star"></i></a></li>
+                                        <li><a href="#"><i class="ion-android-star"></i></a></li>
+                                        <li><span>(8)</span></li>
+                                    </ul>
+                                </div>
+                                <h4 class="product_name"><a href="product-details.html">Simple Rounded Sunglasses</a>
+                                </h4>
+                                <div class="price_box">
+                                    <span class="text-black">$42.00</span>
+                                </div>
+                                <div class="add_to_cart">
+                                    <a class="btn btn-primary" href="#" data-tippy="Add To Cart"
+                                       data-tippy-inertia="true" data-tippy-delay="50" data-tippy-arrow="true"
+                                       data-tippy-placement="top">Add To Cart</a>
+                                </div>
+                            </figcaption>
+                        </figure>
+                    </article>
+                </div>
+                <div class="col-lg-3">
+                    <article class="single_product">
+                        <figure>
+                            <div class="product_thumb">
+                                <a href="product-details.html">
+                                    <img class="primary_img" src="/assets/img/product/product1.jpg" alt="consectetur">
+                                </a>
+                                <div class="product_action">
+                                    <ul>
+                                        <li class="wishlist"><a href="#" data-tippy="Wishlist" data-tippy-inertia="true"
+                                                                data-tippy-delay="50"
+                                                                data-tippy-arrow="true" data-tippy-placement="left"><i
+                                                class="icon-heart icons"></i></a></li>
+
+                                        <li class="quick_view"><a data-toggle="modal" data-target="#modal_box"
+                                                                  data-tippy="Quick View" href="#"
+                                                                  data-tippy-inertia="true" data-tippy-delay="50"
+                                                                  data-tippy-arrow="true" data-tippy-placement="left"><i
+                                                class="icon-size-fullscreen icons"></i></a></li>
+                                        <li class="compare"><a data-tippy="Compare" href="#" data-tippy-inertia="true"
+                                                               data-tippy-delay="50"
+                                                               data-tippy-arrow="true" data-tippy-placement="left"><i
+                                                class="icon-refresh icons"></i></a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <figcaption class="product_content text-center">
+                                <div class="product_ratting">
+                                    <ul class="d-flex justify-content-center">
+                                        <li><a href="#"><i class="ion-android-star"></i></a></li>
+                                        <li><a href="#"><i class="ion-android-star"></i></a></li>
+                                        <li><a href="#"><i class="ion-android-star"></i></a></li>
+                                        <li><a href="#"><i class="ion-android-star"></i></a></li>
+                                        <li><a href="#"><i class="ion-android-star"></i></a></li>
+                                        <li><span>(12)</span></li>
+                                    </ul>
+                                </div>
+                                <h4 class="product_name"><a href="product-details.html">Basic Joggin Shorts</a></h4>
+                                <div class="price_box">
+                                    <span class="current_price">$26.00</span>
+                                    <span class="old_price">$362.00</span>
+                                </div>
+                                <div class="add_to_cart">
+                                    <a class="btn btn-primary" href="#" data-tippy="Add To Cart"
+                                       data-tippy-inertia="true" data-tippy-delay="50" data-tippy-arrow="true"
+                                       data-tippy-placement="top">Add To Cart</a>
+                                </div>
+                            </figcaption>
+                        </figure>
+                    </article>
+                </div>
+                <div class="col-lg-3">
+                    <article class="single_product">
+                        <figure>
+                            <div class="product_thumb">
+                                <a href="product-details.html">
+                                    <img class="primary_img" src="/assets/img/product/product2.jpg" alt="consectetur">
+                                </a>
+                                <div class="product_action">
+                                    <ul>
+                                        <li class="wishlist"><a href="#" data-tippy="Wishlist" data-tippy-inertia="true"
+                                                                data-tippy-delay="50"
+                                                                data-tippy-arrow="true" data-tippy-placement="left"><i
+                                                class="icon-heart icons"></i></a></li>
+
+                                        <li class="quick_view"><a data-toggle="modal" data-target="#modal_box"
+                                                                  data-tippy="Quick View" href="#"
+                                                                  data-tippy-inertia="true" data-tippy-delay="50"
+                                                                  data-tippy-arrow="true" data-tippy-placement="left"><i
+                                                class="icon-size-fullscreen icons"></i></a></li>
+                                        <li class="compare"><a data-tippy="Compare" href="#" data-tippy-inertia="true"
+                                                               data-tippy-delay="50"
+                                                               data-tippy-arrow="true" data-tippy-placement="left"><i
+                                                class="icon-refresh icons"></i></a></li>
+                                    </ul>
+                                </div>
+                                <div class="product_label">
+                                    <span>-20%</span>
+                                </div>
+                            </div>
+                            <figcaption class="product_content text-center">
+                                <div class="product_ratting">
+                                    <ul class="d-flex justify-content-center">
+                                        <li><a href="#"><i class="ion-android-star"></i></a></li>
+                                        <li><a href="#"><i class="ion-android-star"></i></a></li>
+                                        <li><a href="#"><i class="ion-android-star"></i></a></li>
+                                        <li><a href="#"><i class="ion-android-star"></i></a></li>
+                                        <li><a href="#"><i class="ion-android-star"></i></a></li>
+                                        <li><span>(14)</span></li>
+                                    </ul>
+                                </div>
+                                <h4 class="product_name"><a href="product-details.html">Simple Rounded Sunglasses</a>
+                                </h4>
+                                <div class="price_box">
+                                    <span class="current_price">$35.00</span>
+                                    <span class="old_price">$38.00</span>
+                                </div>
+                                <div class="add_to_cart">
+                                    <a class="btn btn-primary" href="#" data-tippy="Add To Cart"
+                                       data-tippy-inertia="true" data-tippy-delay="50" data-tippy-arrow="true"
+                                       data-tippy-placement="top">Add To Cart</a>
+                                </div>
+                            </figcaption>
+                        </figure>
+                    </article>
                 </div>
             </div>
         </div>
-    </section>
-    <!--product area end-->
+    </div>
+</section>
+<!--product area end-->
 
-    <!--newsletter section start-->
-    <section th:replace="~{home/fragments/layout :: newsletter}"></section>
-    <!--newsletter section end-->
+<!--newsletter section start-->
+<section th:replace="~{home/fragments/layout :: newsletter}"></section>
+<!--newsletter section end-->
 
 
-    <!--footer area start-->
-    <footer th:replace="~{home/fragments/layout :: footer}"></footer>
-    <!--footer area end-->
+<!--footer area start-->
+<footer th:replace="~{home/fragments/layout :: footer}"></footer>
+<!--footer area end-->
 
-     <!-- modal area start-->
-    <div class="modal fade" id="modal_box" tabindex="-1" role="dialog"  aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true"><i class="ion-android-close"></i></span>
-                </button>
-                <div class="modal_body">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-lg-6 col-md-6 col-sm-12">
-                                <div class="modal_zoom_gallery">
-                                   <div class="product_zoom_thumb">
-                                        <img src="/assets/img/product/big-product/product1.png" alt="">
-                                    </div>
+<!-- modal area start-->
+<div class="modal fade" id="modal_box" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true"><i class="ion-android-close"></i></span>
+            </button>
+            <div class="modal_body">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6 col-sm-12">
+                            <div class="modal_zoom_gallery">
+                                <div class="product_zoom_thumb">
+                                    <img src="/assets/img/product/big-product/product1.png" alt="">
                                 </div>
                             </div>
-                            <div class="col-lg-6 col-md-6 col-sm-12">
-                                <div class="modal_right">
-                                    <div class="modal_title mb-10">
-                                        <h2>Donec Ac Tempus</h2>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-12">
+                            <div class="modal_right">
+                                <div class="modal_title mb-10">
+                                    <h2>Donec Ac Tempus</h2>
+                                </div>
+                                <div class="modal_price mb-10">
+                                    <span class="new_price">$64.99</span>
+                                    <span class="old_price">$78.99</span>
+                                </div>
+                                <div class="modal_description mb-15">
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Mollitia iste laborum
+                                        ad impedit pariatur esse optio tempora sint ullam autem deleniti nam in quos
+                                        qui, </p>
+                                </div>
+                                <div class="variants_selects">
+                                    <div class="variants_size">
+                                        <h2>size</h2>
+                                        <select class="select_option">
+                                            <option selected value="1">s</option>
+                                            <option value="1">m</option>
+                                            <option value="1">l</option>
+                                            <option value="1">xl</option>
+                                            <option value="1">xxl</option>
+                                        </select>
                                     </div>
-                                    <div class="modal_price mb-10">
-                                        <span class="new_price">$64.99</span>
-                                        <span class="old_price" >$78.99</span>
+                                    <div class="variants_color">
+                                        <h2>color</h2>
+                                        <select class="select_option">
+                                            <option selected value="1">purple</option>
+                                            <option value="1">violet</option>
+                                            <option value="1">black</option>
+                                            <option value="1">pink</option>
+                                            <option value="1">orange</option>
+                                        </select>
                                     </div>
-                                    <div class="modal_description mb-15">
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Mollitia iste laborum ad impedit pariatur esse optio tempora sint ullam autem deleniti nam in quos qui,  </p>
+                                    <div class="modal_add_to_cart">
+                                        <form action="#">
+                                            <input min="1" max="100" step="2" value="1" type="number">
+                                            <button type="submit">add to cart</button>
+                                        </form>
                                     </div>
-                                    <div class="variants_selects">
-                                        <div class="variants_size">
-                                           <h2>size</h2>
-                                           <select class="select_option">
-                                               <option selected value="1">s</option>
-                                               <option value="1">m</option>
-                                               <option value="1">l</option>
-                                               <option value="1">xl</option>
-                                               <option value="1">xxl</option>
-                                           </select>
-                                        </div>
-                                        <div class="variants_color">
-                                           <h2>color</h2>
-                                           <select class="select_option">
-                                               <option selected value="1">purple</option>
-                                               <option value="1">violet</option>
-                                               <option value="1">black</option>
-                                               <option value="1">pink</option>
-                                               <option value="1">orange</option>
-                                           </select>
-                                        </div>
-                                        <div class="modal_add_to_cart">
-                                            <form action="#">
-                                                <input min="1" max="100" step="2" value="1" type="number">
-                                                <button type="submit">add to cart</button>
-                                            </form>
-                                        </div>
-                                    </div>
-                                    <div class="modal_social">
-                                        <h2>Share this product</h2>
-                                        <ul>
-                                            <li class="facebook"><a href="#"><i class="fa fa-facebook"></i></a></li>
-                                            <li class="twitter"><a href="#"><i class="fa fa-twitter"></i></a></li>
-                                            <li class="pinterest"><a href="#"><i class="fa fa-pinterest"></i></a></li>
-                                            <li class="google-plus"><a href="#"><i class="fa fa-google-plus"></i></a></li>
-                                            <li class="linkedin"><a href="#"><i class="fa fa-linkedin"></i></a></li>
-                                        </ul>
-                                    </div>
+                                </div>
+                                <div class="modal_social">
+                                    <h2>Share this product</h2>
+
+                                    <ul>
+                                        <li class="facebook"><a
+                                                href="https://www.facebook.com/sharer/sharer.php?u=https://www.your-domain.com/your-page.html"><i
+                                                class="fa fa-facebook"></i></a></li>
+                                        <li class="twitter"><a href="#"><i class="fa fa-twitter"></i></a></li>
+                                        <li class="pinterest"><a href="#"><i class="fa fa-pinterest"></i></a></li>
+                                        <li class="google-plus"><a href="#"><i class="fa fa-google-plus"></i></a></li>
+                                        <li class="linkedin"><a href="#"><i class="fa fa-linkedin"></i></a></li>
+                                    </ul>
                                 </div>
                             </div>
                         </div>
@@ -756,24 +854,58 @@
             </div>
         </div>
     </div>
-    <!-- modal area end-->
+</div>
+<!-- modal area end-->
 
 <!-- JS
 ============================================ -->
-    <div th:replace="~{home/fragments/layout :: js}"></div>
+<div th:replace="~{home/fragments/layout :: js}"></div>
+<div id="fb-root"></div>
+<script>
+    var chatbox = document.getElementById('fb-customer-chat');
+    chatbox.setAttribute("page_id", "100588783138633");
+    chatbox.setAttribute("attribution", "biz_inbox");
+</script>
+
 <script>
     const dataColor = document.getElementsByClassName("data-color");
-    for(const item of dataColor){
+    for (const item of dataColor) {
         item.style.background = item.getAttribute("data-code-color");
     }
+
     function getQuantity(color) {
-        if(color !== undefined){
+        if (color !== undefined) {
             document.getElementById("colorName").innerText = color.getAttribute("data-color");
         }
         //ajax call api return product item value detail by size and color
         //replace price and id value
     }
+
 </script>
+<!-- Share Button -->
+<script>
+    const link = encodeURI(window.location.href);
+    const msg1 = encodeURIComponent('Hey, I found this article');
+    const msg2 = encodeURIComponent('#BobaShop Tự tin tỏa sáng với bộ sưu tập quần áo mới - Mua tại')
+
+    const fb = document.querySelector('.facebook');
+    fb.href = `https://www.facebook.com/share.php?u=${link}`;
+
+    const twitter = document.querySelector('.twitter');
+    twitter.href = `https://twitter.com/intent/tweet?url=${link}&text=${msg2}`;
+
+    const pinterest = document.querySelector('.pinterest');
+    pinterest.href = `https://www.pinterest.com/pin/create/button/?url=${link}&description=${msg1}`;
+
+</script>
+<script>(function (d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s);
+    js.id = id;
+    js.src = "https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.0";
+    fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
 
 </body>
 

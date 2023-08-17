@@ -35,6 +35,7 @@ public class HomeController {
         return "home/shop";
     }
 
+
     @GetMapping("/gio-hang")
     public String cart(){
         return "home/cart";
