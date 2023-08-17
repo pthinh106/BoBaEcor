@@ -40,6 +40,11 @@ public class ProductService implements IProductService {
     }
 
     @Override
+    public Optional<ProductDetail> findProductDetailById(Integer id) {
+        return iProductDetailRepository.findById(id);
+    }
+
+    @Override
     public Optional<Product> findByName(String productName) {
         return Optional.empty();
     }
@@ -135,6 +140,8 @@ public class ProductService implements IProductService {
                             product.setProductPrice(productDetail.getProductPrice());
                             product.setProductPriceSale(productDetail.getProductPriceSale());
                         }
+                    }else{
+                        productDetail.setSaleStatus(0);
                     }
                     if(tPrice.get()[i] == 0){
                         productDetail.setDetailStatus(0);

@@ -26,7 +26,7 @@ public class PaypalService {
 
 
         // Adding item to our list
-        List<Item> items = new ArrayList<Item>();
+        List<Item> items = new ArrayList<>();
         items.add(itemOne);
         items.add(itemTwo);
 

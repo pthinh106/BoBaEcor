@@ -8,22 +8,22 @@
 
     <div th:replace="~{home/fragments/layout :: header}"></div>
 
-      <!--breadcrumbs area start-->
-    <div class="breadcrumbs_area breadcrumbs_blog">
-        <div class="container">
-            <div class="row">
-                <div class="col-12">
-                    <div class="breadcrumb_content text-center">
-                        <ul>
-                            <li><a href="index.html">home</a></li>
-                            <li><a href="blog.html">Blog</a></li>
-                        </ul>
-                        <h3>Write, Share & Discuss <br> Together</h3>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+    <!--breadcrumbs area start-->
+<!--    <div class="breadcrumbs_area breadcrumbs_blog mt-5">-->
+<!--        <div class="container">-->
+<!--            <div class="row">-->
+<!--                <div class="col-12">-->
+<!--                    <div class="breadcrumb_content text-center">-->
+<!--                        <ul>-->
+<!--                            <li><a href="index.html">home</a></li>-->
+<!--                            <li><a href="blog.html">Blog</a></li>-->
+<!--                        </ul>-->
+<!--                        <h3>Write, Share & Discuss <br> Together</h3>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
     <!--breadcrumbs area end-->
 
     <!--blog page section start-->
@@ -247,6 +247,8 @@
     </section>
     <!--newsletter section end-->
 
+
+    <div th:replace="~{home/fragments/layout :: loading}"></div>
     <!--footer area start-->
     <footer th:replace="~{home/fragments/layout :: footer}"></footer>
     <!--footer area end-->

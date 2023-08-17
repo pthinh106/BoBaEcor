@@ -102,7 +102,7 @@ public class Product {
             data.put("color",productDetail.getColor());
             data.put("code",productDetail.getCodeColor());
             item.forEach(stringStringMap -> {
-                if(stringStringMap.get("color").contains(data.get("color"))){
+                if(stringStringMap.get("color").equals(data.get("color"))){
                     exist.set(true);
                 }
             });
