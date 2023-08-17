@@ -8,6 +8,8 @@ import TMDTBoBa.BoBaEcor.Repository.User.IUserRepository;
 import TMDTBoBa.BoBaEcor.Utilities.Contains;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
 import java.util.List;
 import java.util.Optional;
@@ -38,21 +40,27 @@ public class BrandService implements IBrandService {
     }
 
     @Override
-    public StoreResponse addonBrand(Brand brand) {
-        if (brand.getBrandName().isEmpty()){
-            return new StoreResponse(500,"Brand name not empty!",null,null,null,null);
-        }
-        try {Optional<User> user = iUserRepository.findById(1);
-            if(user.isPresent()){
-            brand.setBrandSlug(Contains.convertToURL(brand.getBrandName()));
-            brand.setUserCreate(user.get());
-            brand.setUserUpdate(user.get());
-            iBrandRepository.save(brand);
-            return new StoreResponse(200,"Addon Brand " + brand.getBrandName() + " success",StoreResponse.returnBrand(brand),brand,null,null);
-            }else{
-                return new StoreResponse(200,"Addon Fail! Server Error. ",null,null,null,null);
+    @Transactional
+    public StoreResponse addonBrand(Brand brand) throws RuntimeException{
+        try {
+            if (brand.getBrandName().isEmpty()){
+                throw new RuntimeException("Brand name not empty!");
             }
+            if(iBrandRepository.existsByBrandSlug(Contains.convertToURL(brand.getBrandName()))){
+                throw new RuntimeException("Can't initialize url because it already exists");
+            }
+                Optional<User> user = iUserRepository.findById(1);
+                if(user.isPresent()){
+                brand.setBrandSlug(Contains.convertToURL(brand.getBrandName()));
+                brand.setUserCreate(user.get());
+                brand.setUserUpdate(user.get());
+                iBrandRepository.save(brand);
+                return new StoreResponse(200,"Addon Brand " + brand.getBrandName() + " success",StoreResponse.returnBrand(brand),brand,null,null);
+                }else{
+                    throw new RuntimeException("Can not get info user");
+                }
         }catch (Exception e){
+            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
             return new StoreResponse(500,"Addon Fail! Server Error. "+ e.getMessage(),null,null,null,null);
         }
     }

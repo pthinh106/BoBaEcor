@@ -28,6 +28,14 @@ public class Category {
     @Column(name = "category_slug", columnDefinition = "Varchar(255) NOT NULL",unique = true)
     private String categorySlug;
 
+    @Column(name = "parent_id",columnDefinition = "INT(11) DEFAULT 0")
+    private Integer parentId;
+    @Column(name = "parent_name", columnDefinition = "Varchar(255) NULL")
+    private String parentName;
+
+    @Column(name = "has_parent", columnDefinition = "tinyint(1) default 0")
+    private Integer hasParent;
+
     @JsonIgnore
     @OneToMany(mappedBy = "category")
     private Set<Product> products;

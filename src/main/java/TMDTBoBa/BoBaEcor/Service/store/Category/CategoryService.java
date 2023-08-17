@@ -8,6 +8,8 @@ import TMDTBoBa.BoBaEcor.Repository.User.IUserRepository;
 import TMDTBoBa.BoBaEcor.Utilities.Contains;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
 import java.util.List;
 import java.util.Optional;
@@ -40,23 +42,31 @@ public class CategoryService implements ICategoryService {
     }
 
     @Override
-    public StoreResponse addonCategory(Category category) {
-        if (category.getCategoryName().isEmpty()){
-            return new StoreResponse(500,"Category name not empty!",null,null,null,null);
-        }
+    @Transactional
+    public StoreResponse addonCategory(Category category) throws RuntimeException {
         try {
-            Optional<User> user = iUserRepository.findById(1);
-            if(user.isPresent()){
-                category.setCategorySlug(Contains.convertToURL(category.getCategoryName()));
-                category.setUserCreate(user.get());
-                category.setUserUpdate(user.get());
-                iCategoryRepository.save(category);
-                return new StoreResponse(200,"Addon Category " + category.getCategoryName() + " success",StoreResponse.returnCategory(category),category,null,null);
-            }else{
-                return new StoreResponse(500,"Addon Fail! Server Error. ",null,null,null,null);
+            if (category.getCategoryName().isEmpty()){
+                throw new RuntimeException("Category name not empty!");
             }
+            if(iCategoryRepository.existsByCategorySlug(Contains.convertToURL(category.getCategoryName()))){
+                throw new RuntimeException("Can't initialize url because it already exists");
+            }
+                Optional<User> user = iUserRepository.findById(1);
+                if(user.isPresent()){
+                    category.setCategorySlug(Contains.convertToURL(category.getCategoryName()));
+                    category.setUserCreate(user.get());
+                    category.setUserUpdate(user.get());
+                    category.setParentName( iCategoryRepository.findById(category.getParentId()).isPresent() ? iCategoryRepository.findById(category.getParentId()).get().getParentName() : "");
+                    if(category.getParentId() != 0 ) category.setHasParent(1);
+                            else category.setHasParent(0);
+                    iCategoryRepository.save(category);
+                    return new StoreResponse(200,"Addon Category " + category.getCategoryName() + " success",StoreResponse.returnCategory(category),category,null,null);
+                }else{
+                    throw new RuntimeException("Can not get info User");
+                }
 
-        }catch (Exception e){
+        }catch (RuntimeException e){
+            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
             return new StoreResponse(500,"Addon Fail! Server Error. " + e.getMessage(),null,null,null,null);
         }
     }

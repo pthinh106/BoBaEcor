@@ -9,6 +9,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import java.sql.Timestamp;
 import java.util.*;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 @Entity
 @Table(name = "table_products")
@@ -70,7 +71,7 @@ public class Product {
     @Column(name = "product_short_description",columnDefinition = "Text NULL")
     private String productShortDes;
 
-    @Column(name = "product_sale_status",columnDefinition = "tinyint(1) default 1")
+    @Column(name = "product_sale_status",columnDefinition = "tinyint(1) default 0")
     private Integer saleStatus;
 
     @Column(name = "product_status", columnDefinition = "tinyint(1) default 1")
@@ -96,10 +97,16 @@ public class Product {
     public LinkedHashSet<Map<String,String>> getItemColor(){
         LinkedHashSet<Map<String,String>> item = new LinkedHashSet<>();
         productDetails.forEach(productDetail -> {
+            AtomicBoolean exist = new AtomicBoolean(false);
             Map<String,String> data = new HashMap<>();
             data.put("color",productDetail.getColor());
             data.put("code",productDetail.getCodeColor());
-            item.add(data);
+            item.forEach(stringStringMap -> {
+                if(stringStringMap.get("color").contains(data.get("color"))){
+                    exist.set(true);
+                }
+            });
+            if(!exist.get()) item.add(data);
         });
         return item;
     }

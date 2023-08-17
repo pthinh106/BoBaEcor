@@ -1,4 +1,4 @@
-package TMDT.BoBa.Service.User;
+package TMDTBoBa.BoBaEcor.Service.User;
 
 import TMDTBoBa.BoBaEcor.Repository.User.IUserRepository;
 import TMDTBoBa.BoBaEcor.Service.User.IUserService;

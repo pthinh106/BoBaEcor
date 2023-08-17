@@ -1,29 +1,28 @@
 package TMDTBoBa.BoBaEcor.Controller.Admin;
 
 import TMDTBoBa.BoBaEcor.API.CustomeHttpRe.Store.StoreResponse;
+import TMDTBoBa.BoBaEcor.API.PublicAPI.Payment.Paypal.PaypalService;
+import TMDTBoBa.BoBaEcor.Controller.BaseController;
 import TMDTBoBa.BoBaEcor.Models.Store.*;
 import TMDTBoBa.BoBaEcor.Service.store.Brand.BrandService;
 import TMDTBoBa.BoBaEcor.Service.store.Category.CategoryService;
 import TMDTBoBa.BoBaEcor.Service.store.Product.ProductService;
-import lombok.RequiredArgsConstructor;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.Objects;
 
 @Controller
 @RequestMapping(path = "/admin")
-@RequiredArgsConstructor
-public class AdminController {
+public class AdminController extends BaseController {
 
-    private final CategoryService categoryService;
-    private final BrandService brandService;
 
-    private final ProductService productService;
+    public AdminController(PaypalService paypalService, ProductService productService, CategoryService categoryService, BrandService brandService) {
+        super(paypalService, productService, categoryService, brandService);
+    }
 
     @GetMapping("/login")
     public String login(){
@@ -62,8 +61,10 @@ public class AdminController {
             return "admin/Store/manager_brands";}
         return "redirect:/error";
     }
+
+
     @GetMapping("/management/collections")
-    public String collections( @Param("q") String q){
+    public String collections(){
         return "admin/Store/manager_collections";
     }
 }

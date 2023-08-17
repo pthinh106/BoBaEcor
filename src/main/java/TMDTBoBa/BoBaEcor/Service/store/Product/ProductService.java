@@ -12,13 +12,8 @@ import TMDTBoBa.BoBaEcor.Repository.Store.IProductRepository;
 import TMDTBoBa.BoBaEcor.Repository.User.IUserRepository;
 import TMDTBoBa.BoBaEcor.Utilities.Contains;
 import TMDTBoBa.BoBaEcor.Utilities.FileUploadUtil;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.paypal.base.codec.binary.Base64;
 import lombok.RequiredArgsConstructor;
-import org.apache.commons.io.FileUtils;
-import org.apache.commons.io.FilenameUtils;
-import org.apache.http.NameValuePair;
-import org.apache.http.message.BasicNameValuePair;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -27,29 +22,12 @@ import org.springframework.transaction.interceptor.TransactionAspectSupport;
 import org.springframework.web.multipart.MultipartFile;
 import net.bytebuddy.utility.RandomString;
 
-import javax.net.ssl.HttpsURLConnection;
-import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.URI;
-import java.net.URL;
-import java.net.http.HttpRequest;
-import java.nio.ByteBuffer;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
 import java.util.*;
-import java.util.concurrent.Flow;
 
 @Service
 @RequiredArgsConstructor
 public class ProductService implements IProductService {
-
-    private final Path storageFolder = Paths.get("uploads");
-
 
     private final IProductRepository iProductRepository;
     private final IProductImagesRepository iProductImagesRepository;
@@ -82,6 +60,12 @@ public class ProductService implements IProductService {
     }
 
     @Override
+    public Optional<ProductDetail> findByColor(String color,Integer id) {
+        Optional<Product> product = iProductRepository.findById(id);
+        return product.map(value -> iProductDetailRepository.findByProductAndColor(value, color)).orElse(null);
+    }
+
+    @Override
     public StoreResponse findPage(Integer page) {
         try {
             int pageSize = 10;
@@ -94,6 +78,12 @@ public class ProductService implements IProductService {
         }
     }
 
+    @Override
+    public Page<Product> findPageHome(Integer page)  {
+            int pageSize = 9;
+            Pageable pageable = PageRequest.of(page-1,pageSize);
+            return iProductPageRepository.findAllByStatus(1,pageable);
+    }
     @Override
     @Transactional
     public StoreResponse addonProduct(Product product, MultipartFile[] multipartFiles, Optional<String[]> tSize, Optional<String[]> tColor, Optional<String[]> tCodeColor,Optional<Integer[]> tPrice,
@@ -118,7 +108,6 @@ public class ProductService implements IProductService {
             iProductRepository.save(product);
             Integer totalQuantitySolid = 0;
             Integer totalQuantityInventory = 0;
-            int productSale = 0;
             if(product.getNoTypeStatus() == 0 && (tSize.isEmpty() || tColor.isEmpty() || tPrice.isEmpty() || tCodeColor.isEmpty())){
                 throw new RuntimeException("Color, Size, Price are required");
             }
@@ -141,13 +130,23 @@ public class ProductService implements IProductService {
                     productDetails.add(productDetail);
                     if(tSale.get()[i] != 0){
                         productDetail.setSaleStatus(1);
-                        productSale = 1;
+                        if(product.getSaleStatus() != 1){
+                            product.setSaleStatus(1);
+                            product.setProductPrice(productDetail.getProductPrice());
+                            product.setProductPriceSale(productDetail.getProductPriceSale());
+                        }
                     }
                     if(tPrice.get()[i] == 0){
                         productDetail.setDetailStatus(0);
+                    }else{
+                        productDetail.setDetailStatus(1);
                     }
                     totalQuantitySolid += tInventory.get()[i];
                     totalQuantityInventory += tSolid.get()[i];
+                }
+                if(product.getProductPriceSale() != 1){
+                    product.setSaleStatus(0);
+                    product.setProductPrice(productDetails.get(0).getProductPrice());
                 }
                 iProductDetailRepository.saveAll(productDetails);
             }
@@ -157,14 +156,8 @@ public class ProductService implements IProductService {
                     continue;
                 }
                 ProductImages productImages = new ProductImages();
-//                String fileExtension = FilenameUtils.getExtension(multipartFile.getOriginalFilename());
                 String generatedFileName = product.getProductSlug() + UUID.randomUUID().toString().replace("-", "");
-//                generatedFileName = generatedFileName+"."+fileExtension;
-
                 String urlImg;
-//                urlImg = "/images/product/"+ product.getProductId() +"/" +generatedFileName;
-
-//                FileUploadUtil.saveFile(uploadDir,generatedFileName,multipartFile);
                 urlImg = FileUploadUtil.upLoadCloud(generatedFileName,multipartFile);
                 productImages.setProduct(product);
                 productImages.setProductImage(urlImg);
@@ -180,9 +173,6 @@ public class ProductService implements IProductService {
                 product.setProductPrice(null);
                 product.setQuantitySolid(totalQuantitySolid);
                 product.setQuantityInventory(totalQuantityInventory);
-            }
-            if(product.getProductPriceSale() != null || productSale == 1){
-                product.setSaleStatus(1);
             }
             iProductRepository.save(product);
             return new StoreResponse(200,"Addon Product Success",null,null,null,null);
@@ -208,46 +198,5 @@ public class ProductService implements IProductService {
     }
 
 
-    private boolean isImageFile(MultipartFile file) {
-        //Let install FileNameUtils
-        String fileExtension = FilenameUtils.getExtension(file.getOriginalFilename());
-        assert fileExtension != null;
-        return Arrays.asList(new String[] {"png","jpg","jpeg", "bmp"})
-                .contains(fileExtension.trim().toLowerCase());
-    }
-    public String storeFile(MultipartFile file) {
-        try {
-            System.out.println("haha");
-            if (file.isEmpty()) {
-                throw new RuntimeException("Failed to store empty file.");
-            }
-            //check file is image ?
-            if(!isImageFile(file)) {
-                throw new RuntimeException("You can only upload image file");
-            }
-            //file must be <= 5Mb
-            float fileSizeInMegabytes = file.getSize() / 1_000_000.0f;
-            if(fileSizeInMegabytes > 5.0f) {
-                throw new RuntimeException("File must be <= 5Mb");
-            }
-            //File must be re name, why ?
-            String fileExtension = FilenameUtils.getExtension(file.getOriginalFilename());
-            String generatedFileName = UUID.randomUUID().toString().replace("-", "");
-            generatedFileName = generatedFileName+"."+fileExtension;
-            Path destinationFilePath = this.storageFolder.resolve(
-                            Paths.get(generatedFileName))
-                    .normalize().toAbsolutePath();
-            if (!destinationFilePath.getParent().equals(this.storageFolder.toAbsolutePath())) {
-                throw new RuntimeException(
-                        "Cannot store file outside current directory.");
-            }
-            try (InputStream inputStream = file.getInputStream()) {
-                Files.copy(inputStream, destinationFilePath, StandardCopyOption.REPLACE_EXISTING);
-            }
-            return generatedFileName;
-        }
-        catch (IOException exception) {
-            throw new RuntimeException("Failed to store file.", exception);
-        }
-    }
+
 }

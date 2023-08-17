@@ -1,11 +1,15 @@
 package TMDTBoBa.BoBaEcor.Controller.Home;
 
 import TMDTBoBa.BoBaEcor.API.PublicAPI.Payment.Paypal.PaypalService;
+import TMDTBoBa.BoBaEcor.Controller.BaseController;
+import TMDTBoBa.BoBaEcor.Models.Store.Product;
+import TMDTBoBa.BoBaEcor.Service.store.Brand.BrandService;
+import TMDTBoBa.BoBaEcor.Service.store.Category.CategoryService;
+import TMDTBoBa.BoBaEcor.Service.store.Product.ProductService;
 import com.paypal.api.payments.Payment;
 import com.paypal.base.rest.PayPalRESTException;
 import jakarta.servlet.http.HttpServletRequest;
-import lombok.RequiredArgsConstructor;
-import org.springframework.data.repository.query.Param;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,10 +17,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
-@RequiredArgsConstructor
 @RequestMapping(path = "")
-public class HomeController {
-    private final PaypalService paypalService;
+public class HomeController  extends BaseController {
+    public HomeController(PaypalService paypalService, ProductService productService, CategoryService categoryService, BrandService brandService) {
+        super(paypalService, productService, categoryService, brandService);
+    }
+
     @GetMapping("/")
     public String index(Model model, HttpServletRequest request){
 
@@ -31,7 +37,11 @@ public class HomeController {
     }
 
     @GetMapping("/cua-hang")
-    public String store(){
+    public String store(Model model,@RequestParam(name = "page",defaultValue = "1") Integer page ){
+        Page<Product> products = productService.findPageHome(page);
+        model.addAttribute("listProduct",products.getContent());
+        model.addAttribute("page",products.getPageable().getPageNumber() + 1);
+        model.addAttribute("pageTotal",products.getTotalPages());
         return "home/shop";
     }
 

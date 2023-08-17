@@ -95,7 +95,7 @@
                 <div class="col-lg-6 col-md-6">
                     <div class="product_d_right">
                        <form action="#" th:object="${product}">
-                            <h1 th:field="*{productName}">Edwin T-Shirt Logo Script Print in Navy</h1>
+                            <h1 th:text="*{productName}">Edwin T-Shirt Logo Script Print in Navy</h1>
                             <div class="product_ratting_review d-flex align-items-center">
                                 <div class=" product_ratting">
                                     <ul class="d-flex">
@@ -118,7 +118,7 @@
                                     <th:block th:each="item: ${product.getProductDetails()}">
                                         <th:block th:if="${item.getCodeColor().toString() == productFirstColor.get('code').toString() && item.getSize().toString() == productFirstSize.toString()}">
                                             <span class="current_price" th:text="${item.getProductPrice()}">$39.00</span>
-                                            <input type="hidden" name="idDetail" th:value="${item.getProductDetailId()}">
+                                            <input id="idDetail" type="hidden" name="idDetail" th:value="${item.getProductDetailId()}">
                                         </th:block>
                                     </th:block>
                                 </th:block>
@@ -134,7 +134,7 @@
                                 </ul>
                             </div>
                             <div class="product_desc" >
-                                <p th:field="*{productShortDes}">A t-shirt that comes in three colors (red, white and blue) and three sizes (small, medium, large) is a configurable product.  </p>
+                                <p th:text="*{productShortDes}">A t-shirt that comes in three colors (red, white and blue) and three sizes (small, medium, large) is a configurable product.  </p>
                             </div>
                             <div class="product_variant">
                                 <th:block th:if="${!product.getProductDetails().isEmpty()}">
@@ -195,14 +195,13 @@
                                     <li><a href="#">accessorires</a></li>
                                 </ul>
                             </div>
-                            <div class="priduct_social d-flex">
-                                <span>SHARE: </span>
+                            <div class="priduct_social d-flex align-center">
+                                <span style="margin-top: auto; margin-bottom: auto">SHARE: </span>
                                 <ul>
-                                    <li><a href="#"><i class="ion-social-twitter"></i></a></li>
-                                    <li><a href="#"><i class="ion-social-facebook"></i></a></li>
-                                    <li><a href="#"><i class="ion-social-googleplus-outline"></i></a></li>
-                                    <li><a href="#"><i class="ion-social-pinterest"></i></a></li>
-                                    <li><a href="#"><i class="ion-social-instagram-outline"></i></a></li>
+                                    <li><span th:attr="data-href='https://www.facebook.com/sharer.php?u='+${curURL}" class="social-wrapper"><i class="ion-social-twitter" style="font-size: 25px"></i></span></li>
+                                    <li><span th:attr="data-href='https://www.facebook.com/sharer.php?u='+${curURL}" class="social-wrapper"><i class="ion-social-facebook" style="font-size: 25px"></i></span></li>
+                                    <li><span th:attr="data-href='https://www.facebook.com/sharer.php?u='+${curURL}" class="social-wrapper"><i class="ion-social-googleplus-outline" style="font-size: 25px"></i></span></li>
+                                    <li><span th:attr="data-href='https://www.facebook.com/sharer.php?u='+${curURL}" class="social-wrapper"><i class="ion-social-instagram-outline" style="font-size: 25px"></i></span></li>
                                 </ul>
                             </div>
                         </form>
@@ -767,11 +766,11 @@
                                     <div class="modal_social">
                                         <h2>Share this product</h2>
                                         <ul>
-                                            <li class="facebook"><a href="#"><i class="fa fa-facebook"></i></a></li>
-                                            <li class="twitter"><a href="#"><i class="fa fa-twitter"></i></a></li>
-                                            <li class="pinterest"><a href="#"><i class="fa fa-pinterest"></i></a></li>
-                                            <li class="google-plus"><a href="#"><i class="fa fa-google-plus"></i></a></li>
-                                            <li class="linkedin"><a href="#"><i class="fa fa-linkedin"></i></a></li>
+                                            <li class="facebook"><span class="social-wrapper" th:attr="data-href='https://www.facebook.com/sharer.php?u='+${curURL}"><i class="fa fa-facebook"></i></span></li>
+                                            <li class="twitter"><span class="social-wrapper" th:attr="data-href='https://www.facebook.com/sharer.php?u='+${curURL}"><i class="fa fa-twitter"></i></span></li>
+                                            <li class="pinterest"><span class="social-wrapper" th:attr="data-href='https://www.facebook.com/sharer.php?u='+${curURL}"><i class="fa fa-pinterest"></i></span></li>
+                                            <li class="google-plus"><span class="social-wrapper" th:attr="data-href='https://www.facebook.com/sharer.php?u='+${curURL}"><i class="fa fa-google-plus"></i></span></li>
+                                            <li class="linkedin"><span class="social-wrapper" th:attr="data-href='https://www.facebook.com/sharer.php?u='+${curURL}"><i class="fa fa-linkedin"></i></span></li>
                                         </ul>
                                     </div>
                                 </div>

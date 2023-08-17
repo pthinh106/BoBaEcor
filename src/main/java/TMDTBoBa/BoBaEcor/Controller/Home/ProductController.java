@@ -1,9 +1,12 @@
 package TMDTBoBa.BoBaEcor.Controller.Home;
 
+import TMDTBoBa.BoBaEcor.API.PublicAPI.Payment.Paypal.PaypalService;
+import TMDTBoBa.BoBaEcor.Controller.BaseController;
 import TMDTBoBa.BoBaEcor.Models.Store.Product;
+import TMDTBoBa.BoBaEcor.Service.store.Brand.BrandService;
+import TMDTBoBa.BoBaEcor.Service.store.Category.CategoryService;
 import TMDTBoBa.BoBaEcor.Service.store.Product.ProductService;
 import jakarta.servlet.http.HttpServletRequest;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,15 +14,15 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import javax.swing.text.html.Option;
-import java.net.URI;
 import java.util.Optional;
 
 @Controller
 @RequestMapping(path = "/san-pham")
-@RequiredArgsConstructor
-public class ProductController {
-    private final ProductService productService;
+public class ProductController extends BaseController {
+    public ProductController(PaypalService paypalService, ProductService productService, CategoryService categoryService, BrandService brandService) {
+        super(paypalService, productService, categoryService, brandService);
+    }
+
     @GetMapping("/{slug}")
     public String getProductDetailsBySlung(@PathVariable String slug, Model model, HttpServletRequest request){
         Optional<Product> productOption = productService.findBySlug(slug);

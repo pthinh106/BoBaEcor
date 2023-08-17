@@ -29,11 +29,22 @@
                         <h5 class="card-title">Categories</h5>
                         <form id="form" th:action="@{/api/v1/private/addon/category}" class="row g-3" style="padding: 10px" th:object="${category}">
                             <input type="hidden" th:field="*{categoryId}">
-                            <div class="col-md-6">
+                            <div class="col-md-4">
                                 <label for="inputName" class="form-label" >Category Name</label>
                                 <input type="text" class="form-control" id="inputName" th:field="*{categoryName}">
                             </div>
                             <div class="col-md-4">
+                                <label for="parentCategory" class="form-label">Parent</label>
+                                <select id="parentCategory" class="form-select" th:field="*{parentId}">
+                                    <option selected value="0">None</option>
+                                    <th:block th:each="item : ${listCategory}">
+                                        <th:block th:if="${item.getHasParent() == 0}">
+                                            <option th:value="${item.getCategoryId()}" th:text="${item.getCategoryName()}"></option>
+                                        </th:block>
+                                    </th:block>
+                                </select>
+                            </div>
+                            <div class="col-md-2">
                                 <label for="inputState" class="form-label">Status</label>
                                 <select id="inputState" class="form-select" th:field="*{status}">
                                     <option selected value="1">Activity</option>
@@ -103,7 +114,7 @@
 <div th:replace="~{admin/Fragment/layout :: jsDataTable}"></div>
 
 <script>
-    var dataTable = new DataTable('#listCategory');
+    let dataTable = new DataTable('#listCategory');
 
 
 
@@ -111,7 +122,7 @@
         document.getElementById("loading-wrapper").style.display = "block";
         e.preventDefault(); // avoid to execute the actual submit of the form.
 
-        var form = $(this);
+        let form = $(this);
         $.ajax({
             type: "POST",
             url: form.attr("action"),
@@ -140,7 +151,7 @@
             },
             error: function ($xhr,textStatus,errorThrown) {
                 document.getElementById("loading-wrapper").style.display = "none";
-                var data = $xhr.responseJSON;
+                let data = $xhr.responseJSON;
                 Swal.fire({
                     position: 'center',
                     icon: 'error',
@@ -172,6 +183,11 @@
             '      </td>' +
             ' </tr>';
         dataTable.row.add($(result)).draw();
+        const parent = document.getElementById("parentCategory");
+        if(dataApi.parentId === 0){
+            const item = '<option value="'+dataApi.parentId+'">'+dataApi.name+'</option>'
+            parent.insertAdjacentHTML('beforeend',item);
+        }
     }
 </script>
 </body>

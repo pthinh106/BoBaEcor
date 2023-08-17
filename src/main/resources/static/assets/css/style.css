@@ -4217,6 +4217,7 @@ input:-ms-input-placeholder, textarea:-ms-input-placeholder {
   top: 50%;
   transform: translatey(-50%);
   transition: .3s;
+  border: 1px solid;
 }
 .widget_color > ul > li span.checkmark::before {
   left: 44%;
@@ -7904,3 +7905,8 @@ input::-webkit-inner-spin-button {
 input[type=number] {
   -moz-appearance: textfield;
 }
+
+.social-wrapper:hover{
+    cursor: pointer;
+}
+

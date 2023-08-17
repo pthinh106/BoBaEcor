@@ -1,9 +1,11 @@
 package TMDTBoBa.BoBaEcor.Controller.Admin;
 
+import TMDTBoBa.BoBaEcor.API.PublicAPI.Payment.Paypal.PaypalService;
+import TMDTBoBa.BoBaEcor.Controller.BaseController;
 import TMDTBoBa.BoBaEcor.Models.Store.Product;
 import TMDTBoBa.BoBaEcor.Service.store.Brand.BrandService;
 import TMDTBoBa.BoBaEcor.Service.store.Category.CategoryService;
-import lombok.RequiredArgsConstructor;
+import TMDTBoBa.BoBaEcor.Service.store.Product.ProductService;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,10 +15,11 @@ import java.util.Objects;
 
 @Controller
 @RequestMapping(path = "/admin/addon")
-@RequiredArgsConstructor
-public class AddonController {
-    private final BrandService brandService;
-    private final CategoryService categoryService;
+public class AddonController extends BaseController {
+
+    public AddonController(PaypalService paypalService, ProductService productService, CategoryService categoryService, BrandService brandService) {
+        super(paypalService, productService, categoryService, brandService);
+    }
 
     @GetMapping(path = "/product")
     public String addonProduct(Model model, @Param("q") String q){
