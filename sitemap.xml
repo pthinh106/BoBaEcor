@@ -1,22 +1,67 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xml="https://www.sitemaps.org/schemas/sitemap/0.9">
-<!-- thẻ loc dùng chứa URL
-    thẻ priority dùng để chứa độ ưu tiên URL trong khoảng từ 0.0 đến 1.0 -->
+<urlset
+        xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
+            http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+    <!-- created with Free Online Sitemap Generator www.xml-sitemaps.com -->
+
+
     <url>
         <loc>https://bobaecor.live/</loc>
-        <priority>1.0</priority>
+        <lastmod>2023-08-18T12:35:28+00:00</lastmod>
+        <priority>1.00</priority>
     </url>
     <url>
         <loc>https://bobaecor.live/cua-hang</loc>
-        <priority>0.8</priority>
-    </url>
-    <url>
-        <loc>https://bobaecor.live/san-pham</loc>
-        <priority>0.7</priority>
+        <lastmod>2023-08-18T12:35:28+00:00</lastmod>
+        <priority>0.80</priority>
     </url>
     <url>
         <loc>https://bobaecor.live/tin-tuc</loc>
-        <priority>0.6</priority>
+        <lastmod>2023-08-18T12:35:28+00:00</lastmod>
+        <priority>0.80</priority>
     </url>
-    <!-- Thêm các URL khác tại đây -->
+    <url>
+        <loc>https://bobaecor.live/san-pham/ao-thun-regular-nam-tay-ngan-in-chu-mosev-jue-studio</loc>
+        <lastmod>2023-08-18T12:35:28+00:00</lastmod>
+        <priority>0.64</priority>
+    </url>
+    <url>
+        <loc>https://bobaecor.live/san-pham/vay-chu-a-nu-thiet-ke-phoi-ren</loc>
+        <lastmod>2023-08-18T12:35:28+00:00</lastmod>
+        <priority>0.64</priority>
+    </url>
+    <url>
+        <loc>https://bobaecor.live/san-pham/vay-chu-a-nu-vay-sat-nach-dang-dai-nut-boc</loc>
+        <lastmod>2023-08-18T12:35:28+00:00</lastmod>
+        <priority>0.64</priority>
+    </url>
+    <url>
+        <loc>https://bobaecor.live/san-pham/vay-suong-nu-lua-day-dang-dai-xe-ta</loc>
+        <lastmod>2023-08-18T12:35:28+00:00</lastmod>
+        <priority>0.64</priority>
+    </url>
+    <url>
+        <loc>https://bobaecor.live/san-pham/vay-suong-nu-phoi-mau-tay</loc>
+        <lastmod>2023-08-18T12:35:28+00:00</lastmod>
+        <priority>0.64</priority>
+    </url>
+    <url>
+        <loc>https://bobaecor.live/san-pham/ao-thun-o-oi-in-chu-essentials</loc>
+        <lastmod>2023-08-18T12:35:28+00:00</lastmod>
+        <priority>0.64</priority>
+    </url>
+    <url>
+        <loc>https://bobaecor.live/san-pham/ao-thun-o-oi-ao-thun-oi-in-chu-navy</loc>
+        <lastmod>2023-08-18T12:35:28+00:00</lastmod>
+        <priority>0.64</priority>
+    </url>
+    <url>
+        <loc>https://bobaecor.live/cua-hang?page=1</loc>
+        <lastmod>2023-08-18T12:35:28+00:00</lastmod>
+        <priority>0.64</priority>
+    </url>
+
+
 </urlset>
