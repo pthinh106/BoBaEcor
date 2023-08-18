@@ -19,6 +19,7 @@ public class Contains {
     }
     public static String convertToURL(String value){
         try {
+            value = value.replaceAll("Đ", "d").replaceAll("đ","d");
             String format = Normalizer.normalize(value,Normalizer.Form.NFD);
             Pattern pattern = Pattern.compile("\\p{InCOMBINING_DIACRITICAL_MARKS}+");
             String result = pattern.matcher(format).replaceAll("").toLowerCase().replaceAll("[^a-z\\s]", "").replaceAll(" ","-");
