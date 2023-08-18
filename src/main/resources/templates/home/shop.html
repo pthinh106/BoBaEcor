@@ -269,9 +269,6 @@
                                                  <span class="text-black" th:text="${#numbers.formatDecimal(item.getProductPrice(),3,'COMMA',0,'POINT')} + ' VNĐ'">$46.00</span>
                                              </th:block>
                                          </div>
-                                         <div class="add_to_cart">
-                                             <a class="btn btn-primary" href="#" data-tippy="Add To Cart"  data-tippy-inertia="true" data-tippy-delay="50" data-tippy-arrow="true" data-tippy-placement="top">Add To Cart</a>
-                                         </div>
                                      </div>
                                      <div class="product_list_content">
                                          <h4 class="product_name"><a th:href="@{'~/san-pham/' + ${item.getProductSlug()}}" th:text="${item.getProductName()}">Basic White Simple Sneaker</a></h4>
@@ -284,7 +281,6 @@
                                              <th:block th:if="${item.getSaleStatus() != 1}">
                                                  <span class="text-black" th:text="${#numbers.formatDecimal(item.getProductPrice(),3,'COMMA',0,'POINT')} + ' VNĐ'">$46.00</span>
                                              </th:block>
-
                                          </div>
                                          <div class="product_desc">
                                              <p th:text="${item.getProductShortDes()}">Nunc facilisis sagittis ullamcorper. Proin lectus ipsum, gravida et mattis vulputate, tristique ut lectus. Sed et lorem nunc. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Aenean eleifend laoreet congue. Viva..</p>

@@ -70,7 +70,7 @@ public class CartRestController extends BaseController {
 
         if(productDetail.isPresent()){
             if(!isExistId.get() || !isExistCookie.get()){
-                CartItem cartItem = new CartItem(productDetail.get(),quantity,(productDetail.get().getSaleStatus() == 1 ? productDetail.get().getProductPriceSale() * quantity : productDetail.get().getProductPrice()) *  quantity);
+                CartItem cartItem = new CartItem(productDetail.get(),productDetail.get().getProduct().getProductName(),productDetail.get().getProduct().getProductThumbnail(),quantity,(productDetail.get().getSaleStatus() == 1 ? productDetail.get().getProductPriceSale() * quantity : productDetail.get().getProductPrice()) *  quantity,productDetail.get().getSize());
                 List<CartItem> cartItemList = cart.getCartItems();
                 if(cartItemList == null) cartItemList = new ArrayList<>();
                 cartItemList.add(cartItem);
@@ -86,7 +86,7 @@ public class CartRestController extends BaseController {
             }
         }
         ObjectWriter objectWriter = new ObjectMapper().writer().withDefaultPrettyPrinter();
-        String json = objectWriter.writeValueAsString(cart).replace(" ","");
+        String json = objectWriter.writeValueAsString(cart);
         String valueDetails = URLEncoder.encode(json, StandardCharsets.UTF_8);
         Cookie cookie = new Cookie("cart", valueDetails);
         cookie.setMaxAge(86400);

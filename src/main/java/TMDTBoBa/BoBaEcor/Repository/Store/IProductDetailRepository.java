@@ -9,5 +9,5 @@ import java.util.Optional;
 
 @Repository
 public interface IProductDetailRepository extends JpaRepository<ProductDetail,Integer> {
-    Optional<ProductDetail> findByProductAndColor(Product product, String codeColor);
+    Optional<ProductDetail> findProductDetailByProductAndCodeColorAndSize(Product product, String codeColor,String size);
 }

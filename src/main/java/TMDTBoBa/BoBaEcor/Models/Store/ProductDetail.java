@@ -22,7 +22,7 @@ public class ProductDetail {
     private Product product;
 
     @Column(name = "size",columnDefinition = "Varchar(255) NOT NULL")
-    private String Size;
+    private String size;
 
     @Column(name = "color",columnDefinition = "Varchar(255) NOT NULL")
     private String color;

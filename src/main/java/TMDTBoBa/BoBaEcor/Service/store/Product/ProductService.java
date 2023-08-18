@@ -65,9 +65,9 @@ public class ProductService implements IProductService {
     }
 
     @Override
-    public Optional<ProductDetail> findByColor(String color,Integer id) {
+    public Optional<ProductDetail> findDetailByProductIdAndColorAndSize(String color,Integer id,String size) {
         Optional<Product> product = iProductRepository.findById(id);
-        return product.map(value -> iProductDetailRepository.findByProductAndColor(value, color)).orElse(null);
+        return product.map(value -> iProductDetailRepository.findProductDetailByProductAndCodeColorAndSize(value, color,size)).orElse(null);
     }
 
     @Override

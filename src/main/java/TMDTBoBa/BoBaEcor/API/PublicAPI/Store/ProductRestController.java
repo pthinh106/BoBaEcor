@@ -7,10 +7,7 @@ import TMDTBoBa.BoBaEcor.Service.store.Brand.BrandService;
 import TMDTBoBa.BoBaEcor.Service.store.Category.CategoryService;
 import TMDTBoBa.BoBaEcor.Service.store.Product.ProductService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
 
@@ -21,9 +18,9 @@ public class ProductRestController extends BaseController {
     public ProductRestController(PaypalService paypalService, ProductService productService, CategoryService categoryService, BrandService brandService) {
         super(paypalService, productService, categoryService, brandService);
     }
-    @GetMapping("/detail/{id}/{color}")
-    public ResponseEntity<ProductDetail> getProductDetail(@PathVariable("color") String color, @PathVariable("id") Integer id){
-        Optional<ProductDetail> productDetail = productService.findByColor(color, id);
+    @GetMapping("/detail")
+    public ResponseEntity<ProductDetail> getProductDetail(@RequestParam("color") String color, @RequestParam("productId") Integer id,@RequestParam("size") String size){
+        Optional<ProductDetail> productDetail = productService.findDetailByProductIdAndColorAndSize(color, id,size);
         return productDetail.map(detail -> ResponseEntity.ok().body(detail)).orElseGet(() -> ResponseEntity.notFound().build());
     }
 }

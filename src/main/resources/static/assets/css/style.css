@@ -4835,7 +4835,7 @@ input:-ms-input-placeholder, textarea:-ms-input-placeholder {
 .product_d_right .price_box span.current_price {
   font-size: 30px;
   line-height: 30px;
-  color: #000000;
+  /*color: #000000;*/
   font-weight: 400;
 }
 @media only screen and (min-width: 768px) and (max-width: 991px) {
@@ -6572,7 +6572,7 @@ input:-ms-input-placeholder, textarea:-ms-input-placeholder {
   }
 }
 .cart_page_tabel table tbody tr td:nth-child(3) {
-  width: 100px;
+  width: 150px;
 }
 @media only screen and (min-width: 768px) and (max-width: 991px) {
   .cart_page_tabel table tbody tr td:nth-child(3) {
@@ -6608,7 +6608,7 @@ input:-ms-input-placeholder, textarea:-ms-input-placeholder {
   }
 }
 .cart_page_tabel table tbody tr td:nth-child(5) {
-  width: 70px;
+  width: 100px;
 }
 @media only screen and (max-width: 767px) {
   .cart_page_tabel table tbody tr td:nth-child(5) {

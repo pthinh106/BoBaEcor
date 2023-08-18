@@ -113,7 +113,7 @@
                                             <span class="form-label">Quantity Inventory</span>
                                         </div>
                                         <div class="col-lg-3 m-2">
-                                            <span  class="form-label">Quantity Solid</span>
+                                            <span  class="form-label">Quantity sold</span>
                                         </div>
                                     </div>
                                     <div id="typeProduct">
@@ -140,7 +140,7 @@
                                                 <input type="number" class="form-control" id="inventory" min="0" name="tInventory" value="0">
                                             </div>
                                             <div class="col-lg-3 m-2">
-                                                <input type="number" class="form-control" id="Solid" min="0" name="tSolid" value="0">
+                                                <input type="number" class="form-control" id="sold" min="0" name="tSolid" value="0">
                                             </div>
                                             <div class="col-lg-1 m-auto text-center">
                                                 <span id="removeType" class="remove-item-type" onclick="removeItemType(this)"  data-index = "0"><i class="bi bi-trash-fill"></i></span>
@@ -234,7 +234,7 @@
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
-                                    <label for="quantitySolid" class="form-label">Quantity Solid</label>
+                                    <label for="quantitySolid" class="form-label">Quantity sold</label>
                                     <div class="col-lg-12 input-group mb-3">
                                         <input class="form-control" type="number" id="quantitySolid" th:field="*{quantitySolid}" >
                                         <span class="input-group-text">₫</span>
@@ -328,7 +328,7 @@
             '<input type="number" class="form-control" id="inventory" name="tInventory" value="0">'+
             '</div>'+
             '<div class="col-lg-3 m-2">'+
-            '<input type="number" class="form-control" id="Solid" name="tSolid" value="0">'+
+            '<input type="number" class="form-control" id="sold" name="tSolid" value="0">'+
             '</div>'+
             '<div class="col-lg-1 m-auto text-center">'+
             '<span id="removeType" class="remove-item-type" onclick="removeItemType(this)"  data-index ="'+ index+'"><i class="bi bi-trash-fill"></i></span>'+

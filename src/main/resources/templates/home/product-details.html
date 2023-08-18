@@ -82,20 +82,33 @@
                                     </ul>
                                 </div>
                             </div>
-                            <div class="price_box">
-                                <th:block th:if="${!product.getProductDetails().isEmpty()}">
-                                    <th:block th:each="item: ${product.getProductDetails()}">
-                                        <th:block th:if="${item.getCodeColor().toString() == productFirstColor.get('code').toString() && item.getSize().toString() == productFirstSize.toString()}">
-                                            <span class="current_price" th:text="${item.getProductPrice()}">$39.00</span>
-                                            <input id="idDetail" type="hidden" name="idDetail" th:value="${item.getProductDetailId()}">
-                                        </th:block>
+                            <th:block th:if="${!product.getProductDetails().isEmpty()}">
+                                <th:block th:each="item: ${product.getProductDetails()}">
+                                    <th:block th:if="${item.getCodeColor().toString() == productFirstColor.get('code').toString() && item.getSize().toString() == productFirstSize.toString()}">
+                                       <div class="price_box" id="price_box">
+                                           <th:block th:if="${item.getSaleStatus() == 1}">
+                                               <span class="current_price"  th:text="${#numbers.formatDecimal(item.getProductPriceSale(),3,'COMMA',0,'POINT')} + ' VNĐ'">$43.00</span>
+                                               <span class="old_price" th:text="${#numbers.formatDecimal(item.getProductPrice(),3,'COMMA',0,'POINT')} + ' VNĐ'">$46.00</span>
+                                           </th:block>
+                                           <th:block th:if="${item.getSaleStatus() != 1}">
+                                               <span class="text-black"  th:text="${#numbers.formatDecimal(item.getProductPrice(),3,'COMMA',0,'POINT')} + ' VNĐ'">$46.00</span>
+                                           </th:block>
+                                           <div>
+                                               <span class="text-black" id="inventory" th:text=" 'Số lượng còn lại: ' + ${item.getQuantityInventory()}"></span>
+                                           </div>
+                                       </div>
+                                        <input id="idDetail" type="hidden" name="idDetail" th:value="${item.getProductDetailId()}">
+
                                     </th:block>
                                 </th:block>
-                                <th:block th:if="${product.getProductDetails().isEmpty()}">
+                            </th:block>
+                            <th:block th:if="${product.getProductDetails().isEmpty()}">
+                                <div class="price_box">
                                     <span class="current_price" th:text="${product.getProductPrice()}">$39.00</span>
-                                </th:block>
-                                <input type="hidden" th:field="*{productId}">
-                            </div>
+                                </div>
+                            </th:block>
+                            <input type="hidden" id="productId" th:field="*{productId}">
+
                             <div class="product_availalbe">
                                 <ul class="d-flex">
                                     <li><i class="icon-layers icons"></i> Only <span>15</span> left </li>
@@ -116,11 +129,11 @@
                                             <th:block th:each="item,count : ${product.getItemColor()}">
                                                 <li>
                                                     <th:block th:if="${item.get('code').toString() == productFirstColor.get('code').toString()}">
-                                                        <input type="radio" name="color" th:attrappend="data-color=${item.get('color')}" onclick="getQuantity(this)" checked>
+                                                        <input type="radio" name="color" th:attrappend="data-color=${item.get('color')}" th:value="${item.get('code')}"  onclick="getDetail(this)" checked>
                                                         <span class="checkmark data-color" th:attr="data-code-color=${item.get('code')}"></span>
                                                     </th:block>
                                                     <th:block th:unless="${item.get('code').toString() == productFirstColor.get('code').toString()}">
-                                                        <input type="radio" name="color" th:attrappend="data-color=${item.get('color')}" onclick="getQuantity(this)">
+                                                        <input type="radio" name="color" th:attrappend="data-color=${item.get('color')}" th:value="${item.get('code')}" onclick="getDetail(this)">
                                                         <span class="checkmark data-color" th:attr="data-code-color=${item.get('code')}"></span>
                                                     </th:block>
                                                 </li>
@@ -133,11 +146,11 @@
                                             <th:block th:each="item,count : ${product.getItemSize()}">
                                                 <li>
                                                     <th:block th:if="${item.toString() == productFirstSize.toString()}">
-                                                        <input type="radio" name="size" onclick="getQuantity()" checked>
+                                                        <input type="radio" name="size" onclick="getDetail()" th:value="${item}" checked>
                                                         <span class="checkmark" th:text="${item}"  ></span>
                                                     </th:block>
                                                     <th:block th:unless="${item.toString() == productFirstSize.toString()}">
-                                                        <input type="radio" name="size" onclick="getQuantity()">
+                                                        <input type="radio" name="size" onclick="getDetail()" th:value="${item}">
                                                         <span class="checkmark" th:text="${item}"  ></span>
                                                     </th:block>
                                                 </li>
@@ -405,9 +418,6 @@
                                         <span class="current_price">$26.00</span>
                                         <span class="old_price">$62.00</span>
                                     </div>
-                                    <div class="add_to_cart">
-                                        <a class="btn btn-primary" href="#" data-tippy="Add To Cart"  data-tippy-inertia="true" data-tippy-delay="50" data-tippy-arrow="true" data-tippy-placement="top">Add To Cart</a>
-                                    </div>
                                 </figcaption>
                             </figure>
                         </article>
@@ -448,9 +458,6 @@
                                     <div class="price_box">
                                         <span class="text-black">$38.00</span>
 
-                                    </div>
-                                    <div class="add_to_cart">
-                                        <a class="btn btn-primary" href="#" data-tippy="Add To Cart"  data-tippy-inertia="true" data-tippy-delay="50" data-tippy-arrow="true" data-tippy-placement="top">Add To Cart</a>
                                     </div>
                                 </figcaption>
                             </figure>
@@ -493,9 +500,6 @@
                                         <span class="current_price">$43.00</span>
                                         <span class="old_price">$46.00</span>
                                     </div>
-                                    <div class="add_to_cart">
-                                        <a class="btn btn-primary" href="#" data-tippy="Add To Cart"  data-tippy-inertia="true" data-tippy-delay="50" data-tippy-arrow="true" data-tippy-placement="top">Add To Cart</a>
-                                    </div>
                                 </figcaption>
                             </figure>
                         </article>
@@ -532,9 +536,6 @@
                                     <h4 class="product_name"><a href="product-details.html">Simple Rounded Sunglasses</a></h4>
                                     <div class="price_box">
                                        <span class="text-black">$42.00</span>
-                                    </div>
-                                    <div class="add_to_cart">
-                                        <a class="btn btn-primary" href="#" data-tippy="Add To Cart"  data-tippy-inertia="true" data-tippy-delay="50" data-tippy-arrow="true" data-tippy-placement="top">Add To Cart</a>
                                     </div>
                                 </figcaption>
                             </figure>
@@ -573,9 +574,6 @@
                                     <div class="price_box">
                                         <span class="current_price">$26.00</span>
                                         <span class="old_price">$362.00</span>
-                                    </div>
-                                    <div class="add_to_cart">
-                                        <a class="btn btn-primary" href="#" data-tippy="Add To Cart"  data-tippy-inertia="true" data-tippy-delay="50" data-tippy-arrow="true" data-tippy-placement="top">Add To Cart</a>
                                     </div>
                                 </figcaption>
                             </figure>
@@ -617,9 +615,6 @@
                                     <div class="price_box">
                                         <span class="current_price">$35.00</span>
                                         <span class="old_price">$38.00</span>
-                                    </div>
-                                    <div class="add_to_cart">
-                                        <a class="btn btn-primary" href="#" data-tippy="Add To Cart"  data-tippy-inertia="true" data-tippy-delay="50" data-tippy-arrow="true" data-tippy-placement="top">Add To Cart</a>
                                     </div>
                                 </figcaption>
                             </figure>
@@ -747,15 +742,52 @@
 ============================================ -->
     <div th:replace="~{home/fragments/layout :: js}"></div>
 <script>
+    function currencyFormat(n, currency) {
+        return  n.toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, ',') + currency;
+    }
 
     const dataColor = document.getElementsByClassName("data-color");
     for(const item of dataColor){
         item.style.background = item.getAttribute("data-code-color");
     }
-    function getQuantity(color) {
-        if(color !== undefined){
-            document.getElementById("colorName").innerText = color.getAttribute("data-color");
+    function getDetail(value) {
+        document.getElementById("loading-wrapper").style.display = "block";
+        if(value !== undefined){
+            document.getElementById("colorName").innerText = value.getAttribute("data-color");
         }
+        let form = $("#addCart");
+        $.ajax({
+            type: "GET",
+            url: "/api/v1/product/detail",
+            data: form.serialize(),
+            success: function(data)
+            {
+                document.getElementById("loading-wrapper").style.display = "none";
+                document.getElementById("idDetail").value = data.productDetailId;
+                document.getElementById("inventory").innerText = 'Số lượng còn lại: ' +  data.quantityInventory;
+                const price_box = document.getElementById("price_box");
+                var sale;
+                console.log(data.saleStatus);
+                if(data.saleStatus === 1){
+                    console.log("Aaaa");
+                    sale = '<span class="current_price" >'+currencyFormat(data.productPriceSale,' VNĐ')+'</span>\n' +
+                        '                                                <span class="old_price">'+currencyFormat(data.productPrice,' VNĐ')+'</span>' +
+                        '<div>\n' +
+                        '                                            <span class="text-black" id="inventory" > Số lượng còn lại:'+data.quantityInventory+'</span>\n' +
+                        '                                        </div>'
+                }else{
+                    sale = '<span class="text-black">'+currencyFormat(data.productPrice,' VNĐ')+'</span>' +
+                        '<div>\n' +
+                        '                                            <span class="text-black" id="inventory" > Số lượng còn lại:'+data.quantityInventory+'</span>\n' +
+                        '                                        </div>'
+                }
+                price_box.innerHTML = sale;
+            },
+            error: function ($xhr,textStatus,errorThrown) {
+                document.getElementById("loading-wrapper").style.display = "none";
+            }
+        });
+
         //ajax call api return product item value detail by size and color
         //replace price and id value
     }
