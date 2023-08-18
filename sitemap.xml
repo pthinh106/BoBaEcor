@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xml="https://www.sitemaps.org/schemas/sitemap/0.9">
+<!-- thẻ loc dùng chứa URL
+    thẻ priority dùng để chứa độ ưu tiên URL trong khoảng từ 0.0 đến 1.0 -->
+    <url>
+        <loc>https://bobaecor.live/</loc>
+        <priority>1.0</priority>
+    </url>
+    <url>
+        <loc>https://bobaecor.live/cua-hang</loc>
+        <priority>0.8</priority>
+    </url>
+    <url>
+        <loc>https://bobaecor.live/san-pham</loc>
+        <priority>0.7</priority>
+    </url>
+    <url>
+        <loc>https://bobaecor.live/tin-tuc</loc>
+        <priority>0.6</priority>
+    </url>
+    <!-- Thêm các URL khác tại đây -->
+</urlset>
