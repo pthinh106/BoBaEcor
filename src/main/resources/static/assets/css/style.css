@@ -8024,3 +8024,8 @@ input[type=number] {
     transform: rotate(360deg);
   }
 }
+
+
+.fb_dialog_content > iframe {
+  right: 55px!important;
+}
