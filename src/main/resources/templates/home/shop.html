@@ -1,12 +1,12 @@
  <!DOCTYPE html>
 <html class="no-js" lang="en" xmlns:th="http://www.thymeleaf.org">
 
-<head th:replace="~{home/fragments/layout :: head('title','type',url,'site_name','image','description','page')}"></head>
+<head th:replace="~{home/fragments/layout :: head('title','type',url,'site_name','image','description','shop')}"></head>
 
 
 <body>
 
-    <div th:replace="~{home/fragments/layout :: header}"></div>
+    <div th:replace="~{home/fragments/layout :: header('shop')}"></div>
 
     <!--shop  area start-->
     <div class="shop_section shop_reverse">
@@ -19,129 +19,32 @@
                             <div class="widget_list widget_categories">
                                 <h2>Categories</h2>
                                 <ul>
-                                    <li class="widget_sub_categories"><a href="javascript:void(0)" data-toggle="collapse" data-target="#men">Men</a>
-                                        <ul class="widget_dropdown_categories collapse show" id="men">
-                                            <li><a href="#"> New products <span>104</span></a></li>
-                                            <li><a href="#">Gymwear <span>68</span></a></li>
-                                            <li><a href="#">Jakets <span>75</span></a></li>
-                                            <li><a href="#">Jeans <span>30</span></a></li>
-                                            <li><a href="#">Shirts <span>150</span></a></li>
-                                            <li><a href="#">T-Shirts <span>113</span></a></li>
-                                            <li><a href="#">Accessories <span>95</span></a></li>
-                                        </ul>
-                                    </li>
-                                    <li class="widget_sub_categories"><a href="javascript:void(0)" data-toggle="collapse" data-target="#women">women</a>
-                                        <ul class="widget_dropdown_categories collapse" id="women">
-                                            <li><a href="#"> New products <span>104</span></a></li>
-                                            <li><a href="#">Gymwear <span>68</span></a></li>
-                                            <li><a href="#">Jakets <span>75</span></a></li>
-                                            <li><a href="#">Jeans <span>30</span></a></li>
-                                            <li><a href="#">Shirts <span>150</span></a></li>
-                                            <li><a href="#">T-Shirts <span>113</span></a></li>
-                                            <li><a href="#">Accessories <span>95</span></a></li>
-                                        </ul>
-                                    </li>
-                                    <li class="widget_sub_categories"><a href="javascript:void(0)" data-toggle="collapse" data-target="#footwear">footwear</a>
-                                        <ul class="widget_dropdown_categories collapse" id="footwear">
-                                            <li><a href="#"> New products <span>104</span></a></li>
-                                            <li><a href="#">Gymwear <span>68</span></a></li>
-                                            <li><a href="#">Jakets <span>75</span></a></li>
-                                            <li><a href="#">Jeans <span>30</span></a></li>
-                                            <li><a href="#">Shirts <span>150</span></a></li>
-                                            <li><a href="#">T-Shirts <span>113</span></a></li>
-                                            <li><a href="#">Accessories <span>95</span></a></li>
-                                        </ul>
-                                    </li>
-                                    <li class="widget_sub_categories"><a href="javascript:void(0)" data-toggle="collapse" data-target="#accessories">accessories</a>
-                                        <ul class="widget_dropdown_categories collapse" id="accessories">
-                                            <li><a href="#"> New products <span>104</span></a></li>
-                                            <li><a href="#">Gymwear <span>68</span></a></li>
-                                            <li><a href="#">Jakets <span>75</span></a></li>
-                                            <li><a href="#">Jeans <span>30</span></a></li>
-                                            <li><a href="#">Shirts <span>150</span></a></li>
-                                            <li><a href="#">T-Shirts <span>113</span></a></li>
-                                            <li><a href="#">Accessories <span>95</span></a></li>
-                                        </ul>
-                                    </li>
+                                    <h3>Categories</h3>
+                                    <th:block th:each="item : ${parent}">
+                                        <li class="widget_sub_categories">
+                                            <div class="widget_sub_categories d-flex flex-row row">
+                                                <a class="col-10" href="javascript:void(0)" th:text="${item.getCategoryName()}">footwear</a>
+                                                <a class="col-2" href="javascript:void(0)" data-toggle="collapse" th:attrappend="data-target='#C' + ${item.getCategoryId()}" ><i class="icon-right ion-ios-arrow-down"></i></a>
+                                            </div>
+
+                                            <ul class="widget_dropdown_categories collapse" th:id="'C'+${item.getCategoryId()}">
+                                                <th:block th:each="caterogy : ${categories}">
+                                                    <th:block th:if="${caterogy.getParentId() == item.getCategoryId()}">
+                                                        <li><a href="#" th:text="${caterogy.getCategoryName()}"> New products <span th:text="${caterogy.getProducts().size()}">104</span></a></li>
+                                                    </th:block>
+                                                </th:block>
+                                            </ul>
+                                        </li>
+                                    </th:block>
                                 </ul>
                             </div>
                             <div class="widget_list widget_filter">
-                                <h2>Filter By</h2>
-                                 <div class="filter__list slider_range">
-                                    <h3>price</h3>
-                                    <form action="#">
-                                        <div id="slider-range"></div>
-                                        <span>Range:</span>
-                                        <input type="text" name="text" id="amount" />
-
-                                    </form>
-                                 </div>
-
-                                <div class="filter__list widget_size">
-                                    <h3> size</h3>
-                                    <ul>
-                                        <li>
-                                            <a href="javascript:void(0)">S </a>
-                                        </li>
-                                        <li>
-                                            <a href="javascript:void(0)"> M</a>
-                                        </li>
-                                        <li>
-                                            <a href="javascript:void(0)">L</a>
-                                        </li>
-                                        <li>
-                                            <a href="javascript:void(0)"> XL</a>
-                                        </li>
-                                        <li>
-                                            <a href="javascript:void(0)">XLL</a>
-                                        </li>
-                                    </ul>
-                                </div>
-                                <div class="filter__list widget_color">
-                                    <h3>color</h3>
-                                     <ul>
-                                       <li>
-                                            <input type="checkbox">
-                                            <span class="checkmark color1"></span>
-                                        </li>
-                                        <li>
-                                            <input type="checkbox">
-                                            <span class="checkmark color2"></span>
-                                        </li>
-                                        <li>
-                                            <input type="checkbox">
-                                            <span class="checkmark color3"></span>
-                                        </li>
-                                        <li>
-                                            <input type="checkbox">
-                                            <span class="checkmark color4"></span>
-                                        </li>
-                                        <li>
-                                            <input type="checkbox">
-                                            <span class="checkmark color5"></span>
-                                        </li>
-                                        <li>
-                                            <input type="checkbox">
-                                            <span class="checkmark color6"></span>
-                                        </li>
-                                        <li>
-                                            <input type="checkbox">
-                                            <span class="checkmark color7"></span>
-                                        </li>
-                                        <li>
-                                            <input type="checkbox">
-                                            <span class="checkmark color8"></span>
-                                        </li>
-                                    </ul>
-                                </div>
-                                  <div class="filter__list widget_brands">
-                                    <h3 data-toggle="collapse" data-target="#brands">brands</h3>
+                                <div class="filter__list widget_brands">
+                                    <h3 data-toggle="collapse" data-target="#brands">Brands</h3>
                                     <ul class="widget_dropdown_categories collapse show" id="brands">
-                                        <li><a href="#"> The North Face <span>104</span></a></li>
-                                        <li><a href="#">Zara Basic <span>68</span></a></li>
-                                        <li><a href="#">Moschino <span>75</span></a></li>
-                                        <li><a href="#">Supreme <span>30</span></a></li>
-                                        <li><a href="#">Ecko Unltd <span>150</span></a></li>
+                                        <th:block th:each="item : ${brands}">
+                                            <li><a href="#" th:text="${item.getBrandName()}">Ecko Unltd <span th:text="${item.getProducts().size()}">150</span></a></li>
+                                        </th:block>
                                     </ul>
                                 </div>
                             </div>
@@ -334,33 +237,7 @@
     <!--shop  area end-->
 
     <!--newsletter section start-->
-    <section class="newsletter_section newsletter_padding border-top">
-        <div class="container">
-            <div class="row">
-                <div class="col-12">
-                    <div class="newsletter_inner d-flex justify-content-between align-items-center">
-                        <div class="newsletter_text">
-                            <h3>keep connected</h3>
-                            <p>Get updates by subscribe our weekly newsletter</p>
-                        </div>
-                        <div class="newsletter_subscribe">
-                            <form id="mc-form">
-                                <input class="border-0" id="mc-email" type="email" autocomplete="off" placeholder="Enter your email address">
-                                <i class="icon-envelope-open icons"></i>
-                                <button class="border-0" id="mc-submit">Subscribe</button>
-                            </form>
-                            <!-- mailchimp-alerts Start -->
-                            <div class="mailchimp-alerts text-centre">
-                                <div class="mailchimp-submitting"></div><!-- mailchimp-submitting end -->
-                                <div class="mailchimp-success"></div><!-- mailchimp-success end -->
-                                <div class="mailchimp-error"></div><!-- mailchimp-error end -->
-                            </div><!-- mailchimp-alerts end -->
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+    <section th:replace="~{home/fragments/layout :: newsletter}"></section>
     <!--newsletter section end-->
 
     <!--footer area start-->

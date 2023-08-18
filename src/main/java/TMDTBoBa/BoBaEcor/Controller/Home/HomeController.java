@@ -3,6 +3,10 @@ package TMDTBoBa.BoBaEcor.Controller.Home;
 import TMDTBoBa.BoBaEcor.API.CustomeHttpRe.Store.Cart;
 import TMDTBoBa.BoBaEcor.API.PublicAPI.Payment.Paypal.PaypalService;
 import TMDTBoBa.BoBaEcor.Controller.BaseController;
+import TMDTBoBa.BoBaEcor.Models.Store.Brand;
+import TMDTBoBa.BoBaEcor.Models.Store.Category;
+import TMDTBoBa.BoBaEcor.Service.Blog.Channel14RSSReader;
+import TMDTBoBa.BoBaEcor.Models.BlogCustom.RSSItem;
 import TMDTBoBa.BoBaEcor.Models.Store.Product;
 import TMDTBoBa.BoBaEcor.Service.store.Brand.BrandService;
 import TMDTBoBa.BoBaEcor.Service.store.Category.CategoryService;
@@ -23,13 +27,17 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicReference;
 
 @Controller
 @RequestMapping(path = "")
 public class HomeController  extends BaseController {
-    public HomeController(PaypalService paypalService, ProductService productService, CategoryService categoryService, BrandService brandService) {
-        super(paypalService, productService, categoryService, brandService);
+
+
+    public HomeController(PaypalService paypalService, ProductService productService, CategoryService categoryService, BrandService brandService, Channel14RSSReader channel14RSSReader) {
+        super(paypalService, productService, categoryService, brandService, channel14RSSReader);
     }
 
     @GetMapping("/")
@@ -43,6 +51,15 @@ public class HomeController  extends BaseController {
     public String findProduct(Model model, @RequestParam(name = "q",defaultValue = "") String productName,@RequestParam(name = "page",defaultValue = "1") Integer page,
                               HttpServletRequest request, HttpServletResponse response){
         Page<Product> products = productService.findAllByName(productName,page);
+        List<Category> categories = categoryService.findAll();
+        List<Brand> brands = brandService.findAll();
+        AtomicReference<List<Category>> parent = new AtomicReference<>(new ArrayList<>());
+        for(Category category : categories){
+            if(category.getParentId() == 0) parent.get().add(category);
+        }
+        model.addAttribute("categories",categories);
+        model.addAttribute("brands",brands);
+        model.addAttribute("parent",parent.get());
         model.addAttribute("listProduct",products.getContent());
         model.addAttribute("page",products.getPageable().getPageNumber() + 1);
         model.addAttribute("pageTotal",products.getTotalPages());
@@ -82,7 +99,10 @@ public class HomeController  extends BaseController {
         return "home/checkout";
     }
     @GetMapping("/tin-tuc")
-    public String blog(){
+    public String blog(Model model){
+        String rssFeedUrl = "https://vnexpress.net/rss/giai-tri.rss";
+        List<RSSItem> items = channel14RSSReader.readRSSFeed(rssFeedUrl);
+        model.addAttribute("items", items);
         return "home/blog";
     }
 

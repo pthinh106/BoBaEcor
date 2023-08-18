@@ -35,7 +35,7 @@ body {
   font-style: normal;
   font-weight: 400;
   visibility: visible;
-  font-family: "Poppins", sans-serif;
+  font-family: "Poppins", sans-serif, Tahoma;
   color: #000000;
   letter-spacing: 0.02em;
 }
@@ -3968,6 +3968,16 @@ input:-ms-input-placeholder, textarea:-ms-input-placeholder {
   line-height: 30px;
   font-weight: 600;
   text-transform: uppercase;
+}
+.widget_categories > ul > li > div >  a {
+  font-size: 14px;
+  display: block;
+  line-height: 30px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+.widget_categories > ul > li > div >  a:hover {
+  color: #6a7964
 }
 .widget_categories > ul > li > a:hover {
   color: #6a7964;
@@ -8023,4 +8033,24 @@ input[type=number] {
     -ms-transform: rotate(360deg);
     transform: rotate(360deg);
   }
+}
+
+
+.search-input{
+  font-size: 15px;
+  width: 293px;
+  padding: 1px 10px;
+  background: none;
+  height: 100%;
+  border: none;
+}
+.form-search{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #ccc;
+  border-radius: 30px;
+  padding: 0px 13px;
+  height: 45px;
 }

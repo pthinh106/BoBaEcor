@@ -108,21 +108,21 @@
     
     
     //Shopping Cart addClass removeClass
-    $('.shopping_cart > a').on('click', function(){
-        $('.mini_cart,.body_overlay').addClass('active')
-    });
-    $('.mini_cart_close a,.body_overlay').on('click', function(){
-        $('.mini_cart,.body_overlay').removeClass('active')
-    });
+    // $('.shopping_cart > a').on('click', function(){
+    //     $('.mini_cart,.body_overlay').addClass('active')
+    // });
+    // $('.mini_cart_close a,.body_overlay').on('click', function(){
+    //     $('.mini_cart,.body_overlay').removeClass('active')
+    // });
     
     
     //Search Box addClass removeClass
-    $('.header_search > a').on('click', function(){
-        $('.page_search_box').addClass('active')
-    });
-    $('.search_close > i').on('click', function(){
-        $('.page_search_box').removeClass('active')
-    });
+    // $('.header_search > a').on('click', function(){
+    //     $('.page_search_box').addClass('active')
+    // });
+    // $('.search_close > i').on('click', function(){
+    //     $('.page_search_box').removeClass('active')
+    // });
     
     
     /*--- Magnific Popup Video---*/

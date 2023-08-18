@@ -3,6 +3,7 @@ package TMDTBoBa.BoBaEcor.Controller.Admin;
 import TMDTBoBa.BoBaEcor.API.PublicAPI.Payment.Paypal.PaypalService;
 import TMDTBoBa.BoBaEcor.Controller.BaseController;
 import TMDTBoBa.BoBaEcor.Models.Store.Product;
+import TMDTBoBa.BoBaEcor.Service.Blog.Channel14RSSReader;
 import TMDTBoBa.BoBaEcor.Service.store.Brand.BrandService;
 import TMDTBoBa.BoBaEcor.Service.store.Category.CategoryService;
 import TMDTBoBa.BoBaEcor.Service.store.Product.ProductService;
@@ -17,8 +18,9 @@ import java.util.Objects;
 @RequestMapping(path = "/admin/addon")
 public class AddonController extends BaseController {
 
-    public AddonController(PaypalService paypalService, ProductService productService, CategoryService categoryService, BrandService brandService) {
-        super(paypalService, productService, categoryService, brandService);
+
+    public AddonController(PaypalService paypalService, ProductService productService, CategoryService categoryService, BrandService brandService, Channel14RSSReader channel14RSSReader) {
+        super(paypalService, productService, categoryService, brandService, channel14RSSReader);
     }
 
     @GetMapping(path = "/product")

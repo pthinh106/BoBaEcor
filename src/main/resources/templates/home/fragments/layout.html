@@ -62,7 +62,7 @@
 
 
 
-<div th:fragment="header">
+<div th:fragment="header(page)">
     <!--offcanvas menu area start-->
     <div class="body_overlay">
 <!--        th:text="${@environment.getProperty('web_fb')}"-->
@@ -93,52 +93,36 @@
                                 <li><a href="#"><i class="icon-social-pinterest icons"></i></a></li>
                             </ul>
                         </div>
-                        <div class="language_currency">
-                            <ul class="d-flex">
-                                <li class="language"><a href="#"> Eng <i class="icon-right ion-ios-arrow-down"></i></a>
-                                    <ul class="dropdown_language">
-                                        <li><a href="#">French</a></li>
-                                        <li><a href="#">Spanish</a></li>
-                                        <li><a href="#">Russian</a></li>
-                                    </ul>
-                                </li>
-                                <li class="currency"><a href="#"> USd <i class="icon-right ion-ios-arrow-down"></i></a>
-                                    <ul class="dropdown_currency">
-                                        <li><a href="#">€ Euro</a></li>
-                                        <li><a href="#">£ Pound Sterling</a></li>
-                                        <li><a href="#">$ US Dollar</a></li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </div>
+<!--                        <div class="language_currency">-->
+<!--                            <ul class="d-flex">-->
+<!--                                <li class="language"><a href="#"> Eng <i class="icon-right ion-ios-arrow-down"></i></a>-->
+<!--                                    <ul class="dropdown_language">-->
+<!--                                        <li><a href="#">French</a></li>-->
+<!--                                        <li><a href="#">Spanish</a></li>-->
+<!--                                        <li><a href="#">Russian</a></li>-->
+<!--                                    </ul>-->
+<!--                                </li>-->
+<!--                                <li class="currency"><a href="#"> USd <i class="icon-right ion-ios-arrow-down"></i></a>-->
+<!--                                    <ul class="dropdown_currency">-->
+<!--                                        <li><a href="#">€ Euro</a></li>-->
+<!--                                        <li><a href="#">£ Pound Sterling</a></li>-->
+<!--                                        <li><a href="#">$ US Dollar</a></li>-->
+<!--                                    </ul>-->
+<!--                                </li>-->
+<!--                            </ul>-->
+<!--                        </div>-->
                         <div id="menu" class="text-left ">
                             <ul class="offcanvas_main_menu">
                                 <li class="menu-item-has-children active">
-                                    <a href="#">Home</a>
+                                    <a th:href="@{/}">Trang Chủ</a>
                                 </li>
                                 <li class="menu-item-has-children">
-                                    <a href="../shop.html">Shop</a>
+                                    <a th:href="@{/cua-hang}">Cửa Hàng</a>
                                 </li>
+<!--                                <li><a th:href="@{/cua-hang(sale = 1)}">Giảm Giá</a></li>-->
                                 <li class="menu-item-has-children">
-                                    <a href="../product-details.html"> Product Details</a>
+                                    <a th:href="@{/tin-tuc}">Tin Tức </a>
                                 </li>
-                                <li><a href="#">sale</a></li>
-                                <li class="menu-item-has-children">
-                                    <a href="#">pages </a>
-                                    <ul class="sub-menu">
-                                        <li><a href="../cart.html">cart</a></li>
-                                        <li><a href="../checkout.html">Checkout</a></li>
-                                    </ul>
-                                </li>
-                                <li class="menu-item-has-children">
-                                    <a href="#">blog</a>
-                                    <ul class="sub-menu">
-                                        <li><a href="../blog.html">blog</a></li>
-                                        <li><a href="../blog-details.html">blog details</a></li>
-                                    </ul>
-
-                                </li>
-                                <li><a href="#">buy</a></li>
                             </ul>
                         </div>
                     </div>
@@ -271,46 +255,44 @@
                                 <a href="javascript:void(0)"><i class="ion-navicon"></i></a>
                             </div>
                             <div class="header_logo">
-                                <a class="sticky_none" href="../index.html"><img src="/assets/img/logo/logo.png" alt=""></a>
+                                <a class="sticky_none" th:href="@{/}"><img src="/assets/img/logo/logo.png" alt=""></a>
                             </div>
                             <!--main menu start-->
                             <div class="main_menu d-none d-lg-block">
                                 <nav>
                                     <ul class="d-flex">
-                                        <li><a class="active" th:href="@{/}">Trang Chu</a> </li>
-                                        <li><a th:href="@{/cua-hang}">shop</a></li>
+                                        <li><a th:class="${page == 'index' ? 'active' : ''}" th:href="@{/}">Trang Chủ</a> </li>
+                                        <li><a th:class="${page == 'shop' ? 'active' : ''}" th:href="@{/cua-hang}">Cửa Hàng</a></li>
 <!--                                        <li><a href="../product-details.html">product</a></li>-->
 <!--                                        <li><a href="#">sale</a></li>-->
-<!--                                        <li><a href="#">pages</a>-->
+<!--                                        <li><a th:class="${page == 'shop' ? 'active' : ''}" th:href="@{/cua-hang(sale = 1)}">Giảm Giá</a>-->
 <!--                                            <ul class="sub_menu">-->
 <!--                                                <li><a href="../cart.html">Cart Pages</a></li>-->
 <!--                                                <li><a href="../checkout.html">Checkout Pages</a></li>-->
 <!--                                            </ul>-->
 <!--                                        </li>-->
-                                        <li><a th:href="@{/tin-tuc}">blog</a>
-                                            <ul class="sub_menu">
-                                                <li><a href="../blog.html">Blog Pages</a></li>
-                                                <li><a href="../blog-details.html">Blog Details</a></li>
-                                            </ul>
+                                        <li><a th:class="${page == 'blog' ? 'active' : ''}" th:href="@{/tin-tuc}">Tin Tức</a>
                                         </li>
-                                        <li><a href="#">buy</a></li>
                                     </ul>
                                 </nav>
                             </div>
                             <div class="header_account">
-                                <ul class="d-flex">
-                                    <li class="header_search"><a href="#"><i class="icon-magnifier icons"></i></a></li>
+                                <ul class="d-flex align-items-center">
+                                    <li class="header_search">
+                                        <form th:action="@{/cua-hang}" class="form-search" method="get">
+                                            <input type="text" name="q" class="search-input">
+                                            <button type="submit" style="border: none; background: none"><i class="icon-magnifier icons" ></i></button>
+                                        </form>
+                                    </li>
                                     <li class="account_link"><a href="#"><i class="icon-user icons"></i></a>
                                         <ul class="dropdown_account_link">
-                                            <li><a href="#">My Account</a></li>
-                                            <li><a href="#">Login</a></li>
-                                            <li><a href="#">Contact</a></li>
+                                            <li><a href="#">Tài Khoản</a></li>
+                                            <li><a href="#">Đăng Nhập</a></li>
+                                            <li><a href="#">Liên Hệ</a></li>
                                         </ul>
                                     </li>
-                                    <li><a href="#"><i class="icon-heart icons"></i></a> <span
-                                            class="item_count">2</span></li>
                                     <li class="shopping_cart"><a href="#"><i class="icon-basket-loaded icons"></i></a>
-                                        <span class="item_count">2</span></li>
+                                        <span class="item_count" id="item_count">2</span></li>
                                 </ul>
                             </div>
                         </div>
@@ -332,6 +314,74 @@
     </header>
     <!--header area end-->
 </div>
+
+<section class="newsletter_section" th:fragment="newsletter" >
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="newsletter_inner d-flex justify-content-between align-items-center">
+                    <div class="newsletter_text">
+                        <h3>keep connected</h3>
+                        <p>Get updates by subscribe our weekly newsletter</p>
+                    </div>
+                    <div class="newsletter_subscribe_container">
+                        <div id="mc_embed_shell">
+                            <link href="//cdn-images.mailchimp.com/embedcode/classic-061523.css" rel="stylesheet"
+                                  type="text/css">
+                            <style type="text/css">
+                                #mc_embed_signup {
+                                    background: #fff;
+                                    clear: left;
+                                    font: 14px Helvetica, Arial, sans-serif;
+                                    width: 600px;
+                                }
+
+                                /* Add your own Mailchimp form style overrides in your site stylesheet or in this style block.
+                                 We recommend moving this block and the preceding CSS link to the HEAD of your HTML file. */
+                            </style>
+                            <div class="newsletter_subscribe" id="mc_embed_signup">
+                                <form
+                                        action="https://hcmue.us21.list-manage.com/subscribe/post?u=1fc09ac58b92652d767e2c44a&amp;id=ee82e20d40&amp;f_id=00eed9e6f0"
+                                        method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form"
+                                        class="validate" target="_blank">
+                                    <div id="mc_embed_signup_scroll ">
+                                        <div class="mc-field-group" style="padding:0;">
+                                            <input type="email" name="EMAIL" class=" email border-0"
+                                                   id="mce-EMAIL mc-email" value=""
+                                                   placeholder="Enter your email address">
+                                            <i class="icon-envelope-open icons"></i>
+                                        </div>
+                                        <div id="mce-responses" class="clear foot">
+                                            <div class="response" id="mce-error-response" style="display: none;">
+                                            </div>
+                                            <div class="response" id="mce-success-response" style="display: none;">
+                                            </div>
+                                        </div>
+                                        <div aria-hidden="true" style="position: absolute; left: -5000px;">
+                                            /* real people should not fill this in and expect good things - do not
+                                            remove this or risk form bot
+                                            signups */
+                                            <input type="text" name="b_3aabb840ef30119dc1b5ea441_eb37dcf51d"
+                                                   tabindex="-1" value="">
+                                        </div>
+                                        <button class="border-0" name="subscribe" type="submit"
+                                                id="mc-embedded-subscribe">Subscribe</button>
+
+                                    </div>
+                                </form>
+                            </div>
+                            <script type="text/javascript"
+                                    src="//s3.amazonaws.com/downloads.mailchimp.com/js/mc-validate.js">
+                            </script>
+                            <script
+                                    type="text/javascript">(function ($) { window.fnames = new Array(); window.ftypes = new Array(); fnames[0] = 'EMAIL'; ftypes[0] = 'email'; fnames[1] = 'FNAME'; ftypes[1] = 'text'; fnames[2] = 'LNAME'; ftypes[2] = 'text'; fnames[3] = 'ADDRESS'; ftypes[3] = 'address'; fnames[4] = 'PHONE'; ftypes[4] = 'phone'; fnames[5] = 'BIRTHDAY'; ftypes[5] = 'birthday'; }(jQuery)); var $mcj = jQuery.noConflict(true);</script>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section >
 
 <footer class="footer_widgets" th:fragment="footer">
     <div class="container">
