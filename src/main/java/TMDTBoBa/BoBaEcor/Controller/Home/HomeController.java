@@ -19,9 +19,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
+import java.util.List;
 
 @Controller
 @RequestMapping(path = "")
@@ -37,18 +39,19 @@ public class HomeController  extends BaseController {
         return "home/index";
     }
 
-    @GetMapping("/tim-kiem")
-    public String findProduct(Model model){
-
-        return "home/findproduct";
-    }
-
     @GetMapping("/cua-hang")
-    public String store(Model model,@RequestParam(name = "page",defaultValue = "1") Integer page ){
-        Page<Product> products = productService.findPageHome(page);
+    public String findProduct(Model model, @RequestParam(name = "q",defaultValue = "") String productName,@RequestParam(name = "page",defaultValue = "1") Integer page,
+                              HttpServletRequest request, HttpServletResponse response){
+        Page<Product> products = productService.findAllByName(productName,page);
         model.addAttribute("listProduct",products.getContent());
         model.addAttribute("page",products.getPageable().getPageNumber() + 1);
         model.addAttribute("pageTotal",products.getTotalPages());
+        model.addAttribute("curURL",request.getRequestURL());
+        model.addAttribute("baseUrl", ServletUriComponentsBuilder.fromRequestUri(request)
+                .replacePath(null)
+                .build()
+                .toUriString());
+
         return "home/shop";
     }
 

@@ -27,4 +27,6 @@ public interface IProductService {
     StoreResponse editProduct(Product product);
     StoreResponse hiddenProduct(Integer productId);
     StoreResponse removeProduct(Integer productId);
+
+    Page<Product> findAllByName(String productName, Integer page);
 }

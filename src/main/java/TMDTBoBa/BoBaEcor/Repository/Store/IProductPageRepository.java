@@ -10,4 +10,5 @@ import java.util.List;
 public interface IProductPageRepository extends PagingAndSortingRepository<Product,Integer> {
 
     Page<Product> findAllByStatus(Integer status,Pageable pageable);
+    Page<Product> findAllByProductNameContainingAndStatus(String productName,Integer status,Pageable pageable);
 }

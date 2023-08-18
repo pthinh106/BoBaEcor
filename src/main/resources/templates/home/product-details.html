@@ -180,10 +180,10 @@
                             <div class="priduct_social d-flex align-center">
                                 <span style="margin-top: auto; margin-bottom: auto">SHARE: </span>
                                 <ul>
-                                    <li><span th:attr="data-href='https://www.facebook.com/sharer.php?u='+${curURL}" class="social-wrapper"><i class="ion-social-twitter" style="font-size: 25px"></i></span></li>
-                                    <li><span th:attr="data-href='https://www.facebook.com/sharer.php?u='+${curURL}" class="social-wrapper"><i class="ion-social-facebook" style="font-size: 25px"></i></span></li>
-                                    <li><span th:attr="data-href='https://www.facebook.com/sharer.php?u='+${curURL}" class="social-wrapper"><i class="ion-social-googleplus-outline" style="font-size: 25px"></i></span></li>
-                                    <li><span th:attr="data-href='https://www.facebook.com/sharer.php?u='+${curURL}" class="social-wrapper"><i class="ion-social-instagram-outline" style="font-size: 25px"></i></span></li>
+                                    <li><span th:attr="data-href='https://www.facebook.com/sharer.php?u='+${curURL}" class="social-wrapper twitter"><i class="ion-social-twitter" style="font-size: 25px"></i></span></li>
+                                    <li><span th:attr="data-href='https://www.facebook.com/sharer.php?u='+${curURL}" class="social-wrapper facebook" ><i class="ion-social-facebook" style="font-size: 25px"></i></span></li>
+                                    <li><span th:attr="data-href='https://www.facebook.com/sharer.php?u='+${curURL}" class="social-wrapper google-plus" ><i class="ion-social-googleplus-outline" style="font-size: 25px"></i></span></li>
+                                    <li><span th:attr="data-href='https://www.facebook.com/sharer.php?u='+${curURL}" class="social-wrapper instagram" ><i class="ion-social-instagram-outline" style="font-size: 25px"></i></span></li>
                                 </ul>
                             </div>
                         </form>
@@ -736,6 +736,7 @@
             </div>
         </div>
     </div>
+    <div id="fb-root"></div>
     <!-- modal area end-->
     <div th:replace="~{home/fragments/layout :: loading}"></div>
 <!-- JS
@@ -837,6 +838,29 @@
 
         });
 </script>
+    <script>
+        const link = encodeURI(window.location.href);
+        const msg1 = encodeURIComponent('Hey, I found this article');
+        const msg2 = encodeURIComponent('#BobaShop Tự tin tỏa sáng với bộ sưu tập quần áo mới - Mua tại')
+
+        const fb = document.querySelector('.facebook');
+        fb.href = `https://www.facebook.com/share.php?u=${link}`;
+
+        const twitter = document.querySelector('.twitter');
+        twitter.href = `https://twitter.com/intent/tweet?url=${link}&text=${msg2}`;
+
+        const pinterest = document.querySelector('.pinterest');
+        pinterest.href = `https://www.pinterest.com/pin/create/button/?url=${link}&description=${msg1}`;
+
+    </script>
+    <script>(function (d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s);
+        js.id = id;
+        js.src = "https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.0";
+        fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));</script>
 </body>
 
 </html>

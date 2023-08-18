@@ -204,6 +204,12 @@ public class ProductService implements IProductService {
         return null;
     }
 
+    @Override
+    public Page<Product> findAllByName(String productName,Integer page) {
+        int pageSize = 9;
+        Pageable pageable = PageRequest.of(page-1,pageSize);
+        return iProductPageRepository.findAllByProductNameContainingAndStatus(productName,1,pageable);
+    }
 
 
 }
