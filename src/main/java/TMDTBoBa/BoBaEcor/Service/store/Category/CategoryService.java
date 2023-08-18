@@ -32,6 +32,11 @@ public class CategoryService implements ICategoryService {
     }
 
     @Override
+    public Optional<Category> findBySlug(String categorySlug) {
+        return iCategoryRepository.findByCategorySlug(categorySlug);
+    }
+
+    @Override
     public Optional<Category> findByStatus(Integer status) {
         return Optional.empty();
     }
@@ -79,5 +84,9 @@ public class CategoryService implements ICategoryService {
     @Override
     public StoreResponse removeBrand(Category brand) {
         return null;
+    }
+    @Override
+    public List<Category> findAllByParentId(Integer categoryId) {
+        return iCategoryRepository.findAllByCategoryIdOrParentId(categoryId,categoryId);
     }
 }

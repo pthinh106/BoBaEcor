@@ -1,11 +1,13 @@
 package TMDTBoBa.BoBaEcor.Service.store.Product;
 
 import TMDTBoBa.BoBaEcor.API.CustomeHttpRe.Store.StoreResponse;
+import TMDTBoBa.BoBaEcor.Models.Store.Brand;
 import TMDTBoBa.BoBaEcor.Models.Store.Product;
 import TMDTBoBa.BoBaEcor.Models.Store.ProductDetail;
 import org.springframework.data.domain.Page;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
@@ -18,6 +20,7 @@ public interface IProductService {
     Optional<Product> findByStatus(Integer status);
     List<Product> findAll();
 
+    List<Product> findAllByBrand(Brand brand);
     Optional<ProductDetail> findDetailByProductIdAndColorAndSize(String color,Integer id,String size);;
     StoreResponse findPage(Integer page);
     Page<Product> findPageHome(Integer page);
@@ -29,4 +32,8 @@ public interface IProductService {
     StoreResponse removeProduct(Integer productId);
 
     Page<Product> findAllByName(String productName, Integer page);
+
+    List<Product> findByListId(Collection<Integer> ListId);
+
+
 }

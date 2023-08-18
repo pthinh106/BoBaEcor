@@ -2,6 +2,7 @@ package TMDTBoBa.BoBaEcor.Service.store.Brand;
 
 import TMDTBoBa.BoBaEcor.API.CustomeHttpRe.Store.StoreResponse;
 import TMDTBoBa.BoBaEcor.Models.Store.Brand;
+import TMDTBoBa.BoBaEcor.Models.Store.Category;
 import TMDTBoBa.BoBaEcor.Models.User.User;
 import TMDTBoBa.BoBaEcor.Repository.Store.IBrandRepository;
 import TMDTBoBa.BoBaEcor.Repository.User.IUserRepository;
@@ -27,6 +28,11 @@ public class BrandService implements IBrandService {
     @Override
     public Optional<Brand> findByName(String brandNane) {
         return Optional.empty();
+    }
+
+    @Override
+    public Optional<Brand> findBySlug(String slug) {
+        return iBrandRepository.findByBrandSlug(slug);
     }
 
     @Override

@@ -8054,3 +8054,9 @@ input[type=number] {
   padding: 0px 13px;
   height: 45px;
 }
+#mc_embed_signup .mc-field-group input {
+  padding: 0px 28px!important;
+}
+#mc-embedded-subscribe {
+  margin: 0!important;
+}

@@ -23,14 +23,14 @@
                                     <th:block th:each="item : ${parent}">
                                         <li class="widget_sub_categories">
                                             <div class="widget_sub_categories d-flex flex-row row">
-                                                <a class="col-10" href="javascript:void(0)" th:text="${item.getCategoryName()}">footwear</a>
+                                                <a class="col-10" th:href="@{/categories/{slug}(slug = ${item.getCategorySlug()})}" th:text="${item.getCategoryName()}">footwear</a>
                                                 <a class="col-2" href="javascript:void(0)" data-toggle="collapse" th:attrappend="data-target='#C' + ${item.getCategoryId()}" ><i class="icon-right ion-ios-arrow-down"></i></a>
                                             </div>
 
                                             <ul class="widget_dropdown_categories collapse" th:id="'C'+${item.getCategoryId()}">
                                                 <th:block th:each="caterogy : ${categories}">
                                                     <th:block th:if="${caterogy.getParentId() == item.getCategoryId()}">
-                                                        <li><a href="#" th:text="${caterogy.getCategoryName()}"> New products <span th:text="${caterogy.getProducts().size()}">104</span></a></li>
+                                                        <li><a th:href="@{/categories/{slug}(slug = ${caterogy.getCategorySlug()})}" th:text="${caterogy.getCategoryName()}"> New products <span th:text="${caterogy.getProducts().size()}">104</span></a></li>
                                                     </th:block>
                                                 </th:block>
                                             </ul>
@@ -43,7 +43,7 @@
                                     <h3 data-toggle="collapse" data-target="#brands">Brands</h3>
                                     <ul class="widget_dropdown_categories collapse show" id="brands">
                                         <th:block th:each="item : ${brands}">
-                                            <li><a href="#" th:text="${item.getBrandName()}">Ecko Unltd <span th:text="${item.getProducts().size()}">150</span></a></li>
+                                            <li><a th:href="@{/brands/{slug}(slug = ${item.getBrandSlug()})}" th:text="${item.getBrandName()}">Ecko Unltd <span th:text="${item.getProducts().size()}">150</span></a></li>
                                         </th:block>
                                     </ul>
                                 </div>
@@ -53,7 +53,7 @@
                                 <div class="recent_product">
                                     <div class="recent_product_list d-flex mb-25">
                                         <div class="recent_thumb">
-                                            <a href="product-details.html"><img src="assets/img/product/product4.jpg" alt=""></a>
+                                            <a href="product-details.html"><img src="/assets/img/product/product4.jpg" alt=""></a>
                                         </div>
                                         <div class="recent_content">
                                             <h4><a href="product-details.html">Barbour T-shirt <br> International</a></h4>
@@ -62,7 +62,7 @@
                                     </div>
                                     <div class="recent_product_list d-flex">
                                         <div class="recent_thumb">
-                                            <a href="product-details.html"><img src="assets/img/product/product6.jpg" alt=""></a>
+                                            <a href="product-details.html"><img src="/assets/img/product/product6.jpg" alt=""></a>
                                         </div>
                                         <div class="recent_content">
                                             <h4><a href="product-details.html">Barbour T-shirt <br> International</a></h4>
@@ -87,7 +87,7 @@
                     </div>
                     <!--breadcrumbs area end-->
 
-                    <div class="shop_banner d-flex align-items-center" data-bgimg="assets/img/bg/shop_bg.jpg">
+                    <div class="shop_banner d-flex align-items-center" data-bgimg="/assets/img/bg/shop_bg.jpg">
                         <div class="shop_banner_text">
                             <h2>essential <br> wears</h2>
                             <p>The collections basic items <br> essential for all girls</p>
@@ -199,31 +199,33 @@
                     </div>
                     <div class="pagination_style pagination justify-content-center">
                         <ul class="d-flex">
-                            <th:block th:if="${param.get('q') != null}">
-                                <li><a th:href="@{~/cua-hang(q = ${param.get('q')})}"> << </a></li>
-                                <th:block th:if="${pageTotal > 1}">
-                                    <li><a th:href="@{~/cua-hang(q = ${param.get('q')},page = ${page - 1})}"> < </a></li>
-                                    <li><a th:href="@{~/cua-hang(q = ${param.get('q')},page = ${page - 1})}" th:text="${page}">1</a></li>
+                            <th:block th:if="${page != 0}">
+                                <th:block th:if="${param.get('q') != null}">
+                                    <li><a th:href="@{~/cua-hang(q = ${param.get('q')})}"> << </a></li>
+                                    <th:block th:if="${pageTotal > 1}">
+                                        <li><a th:href="@{~/cua-hang(q = ${param.get('q')},page = ${page - 1})}"> < </a></li>
+                                        <li><a th:href="@{~/cua-hang(q = ${param.get('q')},page = ${page - 1})}" th:text="${page}">1</a></li>
+                                    </th:block>
+                                    <li><a href="javascript:void(0)" th:text="${page}">1</a></li>
+                                    <th:block th:if="${page < pageTotal}">
+                                        <li><a th:href="@{~/cua-hang(q = ${param.get('q')},page = ${page + 1})}" th:text="${page}">1</a></li>
+                                        <li><a th:href="@{~/cua-hang(q = ${param.get('q')},page = ${page + 1})}"> > </a></li>
+                                    </th:block>
+                                    <li><a th:href="@{~/cua-hang(q = ${param.get('q')},page = ${pageTotal})}">>></a></li>
                                 </th:block>
-                                <li><a href="javascript:void(0)" th:text="${page}">1</a></li>
-                                <th:block th:if="${page < pageTotal}">
-                                    <li><a th:href="@{~/cua-hang(q = ${param.get('q')},page = ${page + 1})}" th:text="${page}">1</a></li>
-                                    <li><a th:href="@{~/cua-hang(q = ${param.get('q')},page = ${page + 1})}"> > </a></li>
+                                <th:block th:unless="${param.get('q') != null}">
+                                    <li><a th:href="@{~/cua-hang}"> << </a></li>
+                                    <th:block th:if="${pageTotal > 1}">
+                                        <li><a th:href="@{~/cua-hang(page = ${page - 1})}"> < </a></li>
+                                        <li><a th:href="@{~/cua-hang(page = ${page - 1})}" th:text="${page}">1</a></li>
+                                    </th:block>
+                                    <li><a href="javascript:void(0)" th:text="${page}">1</a></li>
+                                    <th:block th:if="${page < pageTotal}">
+                                        <li><a th:href="@{~/cua-hang(page = ${page + 1})}" th:text="${page}">1</a></li>
+                                        <li><a th:href="@{~/cua-hang(page = ${page + 1})}"> > </a></li>
+                                    </th:block>
+                                    <li><a th:href="@{~/cua-hang(page = ${pageTotal})}">>></a></li>
                                 </th:block>
-                                <li><a th:href="@{~/cua-hang(q = ${param.get('q')},page = ${pageTotal})}">>></a></li>
-                            </th:block>
-                            <th:block th:unless="${param.get('q') != null}">
-                                <li><a th:href="@{~/cua-hang}"> << </a></li>
-                                <th:block th:if="${pageTotal > 1}">
-                                    <li><a th:href="@{~/cua-hang(page = ${page - 1})}"> < </a></li>
-                                    <li><a th:href="@{~/cua-hang(page = ${page - 1})}" th:text="${page}">1</a></li>
-                                </th:block>
-                                <li><a href="javascript:void(0)" th:text="${page}">1</a></li>
-                                <th:block th:if="${page < pageTotal}">
-                                    <li><a th:href="@{~/cua-hang(page = ${page + 1})}" th:text="${page}">1</a></li>
-                                    <li><a th:href="@{~/cua-hang(page = ${page + 1})}"> > </a></li>
-                                </th:block>
-                                <li><a th:href="@{~/cua-hang(page = ${pageTotal})}">>></a></li>
                             </th:block>
 
                         </ul>
@@ -257,7 +259,7 @@
                             <div class="col-lg-6 col-md-6 col-sm-12">
                                 <div class="modal_zoom_gallery">
                                    <div class="product_zoom_thumb">
-                                        <img src="assets/img/product/big-product/product1.png" alt="">
+                                        <img src="/assets/img/product/big-product/product1.png" alt="">
                                     </div>
                                 </div>
                             </div>

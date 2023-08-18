@@ -9,6 +9,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class HandleErrorController implements ErrorController {
     @RequestMapping("/error")
     public String handleError(HttpServletRequest request){
-        return "admin/pages-error-404";
+        return "pages-error-404";
     }
 }

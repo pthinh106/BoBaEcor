@@ -1,6 +1,7 @@
 package TMDTBoBa.BoBaEcor.Service.store.Product;
 
 import TMDTBoBa.BoBaEcor.API.CustomeHttpRe.Store.StoreResponse;
+import TMDTBoBa.BoBaEcor.Models.Store.Brand;
 import TMDTBoBa.BoBaEcor.Models.Store.Product;
 import TMDTBoBa.BoBaEcor.Models.Store.ProductDetail;
 import TMDTBoBa.BoBaEcor.Models.Store.ProductImages;
@@ -62,6 +63,11 @@ public class ProductService implements IProductService {
     @Override
     public List<Product> findAll() {
         return iProductRepository.findAll();
+    }
+
+    @Override
+    public List<Product> findAllByBrand(Brand brand) {
+        return iProductRepository.findAllByBrand(brand);
     }
 
     @Override
@@ -209,6 +215,11 @@ public class ProductService implements IProductService {
         int pageSize = 9;
         Pageable pageable = PageRequest.of(page-1,pageSize);
         return iProductPageRepository.findAllByProductNameContainingAndStatus(productName,1,pageable);
+    }
+
+    @Override
+    public List<Product> findByListId(Collection<Integer> ListId) {
+        return iProductRepository.getAllByListCategoryId(ListId);
     }
 
 
