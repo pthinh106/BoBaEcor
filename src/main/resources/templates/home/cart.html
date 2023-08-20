@@ -6,7 +6,7 @@
 
 <body>
 
-    <div th:replace="~{home/fragments/layout :: header}"></div>
+    <div th:replace="~{home/fragments/layout :: header('')}"></div>
 
       <!--breadcrumbs area start-->
     <div class="breadcrumbs_area breadcrumbs_other mt-5">
@@ -138,11 +138,11 @@
                                <div class="grand_totall_inner border-bottom">
                                    <div class="cart_subtotal d-flex justify-content-between">
                                        <p>sub total </p>
-                                       <span th:text="${#numbers.formatDecimal(cart.getTotalPrice(),3,'COMMA',0,'POINT')} + ' VNĐ'">$126.00</span>
+                                       <span th:text="${cart.getTotalPrice() != null ? #numbers.formatDecimal(cart.getTotalPrice(),3,'COMMA',0,'POINT') : '0'} + ' VNĐ'">$126.00</span>
                                    </div>
                                    <div class="cart_grandtotal d-flex justify-content-between">
                                        <p>grand total</p>
-                                       <span th:text="${#numbers.formatDecimal(cart.getTotalPrice(),3,'COMMA',0,'POINT')} + ' VNĐ'">$126.00</span>
+                                       <span th:text="${ cart.getTotalPrice() != null ? #numbers.formatDecimal(cart.getTotalPrice(),3,'COMMA',0,'POINT') : '0'} + ' VNĐ'">$126.00</span>
                                    </div>
                                </div>
                                <div class="proceed_checkout_btn">

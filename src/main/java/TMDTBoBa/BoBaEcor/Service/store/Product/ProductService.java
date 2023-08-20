@@ -222,5 +222,15 @@ public class ProductService implements IProductService {
         return iProductRepository.getAllByListCategoryId(ListId);
     }
 
+    @Override
+    public List<Product> findTop6() {
+        return iProductRepository.findTop6ByOrderByQuantitySolidDesc();
+    }
+
+    @Override
+    public List<Product> ramdomProduct() {
+        return iProductRepository.ramDomProduct();
+    }
+
 
 }

@@ -28,6 +28,7 @@ public class ProductController extends BaseController {
     public String getProductDetailsBySlung(@PathVariable String slug, Model model, HttpServletRequest request){
         Optional<Product> productOption = productService.findBySlug(slug);
         if(productOption.isPresent()){
+            model.addAttribute("ramDomProduct",productService.ramdomProduct());
             model.addAttribute("product", productOption.get());
             model.addAttribute("productFirstColor", productOption.get().getItemColor().iterator().next());
             model.addAttribute("productFirstSize", productOption.get().getItemSize().iterator().next());

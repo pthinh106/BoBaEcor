@@ -34,6 +34,8 @@ public interface IProductService {
     Page<Product> findAllByName(String productName, Integer page);
 
     List<Product> findByListId(Collection<Integer> ListId);
+    List<Product> findTop6();
 
 
+    List<Product> ramdomProduct();
 }

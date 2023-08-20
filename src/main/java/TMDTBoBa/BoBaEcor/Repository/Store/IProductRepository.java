@@ -20,4 +20,11 @@ public interface IProductRepository extends JpaRepository<Product,Integer> {
     List<Product> findAllByProductNameContaining(String productName);
     @Query(value = "SELECT p FROM Product p WHERE p.category.categoryId IN :listProduct")
     List<Product> getAllByListCategoryId(@Param("listProduct") Collection<Integer> listProduct);
+
+    List<Product> findTop6ByOrderByQuantitySolidDesc();
+
+    @Query(value = "SELECT p FROM Product p ORDER BY RAND() LIMIT 6")
+    List<Product> ramDomProduct();
+
+
 }

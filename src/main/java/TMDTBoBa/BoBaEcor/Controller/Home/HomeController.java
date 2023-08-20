@@ -21,7 +21,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -29,7 +28,6 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicReference;
 
@@ -44,8 +42,13 @@ public class HomeController  extends BaseController {
 
     @GetMapping("/")
     public String index(Model model, HttpServletRequest request){
+        String rssFeedUrl = "https://vnexpress.net/rss/giai-tri.rss";
+        List<RSSItem> items = channel14RSSReader.readRSSFeedTop(rssFeedUrl);
 
+        model.addAttribute("rssFeedUrl", items);
         model.addAttribute("curURL",request.getRequestURI());
+        model.addAttribute("top6",productService.findTop6());
+        model.addAttribute("ramDomProduct",productService.ramdomProduct());
         return "home/index";
     }
 
