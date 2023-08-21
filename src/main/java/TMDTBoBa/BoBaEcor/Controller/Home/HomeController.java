@@ -54,12 +54,8 @@ public class HomeController  extends BaseController {
 
     @GetMapping("/")
     public String index(Model model, HttpServletRequest request, Principal principal){
-        if(principal != null){
-            return "home/login";
-        }
         String rssFeedUrl = "https://vnexpress.net/rss/giai-tri.rss";
         List<RSSItem> items = channel14RSSReader.readRSSFeedTop(rssFeedUrl);
-
         model.addAttribute("rssFeedUrl", items);
         model.addAttribute("curURL",request.getRequestURI());
         model.addAttribute("top6",productService.findTop6());
