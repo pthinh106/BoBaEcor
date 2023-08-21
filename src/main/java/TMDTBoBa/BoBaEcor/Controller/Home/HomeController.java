@@ -20,22 +20,27 @@ import com.paypal.base.rest.PayPalRESTException;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.core.io.ByteArrayResource;
 import org.springframework.data.domain.Page;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.io.IOException;
+import java.net.URISyntaxException;
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.concurrent.atomic.AtomicReference;
 
 @Controller
@@ -139,6 +144,13 @@ public class HomeController  extends BaseController {
         }
         model.addAttribute("success",verify);
         return "home/verify";
+    }
+    @GetMapping( value = "/robots.txt")
+    public String robot(HttpServletResponse response,Model model) throws IOException, URISyntaxException {
+        Path path = Paths.get(Objects.requireNonNull(getClass().getResource("/static/robots.txt")).toURI());
+        String value = new String(Files.readAllBytes(path));
+        model.addAttribute("value", value);
+        return "robot";
     }
 
 
