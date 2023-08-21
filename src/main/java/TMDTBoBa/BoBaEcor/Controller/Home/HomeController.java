@@ -53,7 +53,7 @@ public class HomeController  extends BaseController {
     }
 
     @GetMapping("/")
-    public String index(Model model, HttpServletRequest request, Principal principal){
+    public String index(Model model, HttpServletRequest request){
         String rssFeedUrl = "https://vnexpress.net/rss/giai-tri.rss";
         List<RSSItem> items = channel14RSSReader.readRSSFeedTop(rssFeedUrl);
         model.addAttribute("rssFeedUrl", items);
@@ -63,7 +63,8 @@ public class HomeController  extends BaseController {
         return "home/index";
     }
     @GetMapping("/dang-nhap")
-    public String login(Model model, HttpServletRequest request){
+    public String login(Model model, HttpServletRequest request,Principal principal){
+        if(principal != null) return "redirect:/";;
         model.addAttribute("user",new User());
         model.addAttribute("authen",new AuthenticationRequest());
         return "home/login";
@@ -135,7 +136,7 @@ public class HomeController  extends BaseController {
     @GetMapping("/verify")
     public String verifyAccount(@RequestParam("code") String code, Model model){
         boolean verify = userService.verifyUser(code);
-        if(!verify){
+        if(!verify && code == "123"){
             return "pages-error-404";
         }
         model.addAttribute("success",verify);
