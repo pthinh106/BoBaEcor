@@ -1,13 +1,16 @@
 package TMDTBoBa.BoBaEcor.Controller.Home;
 
+import TMDTBoBa.BoBaEcor.API.CustomeHttpRe.Auth.Login.AuthenticationRequest;
 import TMDTBoBa.BoBaEcor.API.CustomeHttpRe.Store.Cart;
 import TMDTBoBa.BoBaEcor.API.PublicAPI.Payment.Paypal.PaypalService;
 import TMDTBoBa.BoBaEcor.Controller.BaseController;
 import TMDTBoBa.BoBaEcor.Models.Store.Brand;
 import TMDTBoBa.BoBaEcor.Models.Store.Category;
+import TMDTBoBa.BoBaEcor.Models.User.User;
 import TMDTBoBa.BoBaEcor.Service.Blog.Channel14RSSReader;
 import TMDTBoBa.BoBaEcor.Models.BlogCustom.RSSItem;
 import TMDTBoBa.BoBaEcor.Models.Store.Product;
+import TMDTBoBa.BoBaEcor.Service.User.UserService;
 import TMDTBoBa.BoBaEcor.Service.store.Brand.BrandService;
 import TMDTBoBa.BoBaEcor.Service.store.Category.CategoryService;
 import TMDTBoBa.BoBaEcor.Service.store.Product.ProductService;
@@ -18,8 +21,11 @@ import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.data.domain.Page;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -27,6 +33,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicReference;
@@ -36,12 +43,15 @@ import java.util.concurrent.atomic.AtomicReference;
 public class HomeController  extends BaseController {
 
 
-    public HomeController(PaypalService paypalService, ProductService productService, CategoryService categoryService, BrandService brandService, Channel14RSSReader channel14RSSReader) {
-        super(paypalService, productService, categoryService, brandService, channel14RSSReader);
+    public HomeController(PaypalService paypalService, ProductService productService, CategoryService categoryService, BrandService brandService, Channel14RSSReader channel14RSSReader, UserService userService) {
+        super(paypalService, productService, categoryService, brandService, channel14RSSReader, userService);
     }
 
     @GetMapping("/")
-    public String index(Model model, HttpServletRequest request){
+    public String index(Model model, HttpServletRequest request, Principal principal){
+        if(principal != null){
+            return "home/login";
+        }
         String rssFeedUrl = "https://vnexpress.net/rss/giai-tri.rss";
         List<RSSItem> items = channel14RSSReader.readRSSFeedTop(rssFeedUrl);
 
@@ -51,7 +61,17 @@ public class HomeController  extends BaseController {
         model.addAttribute("ramDomProduct",productService.ramdomProduct());
         return "home/index";
     }
+    @GetMapping("/dang-nhap")
+    public String login(Model model, HttpServletRequest request){
+        model.addAttribute("user",new User());
+        model.addAttribute("authen",new AuthenticationRequest());
+        return "home/login";
+    }
 
+    @GetMapping("/user")
+    public String user(){
+        return "home/payment-success";
+    }
     @GetMapping("/cua-hang")
     public String store(Model model, @RequestParam(name = "q",defaultValue = "") String productName,@RequestParam(name = "page",defaultValue = "1") Integer page,
                               HttpServletRequest request, HttpServletResponse response){
@@ -110,6 +130,17 @@ public class HomeController  extends BaseController {
         model.addAttribute("items", items);
         return "home/blog";
     }
+
+    @GetMapping("/verify")
+    public String verifyAccount(@RequestParam("code") String code, Model model){
+        boolean verify = userService.verifyUser(code);
+        if(!verify){
+            return "pages-error-404";
+        }
+        model.addAttribute("success",verify);
+        return "home/verify";
+    }
+
 
 
 

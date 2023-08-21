@@ -2,6 +2,7 @@ package TMDTBoBa.BoBaEcor.Controller;
 
 import TMDTBoBa.BoBaEcor.API.PublicAPI.Payment.Paypal.PaypalService;
 import TMDTBoBa.BoBaEcor.Service.Blog.Channel14RSSReader;
+import TMDTBoBa.BoBaEcor.Service.User.UserService;
 import TMDTBoBa.BoBaEcor.Service.store.Brand.BrandService;
 import TMDTBoBa.BoBaEcor.Service.store.Category.CategoryService;
 import TMDTBoBa.BoBaEcor.Service.store.Product.ProductService;
@@ -14,4 +15,5 @@ public class BaseController {
     protected final CategoryService categoryService;
     protected final BrandService brandService;
     protected final Channel14RSSReader channel14RSSReader;
+    protected final UserService userService;
 }

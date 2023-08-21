@@ -8,6 +8,7 @@ import lombok.*;
 @AllArgsConstructor
 public class AuthenticationResponse {
     private String jwtToken;
+    private String message;
     private String refreshToken;
     private String userName;
     // 1 is success, 0 is wrong user or pass, 2 is account not enable

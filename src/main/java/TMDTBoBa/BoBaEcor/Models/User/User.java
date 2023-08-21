@@ -16,7 +16,6 @@ import java.sql.Timestamp;
 import java.util.*;
 
 @Entity
-@RequiredArgsConstructor
 @Setter
 @Getter
 @Table(name = "table_users")
@@ -28,11 +27,9 @@ public class User implements UserDetails {
     private Integer userId;
 
     @Column(name = "first_name", columnDefinition = "varchar(255) NOT NULL")
-    @NotNull
     private String firstName;
 
     @Column(name = "last_name", columnDefinition = "varchar(255) NOT NULL")
-    @NotNull
     private String lastName;
 
     @Column(name = "email", columnDefinition = "varchar(255)")
@@ -88,7 +85,6 @@ public class User implements UserDetails {
     private Set<UserHasRole> listRole = new HashSet<>();
 
     public User() {
-
     }
 
     public User(Integer userId, @NotNull String firstName, @NotNull String lastName, String email, String phoneNumber, Date birthDay, String address, String password, String verificationCode, String forgetToken, String accessToken, String refreshToken, Integer accountStatus, Timestamp createdOn, Timestamp updatedOn, Set<UserHasRole> listRole) {
@@ -112,9 +108,9 @@ public class User implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        Collection<SimpleGrantedAuthority> authorities = new ArrayList<>();
+        List<SimpleGrantedAuthority> authorities = new ArrayList<>();
         listRole.forEach(i->authorities.add(new SimpleGrantedAuthority(i.getRole().getRoleName())));
-        return List.of(new SimpleGrantedAuthority(authorities.toString()));
+        return authorities;
     }
 
     @Override

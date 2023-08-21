@@ -22,7 +22,7 @@ public class Role {
     @Id
     @Column(name = "role_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long roleID;
+    private Integer roleID;
 
     @Column(name = "role_name", columnDefinition = "varchar(255)")
     @NotNull
@@ -47,7 +47,7 @@ public class Role {
 
     }
 
-    public Role(Long roleID, @NotNull String roleName, Long roleStatus, Timestamp createdOn, Timestamp updatedOn, Set<UserHasRole> listUser) {
+    public Role(Integer roleID, @NotNull String roleName, Long roleStatus, Timestamp createdOn, Timestamp updatedOn, Set<UserHasRole> listUser) {
         this.roleID = roleID;
         this.roleName = roleName;
         this.roleStatus = roleStatus;

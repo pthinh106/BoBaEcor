@@ -286,9 +286,9 @@
                                     </li>
                                     <li class="account_link"><a href="#"><i class="icon-user icons"></i></a>
                                         <ul class="dropdown_account_link">
-                                            <li><a href="#">Tài Khoản</a></li>
-                                            <li><a href="#">Đăng Nhập</a></li>
-                                            <li><a href="#">Liên Hệ</a></li>
+                                            <li><a th:href="@{/user}">Tài Khoản</a></li>
+                                            <li><a th:href="@{/dang-nhap}">Đăng Nhập</a></li>
+                                            <li><a id="logout" th:href="@{/}"></a></li>
                                         </ul>
                                     </li>
                                     <li class="shopping_cart"><a th:href="@{/gio-hang}"><i class="icon-basket-loaded icons"></i></a>

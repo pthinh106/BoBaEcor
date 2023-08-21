@@ -1,41 +1,68 @@
 package TMDTBoBa.BoBaEcor.AppConfig.Security;
 
+import TMDTBoBa.BoBaEcor.Service.User.CustomUserDetailsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.authentication.AuthenticationProvider;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor
 public class SecurityConfig {
+//
+//    private final JWTAuthFilter jwtAuthFilter;
+//    private final AuthenticationProvider authenticationProvider;
 
-    private final JWTAuthFilter jwtAuthFilter;
-    private final AuthenticationProvider authenticationProvider;
 
+    @Bean
+    CustomUserDetailsService customUserDetailsService(){
+        return new CustomUserDetailsService();
+    }
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
+    @Bean
+    public DaoAuthenticationProvider authenticationProvider() {
+        DaoAuthenticationProvider daoAuthenticationProvider = new DaoAuthenticationProvider();
+        daoAuthenticationProvider.setUserDetailsService(this.customUserDetailsService());
+        daoAuthenticationProvider.setPasswordEncoder(passwordEncoder());
+
+        return daoAuthenticationProvider;
+    }
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.cors().disable();
         http.csrf().disable();
-        http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+//        http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
-        http
-                .authorizeHttpRequests()
-                .requestMatchers("/**","/resources/static/**","/admin/**").permitAll()
-                .requestMatchers("/api/v1/auth/**").permitAll()
-//                .requestMatchers("/demo/**").hasAnyAuthority("ROLE_MANAGER")
-                .requestMatchers("/api/v1/payment/**").permitAll()
-                .requestMatchers("/api/v1/cart/**").permitAll()
-                .requestMatchers("/api/v1/otp/**").permitAll()
-                .requestMatchers("/api/v1/private/addon/**").permitAll()
-                .requestMatchers("/demo/**").permitAll()
-
-                .anyRequest().authenticated();
+        http    .authorizeHttpRequests()
+                .requestMatchers("/user/**").hasAnyRole("ADMIN","USER")
+                .requestMatchers("/admin/**").hasAnyRole("ADMIN")
+                .requestMatchers("/api/private/**").hasAnyRole("ADMIN")
+                .requestMatchers("/**").permitAll()
+                .and().formLogin().loginPage("/dang-nhap").loginProcessingUrl("/user/login").failureUrl("/dang-nhap?error=true").permitAll()
+                .and().logout(logout -> logout
+                        .logoutUrl("/logout")
+                        .logoutSuccessUrl("/")
+                        .invalidateHttpSession(true)
+                        .deleteCookies("JSESSIONID"))
+//                .authorizeHttpRequests()
+//                .requestMatchers("/api/v1/auth/**").permitAll()
+//                .requestMatchers("/api/v1/payment/**").permitAll()
+//                .requestMatchers("/api/v1/cart/**").permitAll()
+//                .requestMatchers("/api/v1/otp/**").permitAll()
+//                .requestMatchers("/api/v1/private/addon/**").permitAll()
+//                .requestMatchers("/demo/**").permitAll()
+//                .and()
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.ALWAYS);
 //        http.exceptionHandling()
 //                .authenticationEntryPoint(
 //                        (request, response, ex) -> {
@@ -46,19 +73,19 @@ public class SecurityConfig {
 //                            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
 //                            new ObjectMapper().writeValue(response.getOutputStream(),er);
 //                        }
+////                );
+//        http.exceptionHandling()
+//                .authenticationEntryPoint(
+//                        (request, response, ex) -> {
+//                            response.sendError(
+//                                    response.SC_UNAUTHORIZED,
+//                                    ex.getMessage()
+//                            );
+//                        }
 //                );
-        http.exceptionHandling()
-                .authenticationEntryPoint(
-                        (request, response, ex) -> {
-                            response.sendError(
-                                    response.SC_UNAUTHORIZED,
-                                    ex.getMessage()
-                            );
-                        }
-                );
-        http
-                .authenticationProvider(authenticationProvider)
-                .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
+//        http
+//                .authenticationProvider(authenticationProvider)
+//                .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
     }

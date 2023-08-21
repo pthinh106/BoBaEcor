@@ -1,7 +1,7 @@
 package TMDTBoBa.BoBaEcor.Service.User;
 
 
-import org.springframework.security.core.userdetails.User;
+import TMDTBoBa.BoBaEcor.Models.User.User;
 
 public interface IUserService {
     User getUser();

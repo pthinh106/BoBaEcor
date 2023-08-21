@@ -6,6 +6,7 @@ import TMDTBoBa.BoBaEcor.Models.Store.Brand;
 import TMDTBoBa.BoBaEcor.Models.Store.Category;
 import TMDTBoBa.BoBaEcor.Models.Store.Product;
 import TMDTBoBa.BoBaEcor.Service.Blog.Channel14RSSReader;
+import TMDTBoBa.BoBaEcor.Service.User.UserService;
 import TMDTBoBa.BoBaEcor.Service.store.Brand.BrandService;
 import TMDTBoBa.BoBaEcor.Service.store.Category.CategoryService;
 import TMDTBoBa.BoBaEcor.Service.store.Product.ProductService;
@@ -26,8 +27,10 @@ import java.util.concurrent.atomic.AtomicReference;
 @Controller
 @RequestMapping(path = "/brands")
 public class BrandController extends BaseController {
-    public BrandController(PaypalService paypalService, ProductService productService, CategoryService categoryService, BrandService brandService, Channel14RSSReader channel14RSSReader) {
-        super(paypalService, productService, categoryService, brandService, channel14RSSReader);
+
+
+    public BrandController(PaypalService paypalService, ProductService productService, CategoryService categoryService, BrandService brandService, Channel14RSSReader channel14RSSReader, UserService userService) {
+        super(paypalService, productService, categoryService, brandService, channel14RSSReader, userService);
     }
 
     @GetMapping("/{slug}")
