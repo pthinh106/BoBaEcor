@@ -129,7 +129,7 @@ public class AuthService {
                     + "<h3><a href=\"[[URL]]\" target=\"_self\">VERIFY</a></h3>"
                     + "Thank you,<br>"
                     + "BoBaEcor.";
-            sendMail.sendMail(user.getFullName(),user.getEmail(),"bobaecor.live/verify?code=" + user.getAccessToken(),content,"Please verify your registration");
+            sendMail.sendMail(user.getFullName(),user.getEmail(),"bobaecor.live/verify?code=" + user.getVerificationCode(),content,"Please verify your registration");
             return new UserHelper(200,"Đăng kí thành công! Vui lòng kiểm tra email để kích hoạt tài khoản", user.getEmail(), user.getPhoneNumber());
 
         }catch (Exception e){
