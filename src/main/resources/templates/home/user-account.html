@@ -1,0 +1,868 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{home/fragments/layout :: head('title','type','url','site_name','image','description','page')}"></head>
+
+
+<body>
+
+<div th:replace="~{home/fragments/layout :: header('')}"></div>
+
+<!--breadcrumbs area start-->
+<div class="breadcrumbs_area breadcrumbs_other mt-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="breadcrumb_content text-center">
+                    <ul>
+                        <!--                            <li><a href="index.html">home</a></li>-->
+                        <!--                            <li><a href="#">pages</a></li>-->
+                    </ul>
+                    <h3>Shopping Cart</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--breadcrumbs area end-->
+
+<div class="my-account-page-warpper py-4">
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <!-- My Account Page Start -->
+                <div class="myaccount-page-wrapper">
+                    <div class="row">
+
+                        <!-- My Account Tab Menu Start -->
+                        <div class="col-lg-3 col-md-4">
+                            <div class="shopping_cart_btn nav" role="tablist">
+                                <a href="#dashboad" style="width: 298px; text-align: left;"
+                                   class="active btn btn-primary border" data-bs-toggle="tab"><i
+                                        class="fa fa-dashboard"></i>
+                                    Dashboard</a>
+                                <a href="#orders" style="width: 298px; text-align: left"
+                                   class="btn btn-primary border" data-bs-toggle="tab"><i
+                                        class="fa fa-shopping-basket"></i> Purchase History</a>
+                                <a href="#download" style="width: 298px; text-align: left"
+                                   class="btn btn-primary border" data-bs-toggle="tab"><i class="fa fa-gift"></i>
+                                    Your Offer</a>
+                                <a href="#payment-method" style="width: 298px; text-align: left"
+                                   class="btn btn-primary border" data-bs-toggle="tab"><i
+                                        class="fa fa-diamond"></i> Membership Class</a>
+                                <a href="#address-edit" style="width: 298px; text-align: left"
+                                   class="btn btn-primary border" data-bs-toggle="tab"><i
+                                        class="fa fa-headphones"></i> Support</a>
+                                <a href="#account-info" style="width: 298px; text-align: left"
+                                   class="btn btn-primary border" data-bs-toggle="tab"><i class="fa fa-user"></i>
+                                    Your Account</a>
+                                <a href="login.html" style="width: 298px; text-align: left;" class=" btn btn-primary
+                                border"><i class="fa fa-sign-out"></i> Logout</a>
+                            </div>
+                        </div>
+                        <!-- My Account Tab Menu End -->
+
+                        <!-- My Account Tab Content Start -->
+                        <div class="col-lg-9 col-md-8">
+                            <div class="tab-content" id="myaccountContent">
+
+                                <!-- Single Tab Content Start -->
+                                <div class="tab-pane fade show active" id="dashboad" role="tabpanel">
+                                    <div class="myaccount-content">
+                                        <div class="row">
+                                            <div class="col-lg-12  ">
+                                                <div class="border rounded text-center welcome-user">
+                                                    <div class="welcome-ava">
+                                                        <img src="/assets/img/icon/icons8-cat-profile-48.png"
+                                                             alt="cps-img">
+                                                    </div>
+                                                    <div class="welcome-member">
+                                                        <p class="welcome-member-hi">Hello</p>
+                                                        <p class="welcome-member-name">User</p>
+                                                        <div class="welcome-member-info">
+                                                            <div class="item-contentWelcome">
+                                                                <p>Ngày tham gia</p>
+                                                                <i class="fa fa-calendar-check-o fa-3x"
+                                                                   aria-hidden="true"></i>
+                                                                <p class="join-date">12/7/2023 </p>
+                                                            </div>
+                                                            <div class="item-contentWelcome">
+                                                                <p>Hạng thành viên</p>
+                                                                <i class="fa fa-trophy fa-3x"
+                                                                   aria-hidden="true"></i>
+                                                                <p class="mem-rank">Broze</p>
+                                                            </div>
+                                                            <div class="item-contentWelcome">
+                                                                <p>Điểm tích lũy </p>
+                                                                <i class="fa fa-gg-circle fa-3x"
+                                                                   aria-hidden="true"></i>
+                                                                <p class="scoin-amount">0</p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row  mt-3">
+                                            <div class="mem-card-info is-flex is-justify-content-space-around">
+                                                <div class="card card-gift">
+                                                    <i class="fa fa-gift fa-4x" aria-hidden="true"></i>
+                                                    <div class="card-body">
+                                                        <h5 class="card-title">Card title</h5>
+                                                        <p class="card-text">0 ưu đãi
+                                                        </p>
+                                                        <a href="#"
+                                                           class="btn btn-dark  rounded-pill card-button">Xem chi
+                                                            tiết</a>
+                                                    </div>
+                                                </div>
+                                                <div class="card card-order">
+                                                    <i class="fa fa-shopping-bag fa-4x" aria-hidden="true"></i>
+                                                    <div class="card-body">
+                                                        <h5 class="card-title">Card title</h5>
+                                                        <p class="card-text">0 đơn hàng
+                                                        </p>
+                                                        <a href="#"
+                                                           class="btn btn-dark  rounded-pill card-button">Xem chi
+                                                            tiết</a>
+                                                    </div>
+                                                </div>
+                                                <div class="card card-rank">
+                                                    <i class="fa fa-diamond fa-4x" aria-hidden="true"></i>
+                                                    <div class="card-body">
+                                                        <h5 class="card-title">Card title</h5>
+                                                        <p class="card-text">Broze
+                                                        </p>
+                                                        <a href="#"
+                                                           class="btn btn-dark rounded-pill card-button">Xem chi
+                                                            tiết</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Single Tab Content End -->
+
+                                <!-- Single Tab Content Start -->
+                                <div class="tab-pane fade" id="orders" role="tabpanel">
+                                    <div class=" myaccount-content ">
+                                        <div class=" section_title m-auto col-lg-6 text-center">
+                                            <h2 class="title">Order</h2>
+                                        </div>
+                                        <div
+                                                class="order-statistics is-flex is-justify-content-space-around  border border-success rounded mt-4">
+                                            <div
+                                                    class="content__item is-flex is-flex-direction-column is-align-items-center">
+                                                <p class="item__content title">0</p>
+                                                <p class="item__content text">Order</p>
+                                            </div>
+                                            <div
+                                                    class="content__item is-flex is-flex-direction-column is-align-items-center">
+                                                <p class="item__content title">
+                                                    0đ</p>
+                                                <p class="item__content text">Total amount accumulated</p>
+                                            </div>
+                                        </div>
+                                        <div class="myaccount-table table-responsive text-center mt-4">
+                                            <div
+                                                    class="options-item calendar is-flex is-justify-content-flex-end is-align-items-center">
+
+                                                <div class="vue-daterange-picker" data-v-1ebd09d2="">
+                                                    <div class="form-control reportrange-text" data-v-1ebd09d2=""><i
+                                                            class="glyphicon glyphicon-calendar fa fa-calendar"
+                                                            data-v-1ebd09d2=""></i> <span
+                                                            data-v-1ebd09d2="">01/12/2020 - 20/07/2023</span><b
+                                                            class="caret" data-v-1ebd09d2=""></b></div><!---->
+                                                </div>
+                                            </div>
+                                            <div class="order-container gallery-thumbs">
+                                                <div class=" thumbs-wrapper is-flex tab-content nav" role="tablist">
+                                                    <a href="#All" class="thumb-item  active" data-bs-toggle="tab">
+                                                        All
+                                                    </a>
+                                                    <a href="#Pending" class="thumb-item  " data-bs-toggle="tab">
+                                                        Pending
+
+                                                    </a>
+                                                    <a href="#Approved" class="thumb-item " data-bs-toggle="tab">
+                                                        Approved
+                                                    </a>
+                                                    <a href="#Shipping" class="thumb-item " data-bs-toggle="tab">
+                                                        Shipping
+
+                                                    </a>
+                                                    <a href="#Delivered" class="thumb-item " data-bs-toggle="tab">
+                                                        Delivered
+
+                                                    </a>
+                                                    <a href="#Canceled" class="thumb-item  " data-bs-toggle="tab">
+                                                        Canceled
+
+                                                    </a>
+                                                </div>
+                                            </div>
+                                            <div class="tab-content">
+                                                <div class="tab-pane fade show active" id="All" role="tabpanel">
+                                                    <table class="table table-bordered mt-4 ">
+                                                        <thead class="thead-light">
+                                                        <tr>
+                                                            <th>Order-ID</th>
+                                                            <th>Date</th>
+                                                            <th>Status</th>
+                                                            <th>Total</th>
+                                                            <th>Action</th>
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                        <tr>
+                                                            <td>1</td>
+                                                            <td>Aug 22, 2018</td>
+                                                            <td>Delivered</td>
+                                                            <td>$3000</td>
+                                                            <td><a href="cart.html"
+                                                                   class="btn btn btn-dark btn-hover-primary btn-sm rounded-0">View</a>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>2</td>
+                                                            <td>July 22, 2018</td>
+                                                            <td>Approved</td>
+                                                            <td>$200</td>
+                                                            <td><a href="cart.html"
+                                                                   class="btn btn btn-dark btn-hover-primary btn-sm rounded-0">View</a>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>3</td>
+                                                            <td>June 12, 2019</td>
+                                                            <td>Canceled</td>
+                                                            <td>$990</td>
+                                                            <td><a href="cart.html"
+                                                                   class="btn btn btn-dark btn-hover-primary btn-sm rounded-0">View</a>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>4</td>
+                                                            <td>June 28, 2019</td>
+                                                            <td>Shipping</td>
+                                                            <td>$990</td>
+                                                            <td><a href="cart.html"
+                                                                   class="btn btn btn-dark btn-hover-primary btn-sm rounded-0">View</a>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>5</td>
+                                                            <td>July 14, 2019</td>
+                                                            <td>Pending</td>
+                                                            <td>$990</td>
+                                                            <td><a href="cart.html"
+                                                                   class="btn btn btn-dark btn-hover-primary btn-sm rounded-0">View</a>
+                                                            </td>
+                                                        </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+
+                                                <!-- #region -->
+                                                <div class="tab-pane fade" id="Pending" role="tabpanel">
+                                                    <table class="table table-bordered mt-4  ">
+                                                        <thead class="thead-light">
+                                                        <tr>
+                                                            <th>Order-ID</th>
+                                                            <th>Date</th>
+                                                            <th>Status</th>
+                                                            <th>Total</th>
+                                                            <th>ssAction</th>
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                        <tr>
+                                                            <td>5</td>
+                                                            <td>July 14, 2019</td>
+                                                            <td>Pending</td>
+                                                            <td>$990</td>
+                                                            <td><a href="cart.html"
+                                                                   class="btn btn btn-dark btn-hover-primary btn-sm rounded-0">View</a>
+                                                            </td>
+                                                        </tr>
+
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                                <!-- #region -->
+                                                <div class="tab-pane fade" id="Approved" role="tabpanel">
+                                                    <table class="table table-bordered mt-4  ">
+                                                        <thead class="thead-light">
+                                                        <tr>
+                                                            <th>Order-ID</th>
+                                                            <th>Date</th>
+                                                            <th>Status</th>
+                                                            <th>Total</th>
+                                                            <th>ssAction</th>
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                        <tr>
+                                                            <td>2</td>
+                                                            <td>July 22, 2018</td>
+                                                            <td>Approved</td>
+                                                            <td>$200</td>
+                                                            <td><a href="cart.html"
+                                                                   class="btn btn btn-dark btn-hover-primary btn-sm rounded-0">View</a>
+                                                            </td>
+                                                        </tr>
+
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                                <!-- #region -->
+                                                <div class="tab-pane fade" id="Shipping" role="tabpanel">
+                                                    <table class="table table-bordered mt-4  ">
+                                                        <thead class="thead-light">
+                                                        <tr>
+                                                            <th>Order-ID</th>
+                                                            <th>Date</th>
+                                                            <th>Status</th>
+                                                            <th>Total</th>
+                                                            <th>ssAction</th>
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                        <tr>
+                                                            <td>4</td>
+                                                            <td>June 28, 2019</td>
+                                                            <td>Shipping</td>
+                                                            <td>$990</td>
+                                                            <td><a href="cart.html"
+                                                                   class="btn btn btn-dark btn-hover-primary btn-sm rounded-0">View</a>
+                                                            </td>
+                                                        </tr>
+
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                                <!-- #region -->
+                                                <div class="tab-pane fade" id="Delivered" role="tabpanel">
+                                                    <table class="table table-bordered mt-4  ">
+                                                        <thead class="thead-light">
+                                                        <tr>
+                                                            <th>Order-ID</th>
+                                                            <th>Date</th>
+                                                            <th>Status</th>
+                                                            <th>Total</th>
+                                                            <th>ssAction</th>
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                        <tr>
+                                                            <td>1</td>
+                                                            <td>Aug 22, 2018</td>
+                                                            <td>Delivered</td>
+                                                            <td>$3000</td>
+                                                            <td><a href="cart.html"
+                                                                   class="btn btn btn-dark btn-hover-primary btn-sm rounded-0">View</a>
+                                                            </td>
+                                                        </tr>
+
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                                <!-- #region -->
+                                                <div class="tab-pane fade" id="Canceled" role="tabpanel">
+                                                    <table class="table table-bordered mt-4  ">
+                                                        <thead class="thead-light">
+                                                        <tr>
+                                                            <th>Order-ID</th>
+                                                            <th>Date</th>
+                                                            <th>Status</th>
+                                                            <th>Total</th>
+                                                            <th>ssAction</th>
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                        <tr>
+                                                            <td>3</td>
+                                                            <td>June 12, 2019</td>
+                                                            <td>Canceled</td>
+                                                            <td>$990</td>
+                                                            <td><a href="cart.html"
+                                                                   class="btn btn btn-dark btn-hover-primary btn-sm rounded-0">View</a>
+                                                            </td>
+                                                        </tr>
+
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Single Tab Content End -->
+
+                                <!-- Single Tab Content Start -->
+                                <div class="tab-pane fade" id="download" role="tabpanel">
+                                    <div class="myaccount-content">
+                                        <div class="section_title m-auto col-lg-6 text-center">
+                                            <h2 class="title">Your Offer</h2>
+                                        </div>
+                                        <div class="myaccount-table table-responsive text-center mt-4">
+                                            <table class="table table-bordered">
+                                                <thead class="thead-light">
+                                                <tr>
+                                                    <th>Voucher</th>
+                                                    <th>Date</th>
+                                                    <th>Expire</th>
+                                                    <th>See Details</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <tr>
+                                                    <td>Free shipping</td>
+                                                    <td>Aug 22, 2022</td>
+                                                    <td>Yes</td>
+                                                    <td><a href="#"
+                                                           class="btn  btn-dark btn-hover-primary rounded-0"><i
+                                                            class="fa fa-eye me-1"></i> Details</a></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>30% off jeans</td>
+                                                    <td>Sep 12, 2024</td>
+                                                    <td>No</td>
+                                                    <td><a href="#"
+                                                           class="btn btn-dark  btn-hover-primary rounded-0"><i
+                                                            class="fa fa-eye me-1"></i> Details</a></td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Single Tab Content End -->
+
+                                <!-- Single Tab Content Start -->
+                                <div class="tab-pane fade" id="payment-method" role="tabpanel">
+                                    <div class="myaccount-content ">
+                                        <div class="border border-success rounded ranking-details ">
+                                            <div class="block-ranking-detail__box-title">
+                                                <div class="left-col">
+                                                    <p class="user-name">Hello UserName !</p> <span
+                                                        class="point-ranking">0</span>
+                                                    <p class="little-text">100đ = 1 point(Points accumulated from
+                                                        01/01/2023)</p>
+                                                </div>
+                                                <div class="right-col"><img
+                                                        src="/assets/img/icon/icons8-cat-profile-48.png"
+                                                        alt="cps-img">
+                                                    <p></p>
+                                                </div>
+                                            </div>
+                                            <div class="block-ranking-detail__box-content">
+                                                <div class="ranking-process-bar">
+                                                    <div class="ranking-process-outer">
+                                                        <div class="ranking-process-inner" style="width: 0;">
+                                                            <span
+                                                                class="pointer"><img
+                                                                    alt="cps-icon"
+                                                                    src="/assets/img/icon/icons8-cat-profile-48.png">
+                                                                    <div data-v-5170e23d="" class="cps-icon">
+                                                                        <svg
+                                                                            height="15"
+                                                                            xmlns="http://www.w3.org/2000/svg"
+                                                                            viewBox="0 0 320 512">
+                                                                            <path
+                                                                                    d="M96 480c-8.188 0-16.38-3.125-22.62-9.375c-12.5-12.5-12.5-32.75 0-45.25L242.8 256L73.38 86.63c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0l192 192c12.5 12.5 12.5 32.75 0 45.25l-192 192C112.4 476.9 104.2 480 96 480z">
+                                                                            </path>
+                                                                        </svg>
+                                                                    </div>
+                                                                </span>
+                                                        </div>
+                                                        <span class="flagger"><img
+                                                                src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABsAAAAbCAYAAACN1PRVAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAADnSURBVHgB7dQ7CsJAFIXhMyGDBEUsLC1S2OgG3IVgLRYuwY34ALW2DhauwMcKxE5sAiJYJCIBQ5Q8xmhrBpKQBIT8zcDc4oPhMkBAk7mijmfKBgkn8gYVQ5OfjeoAMSIuUwun2yo0VnzcZcIwRBxMwNQ/fjABKURAlkH3aWBnetR3yAZja94kcUwAWfBm3AWxXy60q4moaYZ1QFTM8xgs00bUSqLYh+OMgmZpLEibN0gcI0Br7/8JyAJjgFSmtIMssC/IWDfonrsger25lSjtIW6OEx77VLOsCxIslWfMsRzLsRz7c+wNLD45oCEwMZoAAAAASUVORK5CYII="
+                                                                alt="cps-flag"></span>
+                                                    </div>
+                                                </div>
+                                                <div class="ranking-target-money">
+                                                    <p>
+                                                        You need to accumulate
+                                                        <strong>1000&nbsp;more points</strong>
+                                                        to rank up
+                                                        <span>Silver</span>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="section_title condition-promotion">
+                                            <h2>Conditions and offers</h2>
+                                            <div class="member__options is-flex is-justify-content-space-around nav"
+                                                 id="nav-tab" role="tablist">
+
+                                                <a href="#copper" id="clickcopper"
+                                                   class="option__item active Copper" data-bs-toggle="tab">
+                                                    <div class="item-img"><img
+                                                            src="/assets/img/icon/icons8-copper-ore-48.png"
+                                                            alt="cps-smember"
+                                                            class="img sweezy-custom-cursor-hover">
+                                                    </div>
+                                                    <div class="item-text">Broze</div>
+                                                </a>
+
+
+                                                <a href="#silver" id="clicksilver" class="option__item "
+                                                   data-bs-toggle="tab">
+                                                    <div class="item-img"><img
+                                                            src="/assets/img/icon/icons8-silver-48.png"
+                                                            alt="cps-smember" class="img"></div>
+                                                    <div class="item-text">Silver</div>
+                                                </a>
+                                                <a href="#gold" id="clickgold" class="option__item"
+                                                   data-bs-toggle="tab">
+                                                    <div class="item-img"><img
+                                                            src="/assets/img/icon/icons8-gold-48.png"
+                                                            alt="cps-smember" class="img"></div>
+                                                    <div class="item-text">Gold</div>
+                                                </a>
+                                                <a href="#diamond" id="clickdiamond" class="option__item"
+                                                   data-bs-toggle="tab">
+                                                    <div class="item-img"><img
+                                                            src="/assets/img/icon/icons8-diamond-48.png"
+                                                            alt="cps-smember" class="img"></div>
+                                                    <div class="item-text">Diamond</div>
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div class="section_title promotion">
+                                            <h3>Promotion conditions</h3>
+                                        </div>
+                                        <div class="tab-content condition_content ">
+                                            <div id="copper"
+                                                 class="is-flex is-align-items-center promotion-content tab-pane fade show active"
+                                                 role="tabpanel">
+                                                <i
+                                                        class="icon-condition is-align-items-center fa fa-credit-card fa-2x"></i>
+                                                <div data-v-5170e23d="" class="item__text">
+                                                    <p>The total number of accumulated purchase points from January
+                                                        1, 2022 is greater than 0 to 1000</p>
+                                                </div>
+                                            </div>
+                                            <div id="silver"
+                                                 class="is-flex is-align-items-center promotion-content tab-pane fade"
+                                                 role="tabpanel">
+                                                <i
+                                                        class="icon-condition is-align-items-center fa fa-credit-card fa-2x"></i>
+                                                <div data-v-5170e23d="" class="item__text">
+                                                    <p>The total number of accumulated purchase points from January
+                                                        1, 2022 is greater than 1000 to 2000</p>
+                                                </div>
+                                            </div>
+                                            <div id="gold"
+                                                 class="is-flex is-align-items-center promotion-content tab-pane fade"
+                                                 role="tabpanel">
+                                                <i
+                                                        class="icon-condition is-align-items-center fa fa-credit-card fa-2x"></i>
+                                                <div data-v-5170e23d="" class="item__text">
+                                                    <p>The total number of accumulated purchase points from January
+                                                        1, 2022 is greater than 2000 to 3500</p>
+                                                </div>
+                                            </div>
+                                            <div id="diamond"
+                                                 class="is-flex is-align-items-center promotion-content tab-pane fade"
+                                                 role="tabpanel">
+                                                <i
+                                                        class="icon-condition is-align-items-center fa fa-credit-card fa-2x"></i>
+                                                <div data-v-5170e23d="" class="item__text">
+                                                    <p>The total number of accumulated purchase points from January
+                                                        1, 2022 is more than 5000 </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="section_title conditions">
+                                            <h3>Purchase offer</h3>
+                                        </div>
+                                        <div class="offer-option">
+                                            <div id="copper1" class=" condition_content">
+
+                                                <div class="  is-flex is-align-items-center condition-content  ">
+                                                    <div data-v-5170e23d="" class="item__text">
+                                                        <p>There are currently no special offers for bronze members
+                                                        </p>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                            <div id="silver1" class="condition_content hidden">
+                                                <div class=" is-flex is-align-items-center  ">
+                                                    <i
+                                                            class="icon-condition is-align-items-center fa fa-ticket fa-2x"></i>
+                                                    <div data-v-5170e23d="" class="item__text">
+                                                        <p>Extra 2% off (maximum VND 100,000) when bill is over VND
+                                                            1,000,000</p>
+                                                    </div>
+                                                </div>
+                                                <div class=" is-flex is-align-items-center   "
+                                                     style="margin-top: 15px;">
+                                                    <i
+                                                            class="icon-condition is-align-items-center fa fa-ticket fa-2x"></i>
+                                                    <div data-v-5170e23d="" class="item__text">
+                                                        <p>Birthday offer: Gift voucher worth 50,000 VND (Code is
+                                                            only
+                                                            used once, applied to orders (Except scratch card, sim,
+                                                            collection fee, BHMR package) with double value of code
+                                                            value )</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div id="gold1" class="condition_content hidden">
+                                                <div class="is-flex is-align-items-center   ">
+                                                    <i
+                                                            class="icon-condition is-align-items-center fa fa-ticket fa-2x"></i>
+                                                    <div data-v-5170e23d="" class="item__text">
+                                                        <p>Extra 5% off (maximum VND 300,000) when bill is over VND
+                                                            1,500,000</p>
+                                                    </div>
+                                                </div>
+                                                <div class=" is-flex is-align-items-center   "
+                                                     style="margin-top: 15px;">
+                                                    <i
+                                                            class="icon-condition is-align-items-center fa fa-ticket fa-2x"></i>
+                                                    <div data-v-5170e23d="" class="item__text">
+                                                        <p>Birthday offer: Gift voucher worth 200,000 VND (Code is
+                                                            only
+                                                            used once, applied to orders (Except scratch card, sim,
+                                                            collection fee, BHMR package) with double value of code
+                                                            value )</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div id="diamond1" class="condition_content hidden">
+                                                <div class="is-flex is-align-items-center   ">
+                                                    <i
+                                                            class="icon-condition is-align-items-center fa fa-ticket fa-2x"></i>
+                                                    <div data-v-5170e23d="" class="item__text">
+                                                        <p>Extra 5% off (maximum VND 500,000) when bill is over VND
+                                                            2,000,000</p>
+                                                    </div>
+                                                </div>
+                                                <div class=" is-flex is-align-items-center   "
+                                                     style="margin-top: 15px;">
+                                                    <i
+                                                            class="icon-condition is-align-items-center fa fa-ticket fa-2x"></i>
+                                                    <div data-v-5170e23d="" class="item__text">
+                                                        <p>Birthday offer: Gift voucher worth 500,000 VND (Code is
+                                                            only
+                                                            used once, applied to orders (Except scratch card, sim,
+                                                            collection fee, BHMR package) with double value of code
+                                                            value )</p>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+
+                                        <div class="section_title service-policy">
+                                            <h3>Service policy</h3>
+                                        </div>
+
+                                        <div class="condition_content">
+                                            <div id="copper2" class="service-policy-content ">
+                                                <div class="  is-flex is-align-items-center condition-content  ">
+                                                    <div data-v-5170e23d="" class="item__text">
+                                                        <p>Currently, there is no special service policy for bronze
+                                                            members
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div id="silver2" class="service-policy-content hidden">
+                                                <div class="  is-flex is-align-items-center condition-content  ">
+                                                    <div data-v-5170e23d="" class="item__text">
+                                                        <p>Currently, there is no special service policy for silver
+                                                            members
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div id="gold2" class="service-policy-content hidden">
+                                                <div class="  is-flex is-align-items-center condition-content  ">
+                                                    <div data-v-5170e23d="" class="item__text">
+                                                        <p>Currently, there is no special service policy for gold
+                                                            members
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div id="diamond2" class="service-policy-content hidden">
+                                                <div class=" is-flex is-align-items-center  ">
+                                                    <i
+                                                            class="icon-condition is-align-items-center fa fa-shopping-bag fa-2x"></i>
+                                                    <div data-v-5170e23d="" class="item__text">
+                                                        <p>Join the product pre-order program without deposit</p>
+                                                    </div>
+                                                </div>
+                                                <div class=" is-flex is-align-items-center"
+                                                     style="margin-top: 15px;">
+                                                    <i
+                                                            class="icon-condition is-align-items-center fa fa-headphones fa-2x"></i>
+                                                    <div data-v-5170e23d="" class="item__text">
+                                                        <p>Special care and support hotline 1800.2097</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                                <!-- Single Tab Content Start -->
+                                <div class="tab-pane fade" id="address-edit" role="tabpanel">
+                                    <div class="myaccount-content">
+                                        <div id="support">
+                                            <div class="support__item is-flex is-align-items-center"><img
+                                                    src="/assets/img/icon/icons8-online-support-48.png"
+                                                    alt="cps-img" class="item__img">
+                                                <div class="item__content is-flex is-flex-direction-column">
+                                                    <p class="content__title">Shopping Advice (8h00 - 22h00)</p>
+                                                    <a href="tel:18002097"
+                                                       class="content__contact button__call-tu-van">1800.2097</a>
+                                                </div>
+                                            </div>
+
+                                            <div class="support__item is-flex is-align-items-center"><img
+                                                    src="/assets/img/icon/icons8-security-time-48.png" alt="cps-img"
+                                                    class="item__img">
+                                                <div class="item__content is-flex is-flex-direction-column">
+                                                    <p class="content__title">Guarantee (8h00 - 21h00)</p> <a
+                                                        href="tel:18002064"
+                                                        class="content__contact button__call-bao-hanh">1800.2064</a>
+                                                </div>
+                                            </div>
+
+                                            <div class="support__item is-flex is-align-items-center"><img
+                                                    src="/assets/img/icon/icons8-receipt-declined-48.png"
+                                                    alt="cps-img" class="item__img">
+                                                <div class="item__content is-flex is-flex-direction-column">
+                                                    <p class="content__title">Complain (8h00 - 21h30)</p> <a
+                                                        href="tel:18002063"
+                                                        class="content__contact button__call-khieu-nai">1800.2063</a>
+                                                </div>
+                                            </div>
+
+                                            <div class="support__item is-flex is-align-items-center"><img
+                                                    src="/assets/img/icon/icons8-email-48.png" alt=""
+                                                    class="item__img">
+                                                <div class="item__content is-flex is-flex-direction-column">
+                                                    <p class="content__title">Email</p> <a
+                                                        href="mailto: cskh@cellphones.vn"
+                                                        class="content__contact button__contact-mail">bobashop@gmail.com</a>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <!-- Single Tab Content End -->
+
+                                <!-- Single Tab Content Start -->
+                                <div class="tab-pane fade" id="account-info" role="tabpanel">
+                                    <div class="checkout_info">
+                                        <h3 class="title">Account Details</h3>
+                                        <div class="account-details-form">
+                                            <form action="#">
+                                                <div class="row">
+                                                    <div class=" col-lg-6">
+                                                        <div class=" form_group single-input-item mb-3">
+                                                            <label for="first-name" class="required mb-1">First
+                                                                Name</label>
+                                                            <input type="text" id="first-name"
+                                                                   placeholder="First Name" />
+                                                        </div>
+                                                    </div>
+                                                    <div class=" col-lg-6">
+                                                        <div class="form_group single-input-item mb-3">
+                                                            <label for="last-name" class="required mb-1">Last
+                                                                Name</label>
+                                                            <input type="text" id="last-name"
+                                                                   placeholder="Last Name" />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form_group single-input-item mb-3">
+                                                    <label for="display-name" class="required mb-1">Display
+                                                        Name</label>
+                                                    <input type="text" id="display-name"
+                                                           placeholder="Display Name" />
+                                                </div>
+                                                <div class="form_group single-input-item mb-3">
+                                                    <label for="email" class="required mb-1">Email
+                                                        Addres</label>
+                                                    <input type="email" id="email" placeholder="Email Address" />
+                                                </div>
+                                                <fieldset>
+                                                    <legend>Password change</legend>
+                                                    <div class="form_group single-input-item mb-3">
+                                                        <label for="current-pwd" class="required mb-1">Current
+                                                            Password</label>
+                                                        <input type="password" id="current-pwd"
+                                                               placeholder="Current Password" />
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-lg-6">
+                                                            <div class="form_group single-input-item mb-3">
+                                                                <label for="new-pwd" class="required mb-1">New
+                                                                    Password</label>
+                                                                <input type="password" id="new-pwd"
+                                                                       placeholder="New Password" />
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-6">
+                                                            <div class="form_group single-input-item mb-3">
+                                                                <label for="confirm-pwd"
+                                                                       class="required mb-1">Confirm
+                                                                    Password</label>
+                                                                <input type="password" id="confirm-pwd"
+                                                                       placeholder="Confirm Password" />
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </fieldset>
+                                                <div class="single-input-item single-item-button">
+                                                    <button id="success" class="btn btn-primary rounded-0">Save
+                                                        Changes</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div> <!-- Single Tab Content End -->
+                            </div>
+
+                        </div>
+
+
+                        <!-- Single Tab Content End -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!--newsletter section start-->
+<section th:replace="~{home/fragments/layout :: newsletter}"></section>
+<!--newsletter section end-->
+<!--footer area start-->
+<footer th:replace="~{home/fragments/layout :: footer}"></footer>
+<!--footer area end-->
+
+
+
+<!-- JS
+============================================ -->
+<div th:replace="~{home/fragments/layout :: js}"></div>
+
+
+</body>
+
+</html>

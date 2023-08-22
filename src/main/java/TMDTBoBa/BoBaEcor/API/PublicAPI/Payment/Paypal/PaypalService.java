@@ -1,5 +1,8 @@
 package TMDTBoBa.BoBaEcor.API.PublicAPI.Payment.Paypal;
 
+import TMDTBoBa.BoBaEcor.API.CustomeHttpRe.Store.Cart;
+import TMDTBoBa.BoBaEcor.API.CustomeHttpRe.Store.CartItem;
+import TMDTBoBa.BoBaEcor.Models.Store.Order;
 import com.paypal.api.payments.*;
 import com.paypal.base.rest.APIContext;
 import com.paypal.base.rest.PayPalRESTException;
@@ -18,18 +21,16 @@ public class PaypalService {
     private final APIContext apiContext;
 
 
-    public String createPaypal(){
-        Item itemOne = new Item();
-        itemOne.setName("Ground Coffee 40 oz").setQuantity("1").setCurrency("USD").setPrice("5");
-        Item itemTwo = new Item();
-        itemTwo.setName("Cat collor").setQuantity("2").setCurrency("USD").setPrice("15");
-
-
-        // Adding item to our list
+    public String createPaypal(Order order, Cart cart){
         List<Item> items = new ArrayList<>();
-        items.add(itemOne);
-        items.add(itemTwo);
-
+        double total = 0;
+        for(CartItem cartItem : cart.getCartItems()){
+            Item item = new Item();
+            Integer price = cartItem.getTotalPriceItem()/ 23820 + 1;
+            total += price;
+            item.setName(cartItem.getName()).setQuantity(String.valueOf(cartItem.getQuantity())).setCurrency("USD").setPrice(String.valueOf(price));
+            items.add(item);
+        }
         // Adding items to itemList
         ItemList itemList = new ItemList();
         itemList.setItems(items);
@@ -38,13 +39,13 @@ public class PaypalService {
         Details details = new Details();
         details.setShipping("1");
         // itemOne cost: 5 itemTwo cost 15*2. So 5+30
-        details.setSubtotal("35");
+        details.setSubtotal(String.valueOf(total));
         details.setTax("1");
 
         // Payment amount
         Amount amount = new Amount();
         amount.setCurrency("USD");
-        amount.setTotal("37");
+        amount.setTotal(String.valueOf(total+2));
         amount.setDetails(details);
 
 
@@ -70,7 +71,7 @@ public class PaypalService {
 
         // ###Redirect URLs
         RedirectUrls redirectUrls = new RedirectUrls();
-        String guid = UUID.randomUUID().toString().replaceAll("-", ""); // Not necessary, just demonstrating how we can add the order/user id as a param.
+        String guid = String.valueOf(order.getOrderId());
         // Payment cancellation url
         redirectUrls.setCancelUrl("http://localhost:8060" + "/thanh-toan/that-bai?guid=" + guid);
         // Payment success url
@@ -83,7 +84,7 @@ public class PaypalService {
             while (links.hasNext()) {
                 Links link = links.next();
                 if (link.getRel().equalsIgnoreCase("approval_url")) {
-                    return link.getHref();
+                    return "redirect:"+link.getHref();
                 }
             }
         } catch (PayPalRESTException e) {
@@ -91,7 +92,7 @@ public class PaypalService {
         }
         return "";
     }
-    public Payment executePayment(String paymentId, String payerId,String guild) throws PayPalRESTException{
+    public Payment executePayment(String paymentId, String payerId,Integer guild) throws PayPalRESTException{
         Payment payment = new Payment();
         payment.setId(paymentId);
         PaymentExecution paymentExecute = new PaymentExecution();

@@ -17,7 +17,7 @@ public  class VNPayConfig {
     @Value("${vnp_PayUrl}")
     public static String vnp_PayUrl = "https://sandbox.vnpayment.vn/paymentv2/vpcpay.html";
     @Value("${vnp_ReturnUrl}")
-    public static String vnp_ReturnUrl = "http://localhost:8080/vnpay_jsp/vnpay_return.jsp";
+    public static String vnp_ReturnUrl;
     @Value("${vnp_TmnCode}")
     public static String vnp_TmnCode = "5RRON6JE";
     @Value("${vnp_HashSecret}")

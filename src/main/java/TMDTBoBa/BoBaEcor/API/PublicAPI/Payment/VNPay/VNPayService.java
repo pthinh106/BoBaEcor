@@ -13,7 +13,7 @@ import java.util.*;
 @Service
 public class VNPayService {
 
-    public VNPayResponse createPayment(Integer amountDetails, String bankCodeDetails) throws UnsupportedEncodingException, UnknownHostException {
+    public VNPayResponse createPayment(Integer amountDetails, String bankCodeDetails,Integer orderId) throws UnsupportedEncodingException, UnknownHostException {
         String orderType = "200000";
         long amount =   amountDetails *100;
 
@@ -72,7 +72,7 @@ public class VNPayService {
         }
         String queryUrl = query.toString();
         String vnp_SecureHash = VNPayConfig.hmacSHA512(VNPayConfig.vnp_HashSecret, hashData.toString());
-        queryUrl += "&vnp_SecureHash=" + vnp_SecureHash;
+        queryUrl += "&vnp_SecureHash=" + vnp_SecureHash + "?guild=" + orderId;
         String paymentUrl = VNPayConfig.vnp_PayUrl + "?" + queryUrl;
         return new VNPayResponse(paymentUrl);
     }

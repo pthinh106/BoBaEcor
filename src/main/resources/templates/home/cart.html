@@ -109,30 +109,7 @@
                  </div>
                  <!--coupon code area start-->
                 <div class="cart_page_bottom">
-                    <div class="row">
-                        <div class="col-lg-4 col-md-6 col-sm-6">
-                            <div class="shopping_coupon_calculate top">
-                                <h3 class="border-bottom">Calculate Shipping </h3>
-                                <select class="select_option border">
-                                    <option value="1">United Kingdom (UK)  </option>
-                                    <option value="2">Åland Islands  </option>
-                                    <option value="3">Afghanistan  </option>
-                                    <option value="4">Belgium </option>
-                                    <option value="5">Albania  </option>
-                                </select>
-                                <input class="border" placeholder="State / Country" type="text">
-                                <input class="border" placeholder="Postcode / Zip" type="text">
-                                <button class="btn btn-primary" type="submit">get a quote</button>
-                            </div>
-                        </div>
-                        <div class="col-lg-4 col-md-6 col-sm-6">
-                            <div class="shopping_coupon_calculate">
-                                <h3 class="border-bottom">Coupon Discount   </h3>
-                                <p>Enter your coupon code if you have one.</p>
-                                <input class="border" placeholder="Enter your code" type="text">
-                                <button class="btn btn-primary" type="submit">apply coupon</button>
-                            </div>
-                        </div>
+                    <div class="row flex-row-reverse">
                         <div class="col-lg-4 col-md-6 col-sm-8">
                             <div class="grand_totall_area">
                                <div class="grand_totall_inner border-bottom">
@@ -146,9 +123,8 @@
                                    </div>
                                </div>
                                <div class="proceed_checkout_btn">
-                                   <a class="btn btn-primary" href="#">Proceed to Checkout</a>
+                                   <a class="btn btn-primary" th:href="@{/thanh-toan}">Proceed to Checkout</a>
                                </div>
-                               <a href="#">Checkout with Mutilple Adresses</a>
                             </div>
                         </div>
                     </div>

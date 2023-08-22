@@ -23,13 +23,13 @@ public class PaymentController {
 
     @PostMapping("/vnpay")
     ResponseEntity<VNPayResponse> vnPay() throws UnsupportedEncodingException, UnknownHostException {
-        return ResponseEntity.ok().body(vnPayService.createPayment(100000,""));
+        return ResponseEntity.ok().body(vnPayService.createPayment(100000,"",1));
     }
 
-    @PostMapping("/paypal")
-    ResponseEntity<Object> payPal() {
-        return ResponseEntity.ok().body(paypalService.createPaypal());
-    }
+//    @PostMapping("/paypal")
+//    ResponseEntity<Object> payPal() {
+//        return ResponseEntity.ok().body(paypalService.createPaypal());
+//    }
 
 
 }

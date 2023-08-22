@@ -1,5 +1,6 @@
 package TMDTBoBa.BoBaEcor.Models.User;
 
+import TMDTBoBa.BoBaEcor.Models.Store.Order;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.persistence.CascadeType;
@@ -70,6 +71,12 @@ public class User implements UserDetails {
     @Column(name = "is_employee", columnDefinition = "tinyint(1) default 0")
     private Integer isEmployee = 0;
 
+    @Column(name = "total_price", columnDefinition = "int(11) default 0")
+    private Integer totalPrice = 0;
+
+    @Column(name = "ranked", columnDefinition = "int(11) default 0")
+    private Integer ranked = 0;
+
     @Column(name = "created_on", columnDefinition="TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     @CreationTimestamp()
     private Timestamp createdOn;
@@ -83,8 +90,57 @@ public class User implements UserDetails {
     @OneToMany(mappedBy = "user")
     @JsonIgnore
     private Set<UserHasRole> listRole = new HashSet<>();
+    @OneToMany(mappedBy = "user")
+    @JsonIgnore
+    private Set<Order>  listOrder = new HashSet<>();
 
     public User() {
+    }
+
+//    public User(Integer userId, String firstName, String lastName, String email, String phoneNumber, Date birthDay, String address, String password, String verificationCode, String forgetToken, String accessToken, String refreshToken, Integer accountStatus, Integer isEmployee, Integer totalPrice, Integer rank, Timestamp createdOn, Timestamp updatedOn, Position position, Set<UserHasRole> listRole, Set<Order> listOrder) {
+//        this.userId = userId;
+//        this.firstName = firstName;
+//        this.lastName = lastName;
+//        this.email = email;
+//        this.phoneNumber = phoneNumber;
+//        this.birthDay = birthDay;
+//        this.address = address;
+//        this.password = password;
+//        this.verificationCode = verificationCode;
+//        this.forgetToken = forgetToken;
+//        this.accessToken = accessToken;
+//        this.refreshToken = refreshToken;
+//        this.accountStatus = accountStatus;
+//        this.isEmployee = isEmployee;
+//        this.totalPrice = totalPrice;
+//        this.rank = rank;
+//        this.createdOn = createdOn;
+//        this.updatedOn = updatedOn;
+//        this.position = position;
+//        this.listRole = listRole;
+//        this.listOrder = listOrder;
+//    }
+
+    public User(Integer userId, String firstName, String lastName, String email, String phoneNumber, Date birthDay, String address, String password, String verificationCode, String forgetToken, String accessToken, String refreshToken, Integer accountStatus, Integer isEmployee, Timestamp createdOn, Timestamp updatedOn, Position position, Set<UserHasRole> listRole, Set<Order> listOrder) {
+        this.userId = userId;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.phoneNumber = phoneNumber;
+        this.birthDay = birthDay;
+        this.address = address;
+        this.password = password;
+        this.verificationCode = verificationCode;
+        this.forgetToken = forgetToken;
+        this.accessToken = accessToken;
+        this.refreshToken = refreshToken;
+        this.accountStatus = accountStatus;
+        this.isEmployee = isEmployee;
+        this.createdOn = createdOn;
+        this.updatedOn = updatedOn;
+        this.position = position;
+        this.listRole = listRole;
+        this.listOrder = listOrder;
     }
 
     public User(Integer userId, @NotNull String firstName, @NotNull String lastName, String email, String phoneNumber, Date birthDay, String address, String password, String verificationCode, String forgetToken, String accessToken, String refreshToken, Integer accountStatus, Timestamp createdOn, Timestamp updatedOn, Set<UserHasRole> listRole) {
@@ -120,7 +176,7 @@ public class User implements UserDetails {
 
     @Override
     public String getUsername() {
-        return firstName + " " + lastName;
+        return email;
     }
 
     @Override

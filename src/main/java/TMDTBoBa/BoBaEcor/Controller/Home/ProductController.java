@@ -1,12 +1,14 @@
 package TMDTBoBa.BoBaEcor.Controller.Home;
 
 import TMDTBoBa.BoBaEcor.API.PublicAPI.Payment.Paypal.PaypalService;
+import TMDTBoBa.BoBaEcor.API.PublicAPI.Payment.VNPay.VNPayService;
 import TMDTBoBa.BoBaEcor.Controller.BaseController;
 import TMDTBoBa.BoBaEcor.Models.Store.Product;
 import TMDTBoBa.BoBaEcor.Service.Blog.Channel14RSSReader;
 import TMDTBoBa.BoBaEcor.Service.User.UserService;
 import TMDTBoBa.BoBaEcor.Service.store.Brand.BrandService;
 import TMDTBoBa.BoBaEcor.Service.store.Category.CategoryService;
+import TMDTBoBa.BoBaEcor.Service.store.Order.OrderService;
 import TMDTBoBa.BoBaEcor.Service.store.Product.ProductService;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Controller;
@@ -23,8 +25,8 @@ import java.util.Optional;
 public class ProductController extends BaseController {
 
 
-    public ProductController(PaypalService paypalService, ProductService productService, CategoryService categoryService, BrandService brandService, Channel14RSSReader channel14RSSReader, UserService userService) {
-        super(paypalService, productService, categoryService, brandService, channel14RSSReader, userService);
+    public ProductController(PaypalService paypalService, ProductService productService, CategoryService categoryService, BrandService brandService, Channel14RSSReader channel14RSSReader, UserService userService, VNPayService vnPayService, OrderService orderService) {
+        super(paypalService, productService, categoryService, brandService, channel14RSSReader, userService, vnPayService, orderService);
     }
 
     @GetMapping("/{slug}")
