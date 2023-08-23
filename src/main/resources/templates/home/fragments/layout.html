@@ -286,8 +286,14 @@
                                     <li class="account_link"><a href="#"><i class="icon-user icons"></i></a>
                                         <ul class="dropdown_account_link">
                                             <li><a th:href="@{/user}">Tài Khoản</a></li>
-                                            <li><a th:href="@{/dang-nhap}">Đăng Nhập</a></li>
-                                            <li><a id="logout" th:href="@{/}"></a></li>
+                                            <th:block th:if="${#authorization.expression('isAuthenticated()')}">
+                                                <li><a th:href="@{/logout}">Đăng xuất</a></li>
+                                            </th:block>
+                                            <th:block th:unless="${#authorization.expression('isAuthenticated()')}">
+                                                <li><a id="logout" th:href="@{/dang-nhap}">Đăng nhập</a></li>
+                                            </th:block>
+
+
                                         </ul>
                                     </li>
                                     <li class="shopping_cart"><a th:href="@{/gio-hang}"><i class="icon-basket-loaded icons"></i></a>

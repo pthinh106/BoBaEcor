@@ -47,10 +47,10 @@ public class Order {
     private String note;
 
     @Column(name = "Total",columnDefinition = "INT(11) DEFAULT 0")
-    private double total;
+    private Integer total;
 
     @Column(name = "Total_Sale",columnDefinition = "INT(11) DEFAULT 0")
-    private double totalSale;
+    private Integer totalSale;
 
     @Column(name = "Payment",columnDefinition = "varchar(255)")
     private String payment;

@@ -76,6 +76,7 @@ public class PaypalService {
         redirectUrls.setCancelUrl("https://bobaecor.live" + "/thanh-toan/that-bai?guid=" + guid);
         // Payment success url
         redirectUrls.setReturnUrl("https://bobaecor.live" + "/thanh-toan/thanh-cong?guid=" + guid);
+//        redirectUrls.setReturnUrl("http://localhost:8060/" + "/thanh-toan/thanh-cong?guid=" + guid);
         payment.setRedirectUrls(redirectUrls);
         Payment createdPayment = null;
         try {

@@ -7,6 +7,7 @@ import java.util.Optional;
 
 public interface IUserService {
     User getUser();
+    User save(User user);
     Optional<User> findUserByUsername(String username);
     boolean signUp(User user);
     User editProfile(User userDetails, User User);

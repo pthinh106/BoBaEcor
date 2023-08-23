@@ -19,6 +19,11 @@ public class UserService implements IUserService {
     }
 
     @Override
+    public User save(User user) {
+        return userRepository.save(user);
+    }
+
+    @Override
     public Optional<User> findUserByUsername(String username) {
         return userRepository.findByPhoneNumberOrEmail(username,username);
     }

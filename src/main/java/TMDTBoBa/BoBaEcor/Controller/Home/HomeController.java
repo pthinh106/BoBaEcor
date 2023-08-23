@@ -205,8 +205,13 @@ public class HomeController  extends BaseController {
         if(guid == 0) return "home/payment-success";
         Payment payment = paypalService.executePayment(paymentId,payerId,guid);
         Optional<Order> order = orderService.findById(guid);
-        if(order.isPresent() && payment.getState().equals("approved")){
-            order.get().setPaymentStatus(1);
+        if(order.isPresent()){
+            User user = order.get().getUser();
+            if(user != null){
+                order.get().setPaymentStatus(1);
+                order.get().getUser().setTotalPrice( (order.get().getUser().getTotalPrice() + order.get().getTotal()));
+                userService.save(order.get().getUser());
+            }
             orderService.save(order.get());
             model.addAttribute("order",order.get());
             model.addAttribute("payment",payment);
