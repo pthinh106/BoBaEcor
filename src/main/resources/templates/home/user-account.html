@@ -75,13 +75,13 @@
                                                     </div>
                                                     <div class="welcome-member">
                                                         <p class="welcome-member-hi">Hello</p>
-                                                        <p class="welcome-member-name">User</p>
+                                                        <p class="welcome-member-name" th:text="${user.getFullName()}">User</p>
                                                         <div class="welcome-member-info">
                                                             <div class="item-contentWelcome">
                                                                 <p>Ngày tham gia</p>
                                                                 <i class="fa fa-calendar-check-o fa-3x"
                                                                    aria-hidden="true"></i>
-                                                                <p class="join-date">12/7/2023 </p>
+                                                                <p class="join-date" th:text="${#dates.format(user.getCreatedOn(), 'dd-MM-yyyy')}">12/7/2023 </p>
                                                             </div>
                                                             <div class="item-contentWelcome">
                                                                 <p>Hạng thành viên</p>
