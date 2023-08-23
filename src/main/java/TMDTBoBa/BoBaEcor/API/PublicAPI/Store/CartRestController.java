@@ -165,8 +165,8 @@ public class CartRestController extends BaseController {
                 if(cartItem.getProductDetail().getProductDetailId() == idDetail){
                     cart.setTotalPrice(cart.getTotalPrice() - cartItem.getTotalPriceItem());
                     cart.getCartItems().remove(cartItem);
+                    break;
                 }
-                break;
             }
         }
         if(cart == null) return ResponseEntity.status(HttpStatus.OK).body(new StoreResponse(200,"Bạn chưa có sản phẩm nào!" , 0,cart,0,0));

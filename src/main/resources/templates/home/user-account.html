@@ -237,7 +237,7 @@
                                                                     <td>Delivered</td>
                                                                 </th:block>
                                                                 <td th:text="${#numbers.formatDecimal(item.getTotal(),3,'COMMA',0,'POINT')} + ' VNĐ'">$3000</td>
-                                                                <td><a
+                                                                <td><a th:href="@{/user/order/{id}(id = ${item.getOrderId()})}"
                                                                        class="btn btn btn-dark btn-hover-primary btn-sm rounded-0">View</a>
                                                                 </td>
                                                             </tr>
@@ -707,10 +707,10 @@
 
                                 <!-- Single Tab Content Start -->
                                 <div class="tab-pane fade" id="account-info" role="tabpanel">
-                                    <div class="checkout_info">
+                                    <div class="checkout_info" style="margin: 0!important;">
                                         <h3 class="title">Account Details</h3>
                                         <div class="account-details-form">
-                                            <form action="#" th:object="${user}">
+                                            <form id="user" action="#" th:object="${user}">
                                                 <input type="hidden" th:field="*{userId}">
                                                 <div class="row">
                                                     <div class=" col-lg-6">
@@ -736,8 +736,13 @@
                                                     <input type="email" id="email" placeholder="Email Address"  th:field="*{email}"/>
                                                 </div>
                                                 <div class="form_group single-input-item mb-3">
+                                                    <label for="address" class="required mb-1">
+                                                        Addres</label>
+                                                    <input type="text" id="address" placeholder="Email Address"  th:field="*{address}"/>
+                                                </div>
+                                                <div class="form_group single-input-item mb-3">
                                                     <label for="phone" class="required mb-1">Phone Number</label>
-                                                    <input type="email" id="phone" placeholder="Phone Number"  th:field="*{phoneNumber}"/>
+                                                    <input type="text" id="phone" placeholder="Phone Number"  th:field="*{phoneNumber}"/>
                                                 </div>
                                                 <fieldset>
                                                     <legend>Password change</legend>
@@ -800,10 +805,56 @@
 
 <!-- JS
 ============================================ -->
+<div th:replace="~{home/fragments/layout :: loading}"></div>
 <div th:replace="~{home/fragments/layout :: js}"></div>
 <script th:src="@{/assets/js/vendor/bootstrap.min.js}"></script>
 
 
+<script>
+    $("#user").submit(function(e) {
+        document.getElementById("loading-wrapper").style.display = "block";
+        e.preventDefault(); // avoid to execute the actual submit of the form.
+        let form = $(this);
+        $.ajax({
+            type: "POST",
+            url: "/user/api/update",
+            data: form.serialize(), // serializes the form's elements.
+            success: function(data)
+            {
+                document.getElementById("loading-wrapper").style.display = "none";
+                if(data){
+                    Swal.fire({
+                        position: 'center',
+                        icon: 'success',
+                        title: data.message,
+                        showConfirmButton: true
+                    }).then((result) =>{
+                        console.log(data);
+                    })
+                }else{
+                    Swal.fire({
+                        position: 'center',
+                        icon: 'error',
+                        title: data.message,
+                        showConfirmButton: true
+                    })
+                }
+            },
+            error: function ($xhr,textStatus,errorThrown) {
+                document.getElementById("loading-wrapper").style.display = "none";
+                let data = $xhr.responseJSON;
+                Swal.fire({
+                    position: 'center',
+                    icon: 'error',
+                    title: data.message,
+                    showConfirmButton: true
+                })
+
+            }
+        });
+
+    });
+</script>
 </body>
 
 </html>

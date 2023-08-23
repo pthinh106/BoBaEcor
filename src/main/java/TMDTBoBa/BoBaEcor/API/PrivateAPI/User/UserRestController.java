@@ -15,7 +15,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class UserRestController {
     private final UserService userService;
-    @PostMapping(value = "/update", consumes = { "multipart/form-data"})
+    @PostMapping(value = "/update")
     public ResponseEntity<StoreResponse> updateProfile(@ModelAttribute("user") User user, @RequestParam("newPassword") Optional<String> newPassword, @RequestParam("confirmPassword") Optional<String> confirmPassword)
     {
         StoreResponse storeResponse = userService.editProfile(user,newPassword,confirmPassword);

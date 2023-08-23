@@ -55,7 +55,7 @@ public class UserService implements IUserService {
                 user1.get().setAddress(user.getAddress());
                 user1.get().setEmail(user.getEmail());
                 user1.get().setPhoneNumber(user.getPhoneNumber());
-                if(newPassword.isPresent() && confirmPassword.isPresent()){
+                if(newPassword.isPresent() && confirmPassword.isPresent() && !newPassword.get().isEmpty() && !confirmPassword.get().isEmpty()){
                     if(!passwordEncoder().matches(user.getPassword(),user1.get().getPassword())) throw new RuntimeException("Password not confirm!");
                     if(newPassword.get().equals(confirmPassword.get())){
                         user1.get().setPassword(passwordEncoder().encode(newPassword.get()));

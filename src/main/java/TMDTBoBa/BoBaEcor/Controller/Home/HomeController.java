@@ -101,14 +101,14 @@ public class HomeController  extends BaseController {
         if(user.isPresent()){
             Optional<Order> orderDetail = orderService.findByIdAndUser(id,user.get());
             if(orderDetail.isPresent()){
-                model.addAttribute("orderDetail",orderDetail);
+                model.addAttribute("orderDetail",orderDetail.get());
                 model.addAttribute("order",new ArrayList<>());
                 model.addAttribute("user",user.get());
                 model.addAttribute("title","Chi tiết đặt hàng");
                 model.addAttribute("curURL",request.getRequestURL());
                 model.addAttribute("image","/assets/img/boba.jpg");
                 model.addAttribute("des","Chào mừng bạn đến với Boba Shop");
-                return "home/user-account";
+                return "home/order-detail";
             }
         }
 
