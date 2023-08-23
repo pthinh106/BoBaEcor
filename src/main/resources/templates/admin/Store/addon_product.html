@@ -160,34 +160,35 @@
                                     </div>
                                 </th:block>
                                 <th:block th:unless="${product.getProductDetails().isEmpty()}">
-                                    <div class="d-flex flex-row">
-                                        <div class="col-lg-1 text-center m-auto">
-                                            <input type="checkbox" class="checkbox-type">
+                                    <div class="overflow-x-auto d-flex flex-column justify-content-start">
+                                        <div class="d-flex flex-row">
+                                            <div class="col-lg-1 text-center m-auto">
+                                                <input type="checkbox" class="checkbox-type">
+                                            </div>
+                                            <div class="col-lg-3 m-2">
+                                                <span class="form-label">Size</span>
+                                            </div>
+                                            <div class="col-lg-3 m-2">
+                                                <span  class="form-label">Color</span>
+                                            </div>
+                                            <div class="col-lg-3 m-2">
+                                                <span  class="form-label">Code Color</span>
+                                            </div>
+                                            <div class="col-lg-3 m-2">
+                                                <span  class="form-label">Price</span>
+                                            </div>
+                                            <div class="col-lg-3 m-2">
+                                                <span  class="form-label">Price Sale</span>
+                                            </div>
+                                            <div class="col-lg-3 m-2">
+                                                <span class="form-label">Quantity Inventory</span>
+                                            </div>
+                                            <div class="col-lg-3 m-2">
+                                                <span  class="form-label">Quantity sold</span>
+                                            </div>
                                         </div>
-                                        <div class="col-lg-3 m-2">
-                                            <span class="form-label">Size</span>
-                                        </div>
-                                        <div class="col-lg-3 m-2">
-                                            <span  class="form-label">Color</span>
-                                        </div>
-                                        <div class="col-lg-3 m-2">
-                                            <span  class="form-label">Code Color</span>
-                                        </div>
-                                        <div class="col-lg-3 m-2">
-                                            <span  class="form-label">Price</span>
-                                        </div>
-                                        <div class="col-lg-3 m-2">
-                                            <span  class="form-label">Price Sale</span>
-                                        </div>
-                                        <div class="col-lg-3 m-2">
-                                            <span class="form-label">Quantity Inventory</span>
-                                        </div>
-                                        <div class="col-lg-3 m-2">
-                                            <span  class="form-label">Quantity sold</span>
-                                        </div>
-                                    </div>
                                     <th:block th:each="item : ${product.getProductDetails()}">
-                                        <div class="overflow-x-auto d-flex flex-column justify-content-start">
+
 
                                             <div >
                                                 <div class="type-item d-flex flex-row type-product">
@@ -220,9 +221,8 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
                                     </th:block>
-
+                                    </div>
                                 </th:block>
 
                             </div>
