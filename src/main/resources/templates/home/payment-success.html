@@ -43,7 +43,7 @@
         </div>
 
         <hr style="border-top: 1px dashed #ccc;">
-        <p class="text-center"><span>Order date:</span> <span>15:30 July 18, 2023</span></p>
+        <p class="text-center"><span>Order date:</span> <span th:text="${#dates.format(order.getCreated(), 'dd-MMM-yyyy')}">15:30 July 18, 2023</span></p>
         <hr>
         <a th:href="@{/cua-hang}"> <button class="btn btn-dark mx-auto d-block mt-3" type="button">Go
           back</button></a>
