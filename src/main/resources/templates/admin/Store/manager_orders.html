@@ -61,9 +61,12 @@
                                         </th:block>
                                         <td th:if="${item.getPaymentStatus() == 1}">
                                             <div class="d-flex justify-content-evenly">
-                                                <span style="font-size: 20px;color: #63ff05; cursor: pointer" th:onclick="updateOrder([[${item.getOrderId()}]])"><i class="bi bi-check-lg"></i></span>
+                                                <th:block th:if="${item.getStatus() == 0}">
+                                                    <span style="font-size: 20px;color: #63ff05; cursor: pointer" th:onclick="updateOrder([[${item.getOrderId()}]])"><i class="bi bi-check-lg"></i></span>
+                                                    <span style="font-size: 20px;color: #ff1205;cursor: pointer" th:onclick="delivered([[${item.getOrderId()}]])"><i class="bi bi-trash-fill"></i></span>
+                                                </th:block>
                                                 <a th:href="@{'~/order/' + ${item.getOrderId()}}"><span style="font-size: 20px;color: #2f412e;"><i class="bi bi-eye-fill"></i></span></a>
-                                                <span style="font-size: 20px;color: #ff1205;cursor: pointer" th:onclick="delivered([[${item.getOrderId()}]])"><i class="bi bi-trash-fill"></i></span>
+
                                             </div>
                                         </td>
                                         <td th:if="${item.getPaymentStatus() == 0}">
