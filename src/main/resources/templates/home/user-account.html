@@ -87,13 +87,25 @@
                                                                 <p>Hạng thành viên</p>
                                                                 <i class="fa fa-trophy fa-3x"
                                                                    aria-hidden="true"></i>
-                                                                <p class="mem-rank">Broze</p>
+                                                                <th:block th:if="${user.getTotalPrice() < 10000000}">
+                                                                    <p class="mem-rank">Broze</p>
+                                                                </th:block>
+                                                                <th:block th:if="${user.getTotalPrice() >= 10000000 && user.getTotalPrice() < 50000000}">
+                                                                    <p class="mem-rank">Silver</p>
+                                                                </th:block>
+                                                                <th:block th:if="${user.getTotalPrice() >= 50000000 && user.getTotalPrice() < 100000000}">
+                                                                    <p class="mem-rank">Gold</p>
+                                                                </th:block>
+                                                                <th:block th:if="${user.getTotalPrice() >= 100000000}">
+                                                                    <p class="mem-rank">Diamond</p>
+                                                                </th:block>
+
                                                             </div>
                                                             <div class="item-contentWelcome">
-                                                                <p>Điểm tích lũy </p>
+                                                                <p >Điểm tích lũy </p>
                                                                 <i class="fa fa-gg-circle fa-3x"
                                                                    aria-hidden="true"></i>
-                                                                <p class="scoin-amount">0</p>
+                                                                <p class="scoin-amount" th:text="${user.getTotalPrice() / 1000}">0</p>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -152,12 +164,12 @@
                                                 class="order-statistics is-flex is-justify-content-space-around  border border-success rounded mt-4">
                                             <div
                                                     class="content__item is-flex is-flex-direction-column is-align-items-center">
-                                                <p class="item__content title">0</p>
+                                                <p class="item__content title" th:text="${user.getListOrder().size()}">0</p>
                                                 <p class="item__content text">Order</p>
                                             </div>
                                             <div
                                                     class="content__item is-flex is-flex-direction-column is-align-items-center">
-                                                <p class="item__content title">
+                                                <p class="item__content title" th:text="${#numbers.formatDecimal(user.getTotalPrice(),3,'COMMA',0,'POINT')} + ' VNĐ'">
                                                     0đ</p>
                                                 <p class="item__content text">Total amount accumulated</p>
                                             </div>
@@ -186,18 +198,14 @@
                                                     <a href="#Approved" class="thumb-item " data-bs-toggle="tab">
                                                         Approved
                                                     </a>
-                                                    <a href="#Shipping" class="thumb-item " data-bs-toggle="tab">
-                                                        Shipping
 
-                                                    </a>
                                                     <a href="#Delivered" class="thumb-item " data-bs-toggle="tab">
                                                         Delivered
 
                                                     </a>
-                                                    <a href="#Canceled" class="thumb-item  " data-bs-toggle="tab">
-                                                        Canceled
 
-                                                    </a>
+
+
                                                 </div>
                                             </div>
                                             <div class="tab-content">
@@ -213,51 +221,27 @@
                                                         </tr>
                                                         </thead>
                                                         <tbody>
-                                                        <tr>
-                                                            <td>1</td>
-                                                            <td>Aug 22, 2018</td>
-                                                            <td>Delivered</td>
-                                                            <td>$3000</td>
-                                                            <td><a href="cart.html"
-                                                                   class="btn btn btn-dark btn-hover-primary btn-sm rounded-0">View</a>
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>2</td>
-                                                            <td>July 22, 2018</td>
-                                                            <td>Approved</td>
-                                                            <td>$200</td>
-                                                            <td><a href="cart.html"
-                                                                   class="btn btn btn-dark btn-hover-primary btn-sm rounded-0">View</a>
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>3</td>
-                                                            <td>June 12, 2019</td>
-                                                            <td>Canceled</td>
-                                                            <td>$990</td>
-                                                            <td><a href="cart.html"
-                                                                   class="btn btn btn-dark btn-hover-primary btn-sm rounded-0">View</a>
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>4</td>
-                                                            <td>June 28, 2019</td>
-                                                            <td>Shipping</td>
-                                                            <td>$990</td>
-                                                            <td><a href="cart.html"
-                                                                   class="btn btn btn-dark btn-hover-primary btn-sm rounded-0">View</a>
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>5</td>
-                                                            <td>July 14, 2019</td>
-                                                            <td>Pending</td>
-                                                            <td>$990</td>
-                                                            <td><a href="cart.html"
-                                                                   class="btn btn btn-dark btn-hover-primary btn-sm rounded-0">View</a>
-                                                            </td>
-                                                        </tr>
+                                                        <th:block th:each="item,count : ${order}">
+                                                            <tr>
+                                                                <td th:text="${count.index + 1}">1</td>
+                                                                <td th:text="${#dates.format(item.getCreated(), 'dd-MMM-yyyy')}">Aug 22, 2018</td>
+                                                                <th:block th:if="${item.getPaymentStatus() == 1}">
+                                                                    <th:block th:if="${item.getStatus() == 1}">
+                                                                        <td>Approved</td>
+                                                                    </th:block>
+                                                                    <th:block th:if="${item.getStatus() == 0}">
+                                                                        <td>Pending</td>
+                                                                    </th:block>
+                                                                </th:block>
+                                                                <th:block th:if="${item.getPaymentStatus() == 0}">
+                                                                    <td>Delivered</td>
+                                                                </th:block>
+                                                                <td th:text="${#numbers.formatDecimal(item.getTotal(),3,'COMMA',0,'POINT')} + ' VNĐ'">$3000</td>
+                                                                <td><a
+                                                                       class="btn btn btn-dark btn-hover-primary btn-sm rounded-0">View</a>
+                                                                </td>
+                                                            </tr>
+                                                        </th:block>
                                                         </tbody>
                                                     </table>
                                                 </div>
@@ -275,15 +259,20 @@
                                                         </tr>
                                                         </thead>
                                                         <tbody>
-                                                        <tr>
-                                                            <td>5</td>
-                                                            <td>July 14, 2019</td>
-                                                            <td>Pending</td>
-                                                            <td>$990</td>
-                                                            <td><a href="cart.html"
-                                                                   class="btn btn btn-dark btn-hover-primary btn-sm rounded-0">View</a>
-                                                            </td>
-                                                        </tr>
+                                                        <th:block th:each="item,count : ${order}">
+                                                            <th:block th:if="${item.getPaymentStatus() == 1 && item.getStatus() == 0}">
+                                                            <tr>
+                                                                <td th:text="${count.index + 1}">1</td>
+                                                                <td th:text="${#dates.format(item.getCreated(), 'dd-MMM-yyyy')}">Aug 22, 2018</td>
+                                                                <td>Pending</td>
+                                                                <td th:text="${#numbers.formatDecimal(item.getTotal(),3,'COMMA',0,'POINT')} + ' VNĐ'">$3000</td>
+                                                                <td><a
+                                                                        class="btn btn btn-dark btn-hover-primary btn-sm rounded-0">View</a>
+                                                                </td>
+
+                                                            </tr>
+                                                            </th:block>
+                                                        </th:block>
 
                                                         </tbody>
                                                     </table>
@@ -301,46 +290,23 @@
                                                         </tr>
                                                         </thead>
                                                         <tbody>
-                                                        <tr>
-                                                            <td>2</td>
-                                                            <td>July 22, 2018</td>
-                                                            <td>Approved</td>
-                                                            <td>$200</td>
-                                                            <td><a href="cart.html"
-                                                                   class="btn btn btn-dark btn-hover-primary btn-sm rounded-0">View</a>
-                                                            </td>
-                                                        </tr>
+                                                        <th:block th:each="item,count : ${order}">
+                                                            <th:block th:if="${item.getPaymentStatus() == 1 && item.getStatus() == 1}">
+                                                            <tr>
+                                                                <td th:text="${count.index + 1}">1</td>
+                                                                <td th:text="${#dates.format(item.getCreated(), 'dd-MMM-yyyy')}">Aug 22, 2018</td>
+                                                                <td>Approved</td>
+                                                                <td th:text="${#numbers.formatDecimal(item.getTotal(),3,'COMMA',0,'POINT')} + ' VNĐ'">$3000</td>
+                                                                <td><a
+                                                                        class="btn btn btn-dark btn-hover-primary btn-sm rounded-0">View</a>
+                                                                </td>
+                                                            </tr>
+                                                            </th:block>
+                                                        </th:block>
 
                                                         </tbody>
                                                     </table>
                                                 </div>
-                                                <!-- #region -->
-                                                <div class="tab-pane fade" id="Shipping" role="tabpanel">
-                                                    <table class="table table-bordered mt-4  ">
-                                                        <thead class="thead-light">
-                                                        <tr>
-                                                            <th>Order-ID</th>
-                                                            <th>Date</th>
-                                                            <th>Status</th>
-                                                            <th>Total</th>
-                                                            <th>ssAction</th>
-                                                        </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                        <tr>
-                                                            <td>4</td>
-                                                            <td>June 28, 2019</td>
-                                                            <td>Shipping</td>
-                                                            <td>$990</td>
-                                                            <td><a href="cart.html"
-                                                                   class="btn btn btn-dark btn-hover-primary btn-sm rounded-0">View</a>
-                                                            </td>
-                                                        </tr>
-
-                                                        </tbody>
-                                                    </table>
-                                                </div>
-                                                <!-- #region -->
                                                 <div class="tab-pane fade" id="Delivered" role="tabpanel">
                                                     <table class="table table-bordered mt-4  ">
                                                         <thead class="thead-light">
@@ -353,45 +319,23 @@
                                                         </tr>
                                                         </thead>
                                                         <tbody>
-                                                        <tr>
-                                                            <td>1</td>
-                                                            <td>Aug 22, 2018</td>
-                                                            <td>Delivered</td>
-                                                            <td>$3000</td>
-                                                            <td><a href="cart.html"
-                                                                   class="btn btn btn-dark btn-hover-primary btn-sm rounded-0">View</a>
-                                                            </td>
-                                                        </tr>
+                                                        <th:block th:each="item,count : ${order}">
+                                                            <th:block th:if="${item.getPaymentStatus() == 0}">
+                                                            <tr>
+                                                                <td th:text="${count.index + 1}">1</td>
+                                                                <td th:text="${#dates.format(item.getCreated(), 'dd-MMM-yyyy')}">Aug 22, 2018</td>
+                                                                <td>Delivered</td><td th:text="${#numbers.formatDecimal(item.getTotal(),3,'COMMA',0,'POINT')} + ' VNĐ'">$3000</td>
+                                                                <td><a
+                                                                        class="btn btn btn-dark btn-hover-primary btn-sm rounded-0">View</a>
+                                                                </td>
+                                                            </tr>
+                                                            </th:block>
+                                                        </th:block>
 
                                                         </tbody>
                                                     </table>
                                                 </div>
                                                 <!-- #region -->
-                                                <div class="tab-pane fade" id="Canceled" role="tabpanel">
-                                                    <table class="table table-bordered mt-4  ">
-                                                        <thead class="thead-light">
-                                                        <tr>
-                                                            <th>Order-ID</th>
-                                                            <th>Date</th>
-                                                            <th>Status</th>
-                                                            <th>Total</th>
-                                                            <th>ssAction</th>
-                                                        </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                        <tr>
-                                                            <td>3</td>
-                                                            <td>June 12, 2019</td>
-                                                            <td>Canceled</td>
-                                                            <td>$990</td>
-                                                            <td><a href="cart.html"
-                                                                   class="btn btn btn-dark btn-hover-primary btn-sm rounded-0">View</a>
-                                                            </td>
-                                                        </tr>
-
-                                                        </tbody>
-                                                    </table>
-                                                </div>
                                             </div>
 
                                         </div>
@@ -445,9 +389,9 @@
                                         <div class="border border-success rounded ranking-details ">
                                             <div class="block-ranking-detail__box-title">
                                                 <div class="left-col">
-                                                    <p class="user-name">Hello UserName !</p> <span
+                                                    <p class="user-name" th:text="${'Xin chào '+ user.getFullName()}">Hello UserName !</p> <span
                                                         class="point-ranking">0</span>
-                                                    <p class="little-text">100đ = 1 point(Points accumulated from
+                                                    <p class="little-text">1000đ = 1 point(Points accumulated from
                                                         01/01/2023)</p>
                                                 </div>
                                                 <div class="right-col"><img
@@ -766,14 +710,14 @@
                                     <div class="checkout_info">
                                         <h3 class="title">Account Details</h3>
                                         <div class="account-details-form">
-                                            <form action="#">
+                                            <form action="#" th:object="${user}">
                                                 <div class="row">
                                                     <div class=" col-lg-6">
                                                         <div class=" form_group single-input-item mb-3">
                                                             <label for="first-name" class="required mb-1">First
                                                                 Name</label>
                                                             <input type="text" id="first-name"
-                                                                   placeholder="First Name" />
+                                                                   placeholder="First Name" th:field="*{firstName}" />
                                                         </div>
                                                     </div>
                                                     <div class=" col-lg-6">
@@ -781,20 +725,18 @@
                                                             <label for="last-name" class="required mb-1">Last
                                                                 Name</label>
                                                             <input type="text" id="last-name"
-                                                                   placeholder="Last Name" />
+                                                                   placeholder="Last Name" th:field="*{lastName}" />
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div class="form_group single-input-item mb-3">
-                                                    <label for="display-name" class="required mb-1">Display
-                                                        Name</label>
-                                                    <input type="text" id="display-name"
-                                                           placeholder="Display Name" />
-                                                </div>
-                                                <div class="form_group single-input-item mb-3">
                                                     <label for="email" class="required mb-1">Email
                                                         Addres</label>
-                                                    <input type="email" id="email" placeholder="Email Address" />
+                                                    <input type="email" id="email" placeholder="Email Address"  th:field="*{email}"/>
+                                                </div>
+                                                <div class="form_group single-input-item mb-3">
+                                                    <label for="phone" class="required mb-1">Phone Number</label>
+                                                    <input type="email" id="phone" placeholder="Phone Number"  th:field="*{phoneNumber}"/>
                                                 </div>
                                                 <fieldset>
                                                     <legend>Password change</legend>
@@ -802,7 +744,7 @@
                                                         <label for="current-pwd" class="required mb-1">Current
                                                             Password</label>
                                                         <input type="password" id="current-pwd"
-                                                               placeholder="Current Password" />
+                                                               placeholder="Current Password" name="password"/>
                                                     </div>
                                                     <div class="row">
                                                         <div class="col-lg-6">
@@ -810,7 +752,7 @@
                                                                 <label for="new-pwd" class="required mb-1">New
                                                                     Password</label>
                                                                 <input type="password" id="new-pwd"
-                                                                       placeholder="New Password" />
+                                                                       placeholder="New Password" name="newPassword" />
                                                             </div>
                                                         </div>
                                                         <div class="col-lg-6">
@@ -819,13 +761,13 @@
                                                                        class="required mb-1">Confirm
                                                                     Password</label>
                                                                 <input type="password" id="confirm-pwd"
-                                                                       placeholder="Confirm Password" />
+                                                                       placeholder="Confirm Password" name="confirmPassword" />
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </fieldset>
                                                 <div class="single-input-item single-item-button">
-                                                    <button id="success" class="btn btn-primary rounded-0">Save
+                                                    <button id="success" class="btn btn-primary rounded-0" type="submit">Save
                                                         Changes</button>
                                                 </div>
                                             </form>

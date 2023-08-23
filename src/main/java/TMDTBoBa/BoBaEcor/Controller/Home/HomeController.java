@@ -175,7 +175,7 @@ public class HomeController  extends BaseController {
     }
 
     @GetMapping("/processing/order")
-    public String processingOrder(@ModelAttribute("order") Order order,HttpServletRequest request, @RequestParam("check_method") String paymentMethod) throws UnknownHostException, UnsupportedEncodingException {
+    public String processingOrder(@ModelAttribute("order") Order order,HttpServletRequest request, @RequestParam("check_method") String paymentMethod,Principal principal) throws UnknownHostException, UnsupportedEncodingException {
         if(paymentMethod.isEmpty()) return "pages-error-404";
         order.setPayment(paymentMethod);
         System.out.println(order.getPayment());
@@ -188,6 +188,12 @@ public class HomeController  extends BaseController {
                 break;
             }
         }
+        Optional<User> user = Optional.empty();
+        if(principal != null){
+            String username = principal.getName();
+            user = userService.findUserByUsername(username);
+        }
+        if(user.isPresent()) order.setUser(user.get());
         order.setTotal(cart.getTotalPrice());
         order = orderService.save(order,cart);
         if(paymentMethod.equals("paypal")) return paypalService.createPaypal(order,cart);
