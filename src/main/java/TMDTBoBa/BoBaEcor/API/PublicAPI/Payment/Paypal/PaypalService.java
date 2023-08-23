@@ -73,9 +73,9 @@ public class PaypalService {
         RedirectUrls redirectUrls = new RedirectUrls();
         String guid = String.valueOf(order.getOrderId());
         // Payment cancellation url
-        redirectUrls.setCancelUrl("http://localhost:8060" + "/thanh-toan/that-bai?guid=" + guid);
+        redirectUrls.setCancelUrl("https://bobaecor.live" + "/thanh-toan/that-bai?guid=" + guid);
         // Payment success url
-        redirectUrls.setReturnUrl("http://localhost:8060" + "/thanh-toan/thanh-cong?guid=" + guid);
+        redirectUrls.setReturnUrl("https://bobaecor.live" + "/thanh-toan/thanh-cong?guid=" + guid);
         payment.setRedirectUrls(redirectUrls);
         Payment createdPayment = null;
         try {

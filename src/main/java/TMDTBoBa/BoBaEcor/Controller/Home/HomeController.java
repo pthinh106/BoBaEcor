@@ -24,11 +24,7 @@ import com.paypal.base.rest.PayPalRESTException;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import org.springframework.core.io.ByteArrayResource;
 import org.springframework.data.domain.Page;
-import org.springframework.data.repository.query.Param;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -80,7 +76,13 @@ public class HomeController  extends BaseController {
     }
 
     @GetMapping("/user")
-    public String user(){
+    public String user(Model model, Principal principal){
+        String username = principal.getName().trim();
+        Optional<User> user = userService.findUserByUsername(username);
+        if(user.isPresent()){
+            model.addAttribute("user",user.get());
+            model.addAttribute("order",orderService.findByUser(user.get()));
+        }
         return "home/user-account";
     }
     @GetMapping("/cua-hang")
