@@ -177,9 +177,9 @@ public class HomeController  extends BaseController {
     }
     @GetMapping("/thanh-toan/thanh-cong")
     public String orderSuccess(@RequestParam("PayerID") String payerId, @RequestParam("paymentId") String paymentId, @RequestParam("guid") Integer guid, Model model) throws PayPalRESTException {
+        if(guid == 0) return "home/payment-success";
         Payment payment = paypalService.executePayment(paymentId,payerId,guid);
         Optional<Order> order = orderService.findById(guid);
-        if(guid == 123) return "home/payment-success";
         if(order.isPresent()){
             order.get().setPaymentStatus(1);
             orderService.save(order.get());
@@ -192,9 +192,9 @@ public class HomeController  extends BaseController {
     }
     @GetMapping("/thanh-toan/that-bai")
     public String orderError(@RequestParam("PayerID") String payerId, @RequestParam("paymentId") String paymentId, @RequestParam("guid") Integer guid, Model model) throws PayPalRESTException {
+        if(guid == 0) return "home/payment-error";
         Payment payment = paypalService.executePayment(paymentId,payerId,guid);
         Optional<Order> order = orderService.findById(guid);
-        if(guid == 123) return "home/payment-error";
         if(order.isPresent()){
             order.get().setPaymentStatus(1);
             orderService.save(order.get());
