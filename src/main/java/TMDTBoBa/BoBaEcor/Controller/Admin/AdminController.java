@@ -58,6 +58,17 @@ public class AdminController extends BaseController {
             return "admin/Store/manager_product";
 
     }
+    @GetMapping("/update/product/{id}")
+    public String updateProduct(@PathVariable Integer id, Model model){
+        Optional<Product> product = productService.findById(id);
+        if(product.isPresent()){
+            model.addAttribute("product",product.get());
+            model.addAttribute("listBrand", brandService.findAll());
+            model.addAttribute("listCategory", categoryService.findAll());
+            return "admin/Store/addon_product";
+        }
+        return "pages-error-404";
+    }
 
     @GetMapping("/management/categories")
     public String categories(Model model){
