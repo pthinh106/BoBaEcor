@@ -300,9 +300,19 @@ public class HomeController  extends BaseController {
         return "home/verify";
     }
     @GetMapping( value = "/robots.txt")
-    public String robot(HttpServletResponse response,Model model) throws IOException, URISyntaxException {
-        Path path = Paths.get(Objects.requireNonNull(getClass().getResource("/static/robots.txt")).toURI());
-        String value = new String(Files.readAllBytes(path));
+    public String robot(HttpServletResponse response,Model model)  {
+        Path path = null;
+        try {
+            path = Paths.get(Objects.requireNonNull(getClass().getResource("/static/robots.txt")).toURI());
+        } catch (URISyntaxException e) {
+            throw new RuntimeException(e);
+        }
+        String value = null;
+        try {
+            value = new String(Files.readAllBytes(path));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
         model.addAttribute("value", value);
         return "robot";
     }
