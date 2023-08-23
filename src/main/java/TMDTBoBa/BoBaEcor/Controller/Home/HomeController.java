@@ -263,8 +263,8 @@ public class HomeController  extends BaseController {
         return "pages-error-404";
     }
     @GetMapping("/thanh-toan/vnpay")
-    public String paymentVNPay(@RequestParam("vnp_ResponseCode") String vnp_ResponseCode, @RequestParam("guid") Integer guid,Model model,HttpServletRequest request,HttpServletResponse response){
-        Optional<Order> order = orderService.findById(guid);
+    public String paymentVNPay(@RequestParam("vnp_ResponseCode") String vnp_ResponseCode, @RequestParam("vnp_TxnRef") Integer vnp_TxnRef,Model model,HttpServletRequest request,HttpServletResponse response){
+        Optional<Order> order = orderService.findById(vnp_TxnRef);
         if(vnp_ResponseCode.equals("00")){
             if(order.isPresent()){
                 model.addAttribute("order",order.get());
