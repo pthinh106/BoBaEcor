@@ -37,7 +37,7 @@ public class ProductService implements IProductService {
     private final IUserRepository iUserRepository;
     @Override
     public Optional<Product> findById(Integer productId) {
-        return Optional.empty();
+        return iProductRepository.findById(productId);
     }
 
     @Override
