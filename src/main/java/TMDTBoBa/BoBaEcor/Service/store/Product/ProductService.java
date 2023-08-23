@@ -114,6 +114,7 @@ public class ProductService implements IProductService {
                 product.setUserCreate(user.get());
                 product.setUserUpdate(user.get());
             }
+            product.setSaleStatus(0);
             product.setProductSlug(Contains.convertToURL(product.getProductName()));
             product.setProductCode(RandomString.make(10));
             iProductRepository.save(product);
