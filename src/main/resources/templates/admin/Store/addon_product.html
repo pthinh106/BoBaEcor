@@ -520,60 +520,62 @@
         }
     };
 </script>
+<th:block th:if="${product.getProductId() != null}">
+    <script>
+        $("#form").submit(function(e) {
+            document.getElementById("loading-wrapper").style.display = "block";
+            tinyMCE.triggerSave();
 
-<script>
-    $("#form").submit(function(e) {
-        document.getElementById("loading-wrapper").style.display = "block";
-        tinyMCE.triggerSave();
+            e.preventDefault(); // avoid to execute the actual submit of the form.
+            var form = new FormData(this);
 
-        e.preventDefault(); // avoid to execute the actual submit of the form.
-        var form = new FormData(this);
-
-        $.ajax({
-            enctype: 'multipart/form-data',
-            type: "POST",
-            url: "/api/v1/private/addon/product",
-            data: form, // serializes the form's elements.
-            processData: false,
-            contentType: false,
-            success: function(data)
-            {
-                document.getElementById("loading-wrapper").style.display = "none";
-                if(data){
-                    Swal.fire({
-                        position: 'center',
-                        icon: 'success',
-                        title: data.message,
-                        showConfirmButton: true
-                    }).then((result) =>{
-                        $("#form")[0].reset()
-                        const listPreview = document.getElementById("images");
-                        while  (listPreview.hasChildNodes()) {
-                            listPreview.removeChild(listPreview.firstChild);
-                        }
-                    })
-                }else{
+            $.ajax({
+                enctype: 'multipart/form-data',
+                type: "POST",
+                url: "/api/v1/private/addon/product",
+                data: form, // serializes the form's elements.
+                processData: false,
+                contentType: false,
+                success: function(data)
+                {
+                    document.getElementById("loading-wrapper").style.display = "none";
+                    if(data){
+                        Swal.fire({
+                            position: 'center',
+                            icon: 'success',
+                            title: data.message,
+                            showConfirmButton: true
+                        }).then((result) =>{
+                            $("#form")[0].reset()
+                            const listPreview = document.getElementById("images");
+                            while  (listPreview.hasChildNodes()) {
+                                listPreview.removeChild(listPreview.firstChild);
+                            }
+                        })
+                    }else{
+                        Swal.fire({
+                            position: 'center',
+                            icon: 'error',
+                            title: data.message,
+                            showConfirmButton: true
+                        })
+                    }
+                },
+                error: function ($xhr,textStatus,errorThrown) {
+                    document.getElementById("loading-wrapper").style.display = "none";
+                    var data = $xhr.responseJSON;
                     Swal.fire({
                         position: 'center',
                         icon: 'error',
                         title: data.message,
                         showConfirmButton: true
                     })
-                }
-            },
-            error: function ($xhr,textStatus,errorThrown) {
-                document.getElementById("loading-wrapper").style.display = "none";
-                var data = $xhr.responseJSON;
-                Swal.fire({
-                    position: 'center',
-                    icon: 'error',
-                    title: data.message,
-                    showConfirmButton: true
-                })
 
-            }
+                }
+            });
         });
-    });
-</script>
+    </script>
+</th:block>
+
 </body>
 </html>

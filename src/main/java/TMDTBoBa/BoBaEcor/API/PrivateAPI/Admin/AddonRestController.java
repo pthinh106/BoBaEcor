@@ -40,6 +40,7 @@ public class AddonRestController {
                                                 @RequestParam("tSize") Optional<String[]>  tSize, @RequestParam("tColor") Optional<String[]> tColor,@RequestParam("tCodeColor") Optional<String[]> tCodeColor, @RequestParam("tPrice")  Optional<Integer[]> tPrice,
                                                 @RequestParam("tSale") Optional<Integer[]> tSale, @RequestParam("tInventory") Optional<Integer[]> tInventory, @RequestParam("tSolid") Optional<Integer[]> tSolid)
                                                {
+                                                   if(product.getProductId() != null) ResponseEntity.status(HttpStatusCode.valueOf(500)).body(new StoreResponse(500,"Server Error!",null,null,0,0));
         StoreResponse productResult = productService.addonProduct(product,multipartFiles,tSize,tColor,tCodeColor,tPrice,tSale,tInventory,tSolid);
         return ResponseEntity.status(HttpStatusCode.valueOf(productResult.getCode())).body(productResult);
     }
