@@ -27,14 +27,13 @@ public class AddonController extends BaseController {
     }
 
     @GetMapping(path = "/product")
-    public String addonProduct(Model model, @Param("q") String q){
-        if(Objects.equals(q, "admin")){
+    public String addonProduct(Model model){
+
             model.addAttribute("product", new Product());
             model.addAttribute("listBrand", brandService.findAll());
             model.addAttribute("listCategory", categoryService.findAll());
             return "admin/Store/addon_product";
-        }
-        return "redirect:/error";
+
     }
 
 }
