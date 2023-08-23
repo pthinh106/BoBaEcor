@@ -520,7 +520,7 @@
         }
     };
 </script>
-<th:block th:if="${product.getProductId() != null}">
+<th:block th:unless="${product.getProductId() != null}">
     <script>
         $("#form").submit(function(e) {
             document.getElementById("loading-wrapper").style.display = "block";

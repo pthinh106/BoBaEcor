@@ -57,10 +57,10 @@ public class Product {
     private Integer productPriceSale;
 
     @OneToMany(cascade = CascadeType.ALL,mappedBy = "product")
-    private Set<ProductDetail> productDetails;
+    private Set<ProductDetail> productDetails = new HashSet<>();
 
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
-    private Set<ProductImages> productImages;
+    private Set<ProductImages> productImages = new HashSet<>();
 
     @Column(name = "product_thumbnail", columnDefinition = "Varchar(255) NULL", unique = true)
     private String productThumbnail;
