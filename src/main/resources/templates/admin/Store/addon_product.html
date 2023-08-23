@@ -98,10 +98,71 @@
 
                             </div>
                             <div>
-                                <div class="overflow-x-auto d-flex flex-column justify-content-start">
+                                <th:block th:if="${product.getProductDetails().isEmpty()}">
+                                    <div class="overflow-x-auto d-flex flex-column justify-content-start">
+                                        <div class="d-flex flex-row">
+                                            <div class="col-lg-1 text-center m-auto">
+                                                <input type="checkbox" class="checkbox-type" id="removeAll">
+                                            </div>
+                                            <div class="col-lg-3 m-2">
+                                                <span class="form-label">Size</span>
+                                            </div>
+                                            <div class="col-lg-3 m-2">
+                                                <span  class="form-label">Color</span>
+                                            </div>
+                                            <div class="col-lg-3 m-2">
+                                                <span  class="form-label">Code Color</span>
+                                            </div>
+                                            <div class="col-lg-3 m-2">
+                                                <span  class="form-label">Price</span>
+                                            </div>
+                                            <div class="col-lg-3 m-2">
+                                                <span  class="form-label">Price Sale</span>
+                                            </div>
+                                            <div class="col-lg-3 m-2">
+                                                <span class="form-label">Quantity Inventory</span>
+                                            </div>
+                                            <div class="col-lg-3 m-2">
+                                                <span  class="form-label">Quantity sold</span>
+                                            </div>
+                                        </div>
+                                        <div id="typeProduct">
+                                            <div class="type-item d-flex flex-row type-product">
+                                                <div class="col-lg-1 text-center m-auto">
+                                                    <input type="checkbox" class="checkbox-type item-type"  onclick="checkboxChild()">
+                                                </div>
+                                                <div class="col-lg-3 m-2">
+                                                    <input type="text" class="form-control" id="size" min="0" name="tSize">
+                                                </div>
+                                                <div class="col-lg-3 m-2">
+                                                    <input type="text" class="form-control" id="color" min="0" name="tColor">
+                                                </div>
+                                                <div class="col-lg-3 m-2">
+                                                    <input type="color" class="form-control" id="codeColor" min="0" name="tCodeColor">
+                                                </div>
+                                                <div class="col-lg-3 m-2">
+                                                    <input type="number" class="form-control" id="price" min="0" name="tPrice" value="0">
+                                                </div>
+                                                <div class="col-lg-3 m-2">
+                                                    <input type="number" class="form-control" id="sale" min="0" name="tSale" value="0">
+                                                </div>
+                                                <div class="col-lg-3 m-2">
+                                                    <input type="number" class="form-control" id="inventory" min="0" name="tInventory" value="0">
+                                                </div>
+                                                <div class="col-lg-3 m-2">
+                                                    <input type="number" class="form-control" id="sold" min="0" name="tSolid" value="0">
+                                                </div>
+                                                <div class="col-lg-1 m-auto text-center">
+                                                    <span id="removeType" class="remove-item-type" onclick="removeItemType(this)"  data-index = "0"><i class="bi bi-trash-fill"></i></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </th:block>
+                                <th:block th:unless="${product.getProductDetails().isEmpty()}">
                                     <div class="d-flex flex-row">
                                         <div class="col-lg-1 text-center m-auto">
-                                            <input type="checkbox" class="checkbox-type" id="removeAll">
+                                            <input type="checkbox" class="checkbox-type">
                                         </div>
                                         <div class="col-lg-3 m-2">
                                             <span class="form-label">Size</span>
@@ -125,38 +186,45 @@
                                             <span  class="form-label">Quantity sold</span>
                                         </div>
                                     </div>
-                                    <div id="typeProduct">
-                                        <div class="type-item d-flex flex-row type-product">
-                                            <div class="col-lg-1 text-center m-auto">
-                                                <input type="checkbox" class="checkbox-type item-type"  onclick="checkboxChild()">
-                                            </div>
-                                            <div class="col-lg-3 m-2">
-                                                <input type="text" class="form-control" id="size" min="0" name="tSize">
-                                            </div>
-                                            <div class="col-lg-3 m-2">
-                                                <input type="text" class="form-control" id="color" min="0" name="tColor">
-                                            </div>
-                                            <div class="col-lg-3 m-2">
-                                                <input type="color" class="form-control" id="codeColor" min="0" name="tCodeColor">
-                                            </div>
-                                            <div class="col-lg-3 m-2">
-                                                <input type="number" class="form-control" id="price" min="0" name="tPrice" value="0">
-                                            </div>
-                                            <div class="col-lg-3 m-2">
-                                                <input type="number" class="form-control" id="sale" min="0" name="tSale" value="0">
-                                            </div>
-                                            <div class="col-lg-3 m-2">
-                                                <input type="number" class="form-control" id="inventory" min="0" name="tInventory" value="0">
-                                            </div>
-                                            <div class="col-lg-3 m-2">
-                                                <input type="number" class="form-control" id="sold" min="0" name="tSolid" value="0">
-                                            </div>
-                                            <div class="col-lg-1 m-auto text-center">
-                                                <span id="removeType" class="remove-item-type" onclick="removeItemType(this)"  data-index = "0"><i class="bi bi-trash-fill"></i></span>
+                                    <th:block th:each="item : ${product.getProductDetails()}">
+                                        <div class="overflow-x-auto d-flex flex-column justify-content-start">
+
+                                            <div >
+                                                <div class="type-item d-flex flex-row type-product">
+                                                    <div class="col-lg-1 text-center m-auto">
+                                                        <input type="checkbox" class="checkbox-type item-type" >
+                                                    </div>
+                                                    <div class="col-lg-3 m-2">
+                                                        <input type="text" class="form-control" th:value="${item.getSize()}">
+                                                    </div>
+                                                    <div class="col-lg-3 m-2">
+                                                        <input type="text" class="form-control" th:value="${item.getColor()}">
+                                                    </div>
+                                                    <div class="col-lg-3 m-2">
+                                                        <input type="color" class="form-control" th:value="${item.getCodeColor()}">
+                                                    </div>
+                                                    <div class="col-lg-3 m-2">
+                                                        <input type="number" class="form-control" th:value="${item.getProductPrice()}">
+                                                    </div>
+                                                    <div class="col-lg-3 m-2">
+                                                        <input type="number" class="form-control" th:value="${item.getProductPriceSale()}">
+                                                    </div>
+                                                    <div class="col-lg-3 m-2">
+                                                        <input type="number" class="form-control" th:value="${item.getQuantityInventory()}">
+                                                    </div>
+                                                    <div class="col-lg-3 m-2">
+                                                        <input type="number" class="form-control" th:value="${item.getQuantitySolid()}">
+                                                    </div>
+                                                    <div class="col-lg-1 m-auto text-center">
+                                                        <span  class="remove-item-type"   data-index = "0"><i class="bi bi-trash-fill"></i></span>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </div>
+                                    </th:block>
+
+                                </th:block>
+
                             </div>
                         </div>
                     </div>
