@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{admin/Fragment/layout :: head}">
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<header th:replace="~{admin/Fragment/layout :: header}"></header>
+<aside th:replace="~{admin/Fragment/layout :: sidebar}"></aside>
+<main id="main" class="main">
+
+    <div class="pagetitle">
+        <h1>Orders Detail</h1>
+        <nav>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="#">Home</a></li>
+                <li class="breadcrumb-item">Order</li>
+                <li class="breadcrumb-item active">Detail</li>
+            </ol>
+        </nav>
+    </div><!-- End Page Title -->
+
+    <section class="section">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div>
+                        <h3>Thông tin khách hàng</h3>
+                        <p><strong th:text="${'Tên khách hàng: ' + order.getFirstName() + ' ' + order.getLastName()}">Tên khách hàng:</strong></p>
+                        <p><strong th:text="${'Số điện thoại: '+ order.getPhoneNumber()}">Số điện thoại</strong></p>
+                        <p><strong th:text="${'Địa chỉ: '+ order.getAddress()}">Địa chỉ:</strong></p>
+                    </div>
+                    <div class="card-body">
+                        <table class="table" id="orders">
+                            <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Product Name</th>
+                                <th scope="col">Sizer</th>
+                                <th scope="col">Color</th>
+                                <th scope="col">Quantity</th>
+                                <th scope="col">Total Price</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <th:block th:each="item,cout : ${order.getListProductOrder()}">
+                                <tr>
+                                    <th scope="row" th:text="${cout.index + 1}">1</th>
+                                    <td th:text="${item.getProductDetail().getProduct().getProductName()}">Category Name</td>
+                                    <td th:text="${item.getProductDetail().getSize()}">Category Name</td>
+                                    <td th:text="${item.getProductDetail().getColor()}">Category Name</td>
+                                    <td th:text="${item.getQuantity()}">Category Name</td>
+                                    <td th:text="${item.getPrice()()}">Category Name</td>
+                                </tr>
+                            </th:block>
+                            <tr>
+                                <th scope="row"></th>
+                                <th ></th>
+                                <th ></th>
+                                <th ></th>
+                                <th ></th>
+                                <th th:text="${#numbers.formatDecimal(order.getTotal(),3,'COMMA',0,'POINT')} + ' VNĐ'"></th>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <!-- End Table with stripped rows -->
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+</main><!-- End #main -->
+<div th:replace="~{admin/Fragment/layout :: loading}"></div>
+<footer th:replace="~{admin/Fragment/layout :: footer}"></footer>
+<div th:replace="~{admin/Fragment/layout :: js}"></div>
+<div th:replace="~{admin/Fragment/layout :: jsDataTable}"></div>
+
+<script>
+    let dataTable = new DataTable('#orders');
+
+</script>
+</body>
+</html>

@@ -22,6 +22,7 @@ import org.springframework.security.web.authentication.logout.SecurityContextLog
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.security.Principal;
@@ -101,6 +102,15 @@ public class AdminController extends BaseController {
         return "admin/login";
     }
 
+    @GetMapping("/order/{id}")
+    public String orderDetail(@PathVariable Integer id, Model model){
+        Optional<Order> order = orderService.findById(id);
+        if(order.isPresent()) {
+            model.addAttribute("order",order.get());
+            return "admin/Store/order-detail";
+        }
+        return "pages-error-404";
+    }
 
     @GetMapping("/management/collections")
     public String collections(){

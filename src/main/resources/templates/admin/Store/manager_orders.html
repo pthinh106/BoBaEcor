@@ -10,7 +10,7 @@
 <main id="main" class="main">
 
     <div class="pagetitle">
-        <h1>Category Management</h1>
+        <h1>Orders Management</h1>
         <nav>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="#">Home</a></li>
@@ -65,11 +65,14 @@
                                                     <span style="font-size: 20px;color: #63ff05; cursor: pointer" th:onclick="updateOrder([[${item.getOrderId()}]])"><i class="bi bi-check-lg"></i></span>
                                                     <span style="font-size: 20px;color: #ff1205;cursor: pointer" th:onclick="delivered([[${item.getOrderId()}]])"><i class="bi bi-trash-fill"></i></span>
                                                 </th:block>
-                                                <a th:href="@{'~/order/' + ${item.getOrderId()}}"><span style="font-size: 20px;color: #2f412e;"><i class="bi bi-eye-fill"></i></span></a>
+                                                <a th:href="@{'~/admin/order/' + ${item.getOrderId()}}"><span style="font-size: 20px;color: #2f412e;"><i class="bi bi-eye-fill"></i></span></a>
 
                                             </div>
                                         </td>
                                         <td th:if="${item.getPaymentStatus() == 0}">
+                                            <div class="d-flex justify-content-evenly">
+                                                <a th:href="@{'~/admin/order/' + ${item.getOrderId()}}"><span style="font-size: 20px;color: #2f412e;"><i class="bi bi-eye-fill"></i></span></a>
+                                            </div>
                                         </td>
                                     </tr>
                                 </th:block>
