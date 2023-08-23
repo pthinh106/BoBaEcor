@@ -711,6 +711,7 @@
                                         <h3 class="title">Account Details</h3>
                                         <div class="account-details-form">
                                             <form action="#" th:object="${user}">
+                                                <input type="hidden" th:field="*{userId}">
                                                 <div class="row">
                                                     <div class=" col-lg-6">
                                                         <div class=" form_group single-input-item mb-3">
