@@ -37,7 +37,7 @@ public class AdminController extends BaseController {
         super(paypalService, productService, categoryService, brandService, channel14RSSReader, userService, vnPayService, orderService);
     }
 
-    @GetMapping("/admin")
+    @GetMapping("")
     public String index(){
         return "admin/index";
     }
