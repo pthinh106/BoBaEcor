@@ -34,8 +34,7 @@ public class AdminController extends BaseController {
     }
 
     @GetMapping("/management/product")
-    public String product(Model model , @Param("q") String q){
-        if(Objects.equals(q, "admin")){
+    public String product(Model model){
             StoreResponse productPageResponse = productService.findPage(1);
             model.addAttribute("listProduct", productPageResponse.getDataDetail());
 //        model.addAttribute("listProduct", productService.findAll());
@@ -43,27 +42,25 @@ public class AdminController extends BaseController {
             model.addAttribute("page", productPageResponse.getPaging());
             System.out.println(productPageResponse.getTotalPage());
             return "admin/Store/manager_product";
-        }
-        return "redirect:/error";
+
     }
 
     @GetMapping("/management/categories")
-    public String categories(Model model, @Param("q") String q){
-        if(Objects.equals(q, "admin")){
+    public String categories(Model model){
+
             model.addAttribute("category", new Category());
             model.addAttribute("listCategory", categoryService.findAll());
             return "admin/Store/manager_category";
-        }
-        return "redirect:/error";
+
     }
 
     @GetMapping("/management/brands" )
-    public String brands(Model model, @Param("q") String q){
-        if(Objects.equals(q, "admin")){
+    public String brands(Model model){
+
             model.addAttribute("brand", new Brand());
             model.addAttribute("listBrand",brandService.findAll());
-            return "admin/Store/manager_brands";}
-        return "redirect:/error";
+            return "admin/Store/manager_brands";
+
     }
 
 
