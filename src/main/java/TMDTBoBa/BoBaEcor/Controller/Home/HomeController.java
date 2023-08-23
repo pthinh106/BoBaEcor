@@ -65,6 +65,10 @@ public class HomeController  extends BaseController {
         model.addAttribute("curURL",request.getRequestURI());
         model.addAttribute("top6",productService.findTop6());
         model.addAttribute("ramDomProduct",productService.ramdomProduct());
+        model.addAttribute("title","BobaEcor Shop");
+        model.addAttribute("curURL",request.getRequestURL());
+        model.addAttribute("image","/assets/img/boba.jpg");
+        model.addAttribute("des","Chào mừng bạn đến với Boba Shop");
         return "home/index";
     }
     @GetMapping("/dang-nhap")
@@ -72,17 +76,25 @@ public class HomeController  extends BaseController {
         if(principal != null) return "redirect:/";;
         model.addAttribute("user",new User());
         model.addAttribute("authen",new AuthenticationRequest());
+        model.addAttribute("title","Đăng Nhập");
+        model.addAttribute("curURL",request.getRequestURL());
+        model.addAttribute("image","/assets/img/boba.jpg");
+        model.addAttribute("des","Chào mừng bạn đến với Boba Shop");
         return "home/login";
     }
 
     @GetMapping("/user")
-    public String user(Model model, Principal principal){
+    public String user(Model model, Principal principal,HttpServletRequest request){
         String username = principal.getName().trim();
         Optional<User> user = userService.findUserByUsername(username);
         if(user.isPresent()){
             model.addAttribute("user",user.get());
             model.addAttribute("order",orderService.findByUser(user.get()));
         }
+        model.addAttribute("title","Trang Cá Nhân");
+        model.addAttribute("curURL",request.getRequestURL());
+        model.addAttribute("image","/assets/img/boba.jpg");
+        model.addAttribute("des","Chào mừng bạn đến với Boba Shop");
         return "home/user-account";
     }
     @GetMapping("/cua-hang")
@@ -101,11 +113,10 @@ public class HomeController  extends BaseController {
         model.addAttribute("listProduct",products.getContent());
         model.addAttribute("page",products.getPageable().getPageNumber() + 1);
         model.addAttribute("pageTotal",products.getTotalPages());
+        model.addAttribute("title","Cửa Hàng");
         model.addAttribute("curURL",request.getRequestURL());
-        model.addAttribute("baseUrl", ServletUriComponentsBuilder.fromRequestUri(request)
-                .replacePath(null)
-                .build()
-                .toUriString());
+        model.addAttribute("image","/assets/img/boba.jpg");
+        model.addAttribute("des","Chào mừng bạn đến với Boba Shop");
 
         return "home/shop";
     }
@@ -122,6 +133,10 @@ public class HomeController  extends BaseController {
             }
         }
         model.addAttribute("cart", cart);
+        model.addAttribute("title","Giỏ hàng");
+        model.addAttribute("curURL",request.getRequestURL());
+        model.addAttribute("image","/assets/img/boba.jpg");
+        model.addAttribute("des","Chào mừng bạn đến với Boba Shop");
         return "home/cart";
     }
 
@@ -152,6 +167,10 @@ public class HomeController  extends BaseController {
         model.addAttribute("user",user);
         model.addAttribute("order",order);
         model.addAttribute("cart", cart);
+        model.addAttribute("title","Thanh toán");
+        model.addAttribute("curURL",request.getRequestURL());
+        model.addAttribute("image","/assets/img/boba.jpg");
+        model.addAttribute("des","Chào mừng bạn đến với Boba Shop");
         return "home/checkout";
     }
 
@@ -176,7 +195,7 @@ public class HomeController  extends BaseController {
         return "pages-error-404";
     }
     @GetMapping("/thanh-toan/thanh-cong")
-    public String orderSuccess(@RequestParam("PayerID") String payerId, @RequestParam("paymentId") String paymentId, @RequestParam("guid") Integer guid, Model model) throws PayPalRESTException {
+    public String orderSuccess(@RequestParam("PayerID") String payerId, @RequestParam("paymentId") String paymentId, @RequestParam("guid") Integer guid, Model model,HttpServletRequest request, HttpServletResponse response) throws PayPalRESTException {
         if(guid == 0) return "home/payment-success";
         Payment payment = paypalService.executePayment(paymentId,payerId,guid);
         Optional<Order> order = orderService.findById(guid);
@@ -185,53 +204,88 @@ public class HomeController  extends BaseController {
             orderService.save(order.get());
             model.addAttribute("order",order.get());
             model.addAttribute("payment",payment);
+            model.addAttribute("title","Thanh toán thành công");
+            model.addAttribute("curURL",request.getRequestURL());
+            model.addAttribute("image","/assets/img/boba.jpg");
+            model.addAttribute("des","Chào mừng bạn đến với Boba Shop");
+            Cookie cookie = new Cookie("cart",null);
+            cookie.setPath("/");
+            cookie.setHttpOnly(true);
+            cookie.setMaxAge(0);
+            response.addCookie(cookie);
             return "home/payment-success";
         }
         return "pages-error-404";
 
     }
     @GetMapping("/thanh-toan/that-bai")
-    public String orderError(@RequestParam("guid") Integer guid, Model model) throws PayPalRESTException {
+    public String orderError(@RequestParam("guid") Integer guid, Model model,HttpServletRequest request) throws PayPalRESTException {
         if(guid == 0) return "home/payment-error";
         Optional<Order> order = orderService.findById(guid);
         if(order.isPresent() ){
             order.get().setPaymentStatus(1);
             orderService.save(order.get());
             model.addAttribute("order",order.get());
+            model.addAttribute("title","Thanh toán thất bại");
+            model.addAttribute("curURL",request.getRequestURL());
+            model.addAttribute("image","/assets/img/boba.jpg");
+            model.addAttribute("des","Chào mừng bạn đến với Boba Shop");
             return "home/payment-error";
         }
         return "pages-error-404";
     }
     @GetMapping("/thanh-toan/vnpay")
-    public String paymentVNPay(@RequestParam("vnp_ResponseCode") String vnp_ResponseCode, @RequestParam("guid") Integer guid,Model model){
+    public String paymentVNPay(@RequestParam("vnp_ResponseCode") String vnp_ResponseCode, @RequestParam("guid") Integer guid,Model model,HttpServletRequest request,HttpServletResponse response){
+        Optional<Order> order = orderService.findById(guid);
         if(vnp_ResponseCode.equals("00")){
-            Optional<Order> order = orderService.findById(guid);
             if(order.isPresent()){
                 model.addAttribute("order",order.get());
+                model.addAttribute("title","Thanh toán thành công");
+                model.addAttribute("curURL",request.getRequestURL());
+                model.addAttribute("image","/assets/img/boba.jpg");
+                model.addAttribute("des","Chào mừng bạn đến với Boba Shop");
+                Cookie cookie = new Cookie("cart",null);
+                cookie.setPath("/");
+                cookie.setHttpOnly(true);
+                cookie.setMaxAge(0);
+                response.addCookie(cookie);
                 return "home/payment-success";
             }
-            else {
-                return "pages-error-404";
-            }
         }else{
-            return "home/payment-error";
+            if(order.isPresent()){
+                model.addAttribute("order",order.get());
+                model.addAttribute("title","Thanh toán thất bại");
+                model.addAttribute("curURL",request.getRequestURL());
+                model.addAttribute("image","/assets/img/boba.jpg");
+                model.addAttribute("des","Chào mừng bạn đến với Boba Shop");
+                return "home/payment-error";
+            }
         }
+        return "pages-error-404";
     }
     @GetMapping("/tin-tuc")
-    public String blog(Model model){
+    public String blog(Model model,HttpServletRequest request){
         String rssFeedUrl = "https://vnexpress.net/rss/giai-tri.rss";
         List<RSSItem> items = channel14RSSReader.readRSSFeed(rssFeedUrl);
         model.addAttribute("items", items);
+        model.addAttribute("title","Tin tức");
+        model.addAttribute("curURL",request.getRequestURL());
+        model.addAttribute("image","/assets/img/boba.jpg");
+        model.addAttribute("des","Chào mừng bạn đến với Boba Shop");
         return "home/blog";
     }
 
     @GetMapping("/verify")
-    public String verifyAccount(@RequestParam("code") String code, Model model){
+    public String verifyAccount(@RequestParam("code") String code, Model model,HttpServletRequest request){
         boolean verify = userService.verifyUser(code);
         if(!verify){
             return "pages-error-404";
         }
         model.addAttribute("success",verify);
+        model.addAttribute("title","Xác thực tài khoản");
+        model.addAttribute("curURL",request.getRequestURL());
+        model.addAttribute("image","/assets/img/boba.jpg");
+        model.addAttribute("des","Chào mừng bạn đến với Boba Shop");
         return "home/verify";
     }
     @GetMapping( value = "/robots.txt")

@@ -20,10 +20,7 @@ import com.google.gson.Gson;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
@@ -101,6 +98,95 @@ public class CartRestController extends BaseController {
         cookie.setPath("/");
         response.addCookie(cookie);
         return ResponseEntity.status(HttpStatus.OK).body(new StoreResponse(200,"Thêm vào giở hàng thành công!" , cart.getCartItems().size(),true,0,0));
+
+    }
+
+    @PostMapping("/updateCart")
+    public ResponseEntity<StoreResponse> updateCart(@RequestParam("detailId") Integer[] idDetail, @RequestParam("quantity") Integer[] quantity, HttpServletResponse response, HttpServletRequest request) throws JsonProcessingException{
+
+        Cart cart = new Cart();
+        Cookie[] cookies = request.getCookies();
+        AtomicReference<Boolean> isExistCookie = new AtomicReference<>(false);
+        for(Cookie cookie : cookies){
+            if(cookie.getName().equals("cart")){
+                isExistCookie.set(true);
+                String value = URLDecoder.decode(cookie.getValue(), StandardCharsets.UTF_8);
+                cart = new Gson().fromJson(value,Cart.class);
+            }
+        }
+        if(isExistCookie.get() && cart != null){
+            for(CartItem cartItem : cart.getCartItems()){
+                for(int i = 0; i < idDetail.length; i++){
+                    if(cartItem.getProductDetail().getProductDetailId() == idDetail[i]){
+                        cart.setTotalPrice(cart.getTotalPrice() - cartItem.getTotalPriceItem());
+                        if(quantity[i] == 0) {
+                            cart.getCartItems().remove(cartItem);
+                            break;
+                        }
+                        cartItem.setQuantity(quantity[i]);
+                        if(cartItem.getProductDetail().getSaleStatus() == 1){
+                            cartItem.setTotalPriceItem(cartItem.getProductDetail().getProductPriceSale() * cartItem.getQuantity());
+                        }else{
+                            cartItem.setTotalPriceItem(cartItem.getProductDetail().getProductPrice() * cartItem.getQuantity());
+                        }
+                        cart.setTotalPrice(cart.getTotalPrice() + cartItem.getTotalPriceItem());
+                        break;
+                    }
+                }
+            }
+        }
+        if(cart == null) return ResponseEntity.status(HttpStatus.OK).body(new StoreResponse(200,"Bạn chưa có sản phẩm nào!" , cart.getCartItems().size(),true,0,0));
+        ObjectWriter objectWriter = new ObjectMapper().writer().withDefaultPrettyPrinter();
+        String json = objectWriter.writeValueAsString(cart);
+        String valueDetails = URLEncoder.encode(json, StandardCharsets.UTF_8);
+        Cookie cookie = new Cookie("cart", valueDetails);
+        cookie.setMaxAge(86400);
+        cookie.setSecure(true);
+        cookie.setPath("/");
+        response.addCookie(cookie);
+        return ResponseEntity.status(HttpStatus.OK).body(new StoreResponse(200,"Thay đổi thành công!" , cart.getCartItems().size(),true,0,0));
+
+    }
+    @PostMapping("/remove/{id}")
+    public ResponseEntity<StoreResponse> updateCart(@PathVariable("id") Integer idDetail, HttpServletResponse response, HttpServletRequest request) throws JsonProcessingException{
+
+        Cart cart = null;
+        Cookie[] cookies = request.getCookies();
+        AtomicReference<Boolean> isExistCookie = new AtomicReference<>(false);
+        for(Cookie cookie : cookies){
+            if(cookie.getName().equals("cart")){
+                isExistCookie.set(true);
+                String value = URLDecoder.decode(cookie.getValue(), StandardCharsets.UTF_8);
+                cart = new Gson().fromJson(value,Cart.class);
+            }
+        }
+        if(isExistCookie.get() && cart != null){
+            for(CartItem cartItem : cart.getCartItems()){
+                if(cartItem.getProductDetail().getProductDetailId() == idDetail){
+                    cart.setTotalPrice(cart.getTotalPrice() - cartItem.getTotalPriceItem());
+                    cart.getCartItems().remove(cartItem);
+                }
+                break;
+            }
+        }
+        if(cart == null) return ResponseEntity.status(HttpStatus.OK).body(new StoreResponse(200,"Bạn chưa có sản phẩm nào!" , 0,cart,0,0));
+        ObjectWriter objectWriter = new ObjectMapper().writer().withDefaultPrettyPrinter();
+        String json = objectWriter.writeValueAsString(cart);
+        String valueDetails = URLEncoder.encode(json, StandardCharsets.UTF_8);
+        if(!cart.getCartItems().isEmpty()){
+            Cookie cookie = new Cookie("cart", valueDetails);
+            cookie.setMaxAge(86400);
+            cookie.setSecure(true);
+            cookie.setPath("/");
+            response.addCookie(cookie);
+        }else{
+            Cookie cookie = new Cookie("cart",null);
+            cookie.setPath("/");
+            cookie.setHttpOnly(true);
+            cookie.setMaxAge(0);
+            response.addCookie(cookie);
+        }
+        return ResponseEntity.status(HttpStatus.OK).body(new StoreResponse(200,"Thay đổi thành công!" , cart.getTotalPrice(),cart,0,0));
 
     }
 

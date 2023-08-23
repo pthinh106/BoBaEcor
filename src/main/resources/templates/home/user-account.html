@@ -1,8 +1,7 @@
 <!DOCTYPE html>
 <html class="no-js" lang="en" xmlns:th="http://www.thymeleaf.org">
 
-<head th:replace="~{home/fragments/layout :: head('title','type','url','site_name','image','description','page')}"></head>
-
+<head th:replace="~{home/fragments/layout :: head(${title},'website',${curURL},${curURL},${image},${des},'page')}"></head>
 
 <body>
 
@@ -54,7 +53,7 @@
                                 <a href="#account-info" style="width: 298px; text-align: left"
                                    class="btn btn-primary border" data-bs-toggle="tab"><i class="fa fa-user"></i>
                                     Your Account</a>
-                                <a th:href="@{/dang-nhap}" style="width: 298px; text-align: left;" class=" btn btn-primary
+                                <a th:href="@{/logout}" style="width: 298px; text-align: left;" class=" btn btn-primary
                                 border"><i class="fa fa-sign-out"></i> Logout</a>
                             </div>
                         </div>

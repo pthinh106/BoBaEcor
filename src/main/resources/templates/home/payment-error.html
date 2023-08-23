@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html class="no-js" lang="en" xmlns:th="http://www.thymeleaf.org">
-
-<head th:replace="~{home/fragments/layout :: head('title','type','url','site_name','image','description','page')}">
+<head th:replace="~{home/fragments/layout :: head(${title},'website',${curURL},${curURL},${image},${des},'page')}"></head>
 </head>
 
 <body>
@@ -34,17 +33,16 @@
                 </div>
                 <hr>
                 <div class="text-start">
-                    <p><span>Payments:</span> <span><strong>ABC Bank</strong></span></p>
-                    <p><span>Delivery address:</span> <span><strong>123456</strong></span></p>
-                    <p><span>Phone Number:</span> <span><strong>090945174</strong></span></p>
-                    <p><span>Total Amount:</span> <span><strong>$100.00</strong></span> </p>
-                    <p><span>Trading code:</span> <span><strong>001348941</strong></span></p>
+                    <p><span>Payments:</span> <span><strong th:text="${order.getPayment()}">ABC Bank</strong></span></p>
+                    <p><span>Delivery address:</span> <span><strong th:text="${order.getAddress()}">123456</strong></span></p>
+                    <p><span>Phone Number:</span> <span><strong th:text="${order.getPhoneNumber()}">090945174</strong></span></p>
+                    <p><span>Total Amount:</span> <span><strong th:text="${ order.getTotal()!= null ? #numbers.formatDecimal(order.getTotal(),3,'COMMA',0,'POINT') : '0'} + ' VNĐ'">$100.00</strong></span> </p>
                 </div>
 
                 <hr style="border-top: 1px dashed #ccc;">
                 <p class="text-center"><span>Order date:</span> <span>15:30 July 18, 2023</span></p>
                 <hr>
-                <a href="/shop.html"> <button class="btn btn-dark mx-auto d-block mt-3" type="button">Go
+                <a th:href="@{/cua-hang}"> <button class="btn btn-dark mx-auto d-block mt-3" type="button">Go
                     back</button></a>
 
             </div>

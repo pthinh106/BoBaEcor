@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html class="no-js" lang="en" xmlns:th="http://www.thymeleaf.org">
 
-<head th:replace="~{home/fragments/layout :: head('Trang Chủ','website','url','site_name','image','description','index')}"></head>
+<head th:replace="~{home/fragments/layout :: head(${title},'website',${curURL},${curURL},${image},${des},'page')}"></head>
 
 
 <body>

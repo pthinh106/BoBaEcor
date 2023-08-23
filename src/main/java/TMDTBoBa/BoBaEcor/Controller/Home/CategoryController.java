@@ -57,11 +57,10 @@ public class CategoryController extends BaseController {
             model.addAttribute("listProduct",products);
             model.addAttribute("page",0);
             model.addAttribute("pageTotal",0);
+            model.addAttribute("title",optionalCategory.get().getCategoryName());
             model.addAttribute("curURL",request.getRequestURL());
-            model.addAttribute("baseUrl", ServletUriComponentsBuilder.fromRequestUri(request)
-                    .replacePath(null)
-                    .build()
-                    .toUriString());
+            model.addAttribute("image","/assets/img/boba.jpg");
+            model.addAttribute("des","Chào mừng bạn đến với Boba Shop");
             return "home/shop";
 //            return "pages-error-404";
         }

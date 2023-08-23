@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html class="no-js" lang="en" xmlns:th="http://www.thymeleaf.org">
 
-    <head th:replace="~{home/fragments/layout :: head('title','type','url','site_name','image','description','page')}"></head>
+<head th:replace="~{home/fragments/layout :: head(${title},'website',${curURL},${curURL},${image},${des},'page')}"></head>
 
 
 <body>
@@ -29,7 +29,7 @@
      <!--shopping cart area start -->
     <div class="shopping_cart_area">
         <div class="container">
-            <form action="#">
+            <form action="#" id="cart">
                 <div class="cart_page_inner mb-60">
                     <div class="row">
                         <div class="col-12">
@@ -44,9 +44,9 @@
                                             <th>Total</th>
                                         </tr>
                                     </thead>
-                                    <tbody>
+                                    <tbody id="itemCart">
                                         <th:block th:each="item : ${cart.getCartItems()}">
-                                            <tr class="border-top">
+                                            <tr class="border-top" th:id="${ 'item' + item.getProductDetail().getProductDetailId()}">
                                                 <td>
                                                     <div class="cart_product_thumb">
                                                         <img th:src="${item.getThumbnail()}" th:alt="${item.getName()}">
@@ -75,8 +75,9 @@
                                                     </div>
                                                 </td>
                                                 <td class="product_quantity">
+                                                    <input type="hidden" name="detailId" th:value="${item.getProductDetail().getProductDetailId()}">
                                                     <div class="cart_product_quantity">
-                                                        <input min="1" max="100" th:value="${item.getQuantity()}" type="number">
+                                                        <input min="1" max="100" name="quantity" th:value="${item.getQuantity()}" type="number">
                                                     </div>
                                                 </td>
                                                 <td>
@@ -86,7 +87,7 @@
                                                 </td>
                                                 <td>
                                                     <div class="cart_product_remove text-right">
-                                                        <a href="#"><i class="ion-android-close"></i></a>
+                                                        <a th:onclick="removeItem([[${item.getProductDetail().getProductDetailId()}]], this)" ><i class="ion-android-close"></i></a>
                                                     </div>
                                                 </td>
 
@@ -97,8 +98,8 @@
                             </div>
                             <div class="cart_page_button border-top d-flex justify-content-between">
                                 <div class="shopping_cart_btn">
-                                    <a href="#" class="btn btn-primary border">CLEAR SHOPPING CART</a>
-                                    <button class="btn btn-primary border" type="submit">UPDATE YOUR CART</button>
+                                    <a class="btn btn-primary border" onclick="clearCart()">CLEAR SHOPPING CART</a>
+                                    <button class="btn btn-primary border" type="submit" >UPDATE YOUR CART</button>
                                 </div>
                                 <div class="shopping_continue_btn">
                                     <a th:href="@{/cua-hang}"  class="btn btn-primary" >CONTINUE SHOPPING</a>
@@ -115,11 +116,11 @@
                                <div class="grand_totall_inner border-bottom">
                                    <div class="cart_subtotal d-flex justify-content-between">
                                        <p>sub total </p>
-                                       <span th:text="${cart.getTotalPrice() != null ? #numbers.formatDecimal(cart.getTotalPrice(),3,'COMMA',0,'POINT') : '0'} + ' VNĐ'">$126.00</span>
+                                       <span th:text="${cart.getTotalPrice() != null ? #numbers.formatDecimal(cart.getTotalPrice(),3,'COMMA',0,'POINT') : '0'} + ' VNĐ'" id="subTotal">$126.00</span>
                                    </div>
                                    <div class="cart_grandtotal d-flex justify-content-between">
                                        <p>grand total</p>
-                                       <span th:text="${ cart.getTotalPrice() != null ? #numbers.formatDecimal(cart.getTotalPrice(),3,'COMMA',0,'POINT') : '0'} + ' VNĐ'">$126.00</span>
+                                       <span th:text="${ cart.getTotalPrice() != null ? #numbers.formatDecimal(cart.getTotalPrice(),3,'COMMA',0,'POINT') : '0'} + ' VNĐ'" id="grandTotal">$126.00</span>
                                    </div>
                                </div>
                                <div class="proceed_checkout_btn">
@@ -147,9 +148,108 @@
 
 <!-- JS
 ============================================ -->
+    <div th:replace="~{home/fragments/layout :: loading}"></div>
     <div th:replace="~{home/fragments/layout :: js}"></div>
 
+    <script>
+        function currencyFormat(n, currency) {
+            return  n.toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, ',') + currency;
+        }
+        function clearCart(){
+            document.cookie = "cart=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+            document.getElementById("itemCart").innerHTML = '';
+        }
+        function removeItem(value){
+            document.getElementById("loading-wrapper").style.display = "block";
+            $.ajax({
+                type: "POST",
+                url: "/api/v1/cart/remove/"+value,
+                success: function(data,obj)
+                {
+                    document.getElementById("loading-wrapper").style.display = "none";
+                    if(data){
+                        const item = 'item' + value;
+                        document.getElementById("itemCart").removeChild(document.getElementById(item));
+                        document.getElementById("subTotal").innerText = currencyFormat(data.data, 'VNĐ')
+                        document.getElementById("grandTotal").innerText = currencyFormat(data.data, 'VNĐ')
+                        Swal.fire({
+                            position: 'center',
+                            icon: 'success',
+                            title: data.message,
+                            showConfirmButton: true
+                        }).then((result) =>{
+                            console.log(data);
+                        })
+                    }else{
+                        Swal.fire({
+                            position: 'center',
+                            icon: 'error',
+                            title: data.message,
+                            showConfirmButton: true
+                        })
+                    }
+                },
+                error: function ($xhr,textStatus,errorThrown) {
+                    document.getElementById("loading-wrapper").style.display = "none";
+                    let data = $xhr.responseJSON;
+                    Swal.fire({
+                        position: 'center',
+                        icon: 'error',
+                        title: data.message,
+                        showConfirmButton: true
+                    })
 
+                }
+            });
+        }
+    </script>
+
+    <script>
+        $("#cart").submit(function(e) {
+            document.getElementById("loading-wrapper").style.display = "block";
+            e.preventDefault(); // avoid to execute the actual submit of the form.
+            let form = $(this);
+            $.ajax({
+                type: "POST",
+                url: "/api/v1/cart/updateCart",
+                data: form.serialize(), // serializes the form's elements.
+                success: function(data)
+                {
+                    document.getElementById("loading-wrapper").style.display = "none";
+                    if(data){
+                        Swal.fire({
+                            position: 'center',
+                            icon: 'success',
+                            title: data.message,
+                            showConfirmButton: true
+                        }).then((result) =>{
+                            console.log(data);
+                            // location.reload();
+                        })
+                    }else{
+                        Swal.fire({
+                            position: 'center',
+                            icon: 'error',
+                            title: data.message,
+                            showConfirmButton: true
+                        })
+                    }
+                },
+                error: function ($xhr,textStatus,errorThrown) {
+                    document.getElementById("loading-wrapper").style.display = "none";
+                    let data = $xhr.responseJSON;
+                    Swal.fire({
+                        position: 'center',
+                        icon: 'error',
+                        title: data.message,
+                        showConfirmButton: true
+                    })
+
+                }
+            });
+
+        });
+    </script>
 </body>
 
 </html>
