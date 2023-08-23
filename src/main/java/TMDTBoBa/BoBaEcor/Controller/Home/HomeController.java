@@ -174,6 +174,7 @@ public class HomeController  extends BaseController {
                 break;
             }
         }
+        if (cart.getCartItems().isEmpty()) return "redirect:/cua-hang";
         if (user.isPresent()) {
             order.setAddress(user.get().getAddress());
             order.setFirstName(user.get().getFirstName());
