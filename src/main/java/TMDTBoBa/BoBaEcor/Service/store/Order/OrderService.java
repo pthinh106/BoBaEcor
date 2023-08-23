@@ -3,7 +3,6 @@ package TMDTBoBa.BoBaEcor.Service.store.Order;
 import TMDTBoBa.BoBaEcor.API.CustomeHttpRe.Store.Cart;
 import TMDTBoBa.BoBaEcor.API.CustomeHttpRe.Store.CartItem;
 import TMDTBoBa.BoBaEcor.Models.Store.Order;
-import TMDTBoBa.BoBaEcor.Models.Store.ProductDetail;
 import TMDTBoBa.BoBaEcor.Models.Store.ProductOrder;
 import TMDTBoBa.BoBaEcor.Models.User.User;
 import TMDTBoBa.BoBaEcor.Repository.Store.IOrderRepository;
@@ -33,6 +32,11 @@ public class OrderService implements IOrderService{
     @Override
     public List<Order> findAll() {
         return iOrderRepository.findAll();
+    }
+
+    @Override
+    public Optional<Order> findByIdAndUser(Integer id, User user) {
+        return iOrderRepository.findByOrderIdAndUser(id,user);
     }
 
     @Override

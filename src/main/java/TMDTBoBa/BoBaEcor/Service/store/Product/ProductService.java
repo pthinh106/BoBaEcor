@@ -158,8 +158,7 @@ public class ProductService implements IProductService {
                     totalQuantitySolid += tInventory.get()[i];
                     totalQuantityInventory += tSolid.get()[i];
                 }
-                if(product.getProductPriceSale() != 1){
-                    product.setSaleStatus(0);
+                if(product.getSaleStatus() == 0){
                     product.setProductPrice(productDetails.get(0).getProductPrice());
                 }
                 iProductDetailRepository.saveAll(productDetails);

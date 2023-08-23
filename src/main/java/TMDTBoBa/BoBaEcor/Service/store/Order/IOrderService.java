@@ -13,6 +13,8 @@ public interface IOrderService {
 
     List<Order> findAll();
 
+    Optional<Order> findByIdAndUser(Integer id, User user);
+
     Order save(Order order, Cart cart);
 
     Order save(Order order);

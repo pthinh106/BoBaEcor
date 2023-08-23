@@ -5,14 +5,11 @@ import TMDTBoBa.BoBaEcor.API.CustomeHttpRe.Store.Cart;
 import TMDTBoBa.BoBaEcor.API.PublicAPI.Payment.Paypal.PaypalService;
 import TMDTBoBa.BoBaEcor.API.PublicAPI.Payment.VNPay.VNPayService;
 import TMDTBoBa.BoBaEcor.Controller.BaseController;
-import TMDTBoBa.BoBaEcor.Models.Store.Brand;
-import TMDTBoBa.BoBaEcor.Models.Store.Category;
-import TMDTBoBa.BoBaEcor.Models.Store.Order;
+import TMDTBoBa.BoBaEcor.Models.Store.*;
 import TMDTBoBa.BoBaEcor.Models.User.User;
 import TMDTBoBa.BoBaEcor.Repository.Store.IOrderRepository;
 import TMDTBoBa.BoBaEcor.Service.Blog.Channel14RSSReader;
 import TMDTBoBa.BoBaEcor.Models.BlogCustom.RSSItem;
-import TMDTBoBa.BoBaEcor.Models.Store.Product;
 import TMDTBoBa.BoBaEcor.Service.User.UserService;
 import TMDTBoBa.BoBaEcor.Service.store.Brand.BrandService;
 import TMDTBoBa.BoBaEcor.Service.store.Category.CategoryService;
@@ -96,6 +93,26 @@ public class HomeController  extends BaseController {
         model.addAttribute("image","/assets/img/boba.jpg");
         model.addAttribute("des","Chào mừng bạn đến với Boba Shop");
         return "home/user-account";
+    }
+    @GetMapping("/user/order/{id}")
+    public String userOrderDetails(Model model, Principal principal, HttpServletRequest request, @PathVariable Integer id){
+        String username = principal.getName().trim();
+        Optional<User> user = userService.findUserByUsername(username);
+        if(user.isPresent()){
+            Optional<Order> orderDetail = orderService.findByIdAndUser(id,user.get());
+            if(orderDetail.isPresent()){
+                model.addAttribute("orderDetail",orderDetail);
+                model.addAttribute("order",new ArrayList<>());
+                model.addAttribute("user",user.get());
+                model.addAttribute("title","Chi tiết đặt hàng");
+                model.addAttribute("curURL",request.getRequestURL());
+                model.addAttribute("image","/assets/img/boba.jpg");
+                model.addAttribute("des","Chào mừng bạn đến với Boba Shop");
+                return "home/user-account";
+            }
+        }
+
+        return "pages-error-404";
     }
     @GetMapping("/cua-hang")
     public String store(Model model, @RequestParam(name = "q",defaultValue = "") String productName,@RequestParam(name = "page",defaultValue = "1") Integer page,
