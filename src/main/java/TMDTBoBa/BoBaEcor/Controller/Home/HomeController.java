@@ -24,11 +24,7 @@ import com.paypal.base.rest.PayPalRESTException;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import org.springframework.core.io.ByteArrayResource;
 import org.springframework.data.domain.Page;
-import org.springframework.data.repository.query.Param;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -80,7 +76,13 @@ public class HomeController  extends BaseController {
     }
 
     @GetMapping("/user")
-    public String user(){
+    public String user(Model model, Principal principal){
+        String username = principal.getName().trim();
+        Optional<User> user = userService.findUserByUsername(username);
+        if(user.isPresent()){
+            model.addAttribute("user",user.get());
+            model.addAttribute("order",orderService.findByUser(user.get()));
+        }
         return "home/user-account";
     }
     @GetMapping("/cua-hang")
@@ -175,6 +177,7 @@ public class HomeController  extends BaseController {
     }
     @GetMapping("/thanh-toan/thanh-cong")
     public String orderSuccess(@RequestParam("PayerID") String payerId, @RequestParam("paymentId") String paymentId, @RequestParam("guid") Integer guid, Model model) throws PayPalRESTException {
+        if(guid == 0) return "home/payment-success";
         Payment payment = paypalService.executePayment(paymentId,payerId,guid);
         Optional<Order> order = orderService.findById(guid);
         if(order.isPresent()){
@@ -189,6 +192,7 @@ public class HomeController  extends BaseController {
     }
     @GetMapping("/thanh-toan/that-bai")
     public String orderError(@RequestParam("PayerID") String payerId, @RequestParam("paymentId") String paymentId, @RequestParam("guid") Integer guid, Model model) throws PayPalRESTException {
+        if(guid == 0) return "home/payment-error";
         Payment payment = paypalService.executePayment(paymentId,payerId,guid);
         Optional<Order> order = orderService.findById(guid);
         if(order.isPresent()){

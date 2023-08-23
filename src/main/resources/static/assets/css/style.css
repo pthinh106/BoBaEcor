@@ -8476,7 +8476,7 @@ svg:not(:root) {
   stroke: #fff;
   stroke-miterlimit: 10;
   box-shadow: inset 0px 0px 0px #fff;
-  animation: fill-1 .4s ease-in-out .4s forwards, scale .3s ease-in-out .9s both;
+  /*animation: fill-1 .4s ease-in-out .4s forwards, scale .3s ease-in-out .9s both;*/
   position: relative;
   margin: 0 auto;
 }
