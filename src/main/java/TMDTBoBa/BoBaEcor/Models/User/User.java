@@ -84,9 +84,9 @@ public class User implements UserDetails {
     @Column(name = "updated_on", columnDefinition="TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")
     @UpdateTimestamp()
     private Timestamp updatedOn;
-//    @ManyToOne(cascade = CascadeType.ALL)
-//    @JoinColumn(name = "position_id")
-//    private Position position;
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "position_id")
+    private Position position;
     @OneToMany(mappedBy = "user")
     @JsonIgnore
     private Set<UserHasRole> listRole = new HashSet<>();
@@ -121,27 +121,27 @@ public class User implements UserDetails {
 //        this.listOrder = listOrder;
 //    }
 
-//    public User(Integer userId, String firstName, String lastName, String email, String phoneNumber, Date birthDay, String address, String password, String verificationCode, String forgetToken, String accessToken, String refreshToken, Integer accountStatus, Integer isEmployee, Timestamp createdOn, Timestamp updatedOn, Position position, Set<UserHasRole> listRole, Set<Order> listOrder) {
-//        this.userId = userId;
-//        this.firstName = firstName;
-//        this.lastName = lastName;
-//        this.email = email;
-//        this.phoneNumber = phoneNumber;
-//        this.birthDay = birthDay;
-//        this.address = address;
-//        this.password = password;
-//        this.verificationCode = verificationCode;
-//        this.forgetToken = forgetToken;
-//        this.accessToken = accessToken;
-//        this.refreshToken = refreshToken;
-//        this.accountStatus = accountStatus;
-//        this.isEmployee = isEmployee;
-//        this.createdOn = createdOn;
-//        this.updatedOn = updatedOn;
-////        this.position = position;
-//        this.listRole = listRole;
-//        this.listOrder = listOrder;
-//    }
+    public User(Integer userId, String firstName, String lastName, String email, String phoneNumber, Date birthDay, String address, String password, String verificationCode, String forgetToken, String accessToken, String refreshToken, Integer accountStatus, Integer isEmployee, Timestamp createdOn, Timestamp updatedOn, Position position, Set<UserHasRole> listRole, Set<Order> listOrder) {
+        this.userId = userId;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.phoneNumber = phoneNumber;
+        this.birthDay = birthDay;
+        this.address = address;
+        this.password = password;
+        this.verificationCode = verificationCode;
+        this.forgetToken = forgetToken;
+        this.accessToken = accessToken;
+        this.refreshToken = refreshToken;
+        this.accountStatus = accountStatus;
+        this.isEmployee = isEmployee;
+        this.createdOn = createdOn;
+        this.updatedOn = updatedOn;
+        this.position = position;
+        this.listRole = listRole;
+        this.listOrder = listOrder;
+    }
 
     public User(Integer userId, @NotNull String firstName, @NotNull String lastName, String email, String phoneNumber, Date birthDay, String address, String password, String verificationCode, String forgetToken, String accessToken, String refreshToken, Integer accountStatus, Timestamp createdOn, Timestamp updatedOn, Set<UserHasRole> listRole) {
         this.userId = userId;
