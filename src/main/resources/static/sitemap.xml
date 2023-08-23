@@ -9,58 +9,128 @@
 
     <url>
         <loc>https://bobaecor.live/</loc>
-        <lastmod>2023-08-18T12:35:28+00:00</lastmod>
+        <lastmod>2023-08-23T08:07:34+00:00</lastmod>
         <priority>1.00</priority>
     </url>
     <url>
         <loc>https://bobaecor.live/cua-hang</loc>
-        <lastmod>2023-08-18T12:35:28+00:00</lastmod>
+        <lastmod>2023-08-23T08:07:34+00:00</lastmod>
         <priority>0.80</priority>
     </url>
     <url>
         <loc>https://bobaecor.live/tin-tuc</loc>
-        <lastmod>2023-08-18T12:35:28+00:00</lastmod>
+        <lastmod>2023-08-23T08:07:34+00:00</lastmod>
+        <priority>0.80</priority>
+    </url>
+    <url>
+        <loc>https://bobaecor.live/dang-nhap</loc>
+        <lastmod>2023-08-23T08:07:34+00:00</lastmod>
+        <priority>0.80</priority>
+    </url>
+    <url>
+        <loc>https://bobaecor.live/gio-hang</loc>
+        <lastmod>2023-08-23T08:07:34+00:00</lastmod>
         <priority>0.80</priority>
     </url>
     <url>
         <loc>https://bobaecor.live/san-pham/ao-thun-regular-nam-tay-ngan-in-chu-mosev-jue-studio</loc>
-        <lastmod>2023-08-18T12:35:28+00:00</lastmod>
-        <priority>0.64</priority>
+        <lastmod>2023-08-23T08:07:34+00:00</lastmod>
+        <priority>0.80</priority>
     </url>
     <url>
         <loc>https://bobaecor.live/san-pham/vay-chu-a-nu-thiet-ke-phoi-ren</loc>
-        <lastmod>2023-08-18T12:35:28+00:00</lastmod>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://bobaecor.live/san-pham/vay-chu-a-nu-vay-sat-nach-dang-dai-nut-boc</loc>
-        <lastmod>2023-08-18T12:35:28+00:00</lastmod>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://bobaecor.live/san-pham/vay-suong-nu-lua-day-dang-dai-xe-ta</loc>
-        <lastmod>2023-08-18T12:35:28+00:00</lastmod>
-        <priority>0.64</priority>
+        <lastmod>2023-08-23T08:07:34+00:00</lastmod>
+        <priority>0.80</priority>
     </url>
     <url>
         <loc>https://bobaecor.live/san-pham/vay-suong-nu-phoi-mau-tay</loc>
-        <lastmod>2023-08-18T12:35:28+00:00</lastmod>
-        <priority>0.64</priority>
+        <lastmod>2023-08-23T08:07:34+00:00</lastmod>
+        <priority>0.80</priority>
+    </url>
+    <url>
+        <loc>https://bobaecor.live/san-pham/vay-chu-a-nu-vay-sat-nach-dang-dai-nut-boc</loc>
+        <lastmod>2023-08-23T08:07:34+00:00</lastmod>
+        <priority>0.80</priority>
+    </url>
+    <url>
+        <loc>https://bobaecor.live/san-pham/vay-suong-nu-lua-day-dang-dai-xe-ta</loc>
+        <lastmod>2023-08-23T08:07:34+00:00</lastmod>
+        <priority>0.80</priority>
     </url>
     <url>
         <loc>https://bobaecor.live/san-pham/ao-thun-o-oi-in-chu-essentials</loc>
-        <lastmod>2023-08-18T12:35:28+00:00</lastmod>
-        <priority>0.64</priority>
+        <lastmod>2023-08-23T08:07:34+00:00</lastmod>
+        <priority>0.80</priority>
     </url>
     <url>
         <loc>https://bobaecor.live/san-pham/ao-thun-o-oi-ao-thun-oi-in-chu-navy</loc>
-        <lastmod>2023-08-18T12:35:28+00:00</lastmod>
+        <lastmod>2023-08-23T08:07:34+00:00</lastmod>
+        <priority>0.80</priority>
+    </url>
+    <url>
+        <loc>https://bobaecor.live/categories/nam</loc>
+        <lastmod>2023-08-23T08:07:34+00:00</lastmod>
+        <priority>0.64</priority>
+    </url>
+    <url>
+        <loc>https://bobaecor.live/categories/ao-thun</loc>
+        <lastmod>2023-08-23T08:07:34+00:00</lastmod>
+        <priority>0.64</priority>
+    </url>
+    <url>
+        <loc>https://bobaecor.live/categories/nu</loc>
+        <lastmod>2023-08-23T08:07:34+00:00</lastmod>
+        <priority>0.64</priority>
+    </url>
+    <url>
+        <loc>https://bobaecor.live/categories/vay-dai</loc>
+        <lastmod>2023-08-23T08:07:34+00:00</lastmod>
+        <priority>0.64</priority>
+    </url>
+    <url>
+        <loc>https://bobaecor.live/categories/vay-chu-a</loc>
+        <lastmod>2023-08-23T08:07:34+00:00</lastmod>
+        <priority>0.64</priority>
+    </url>
+    <url>
+        <loc>https://bobaecor.live/categories/tre-em</loc>
+        <lastmod>2023-08-23T08:07:34+00:00</lastmod>
+        <priority>0.64</priority>
+    </url>
+    <url>
+        <loc>https://bobaecor.live/categories/o-oi</loc>
+        <lastmod>2023-08-23T08:07:34+00:00</lastmod>
+        <priority>0.64</priority>
+    </url>
+    <url>
+        <loc>https://bobaecor.live/brands/fm-style</loc>
+        <lastmod>2023-08-23T08:07:34+00:00</lastmod>
+        <priority>0.64</priority>
+    </url>
+    <url>
+        <loc>https://bobaecor.live/brands/routine</loc>
+        <lastmod>2023-08-23T08:07:34+00:00</lastmod>
         <priority>0.64</priority>
     </url>
     <url>
         <loc>https://bobaecor.live/cua-hang?page=1</loc>
-        <lastmod>2023-08-18T12:35:28+00:00</lastmod>
+        <lastmod>2023-08-23T08:07:34+00:00</lastmod>
         <priority>0.64</priority>
+    </url>
+    <url>
+        <loc>https://bobaecor.live/thanh-toan</loc>
+        <lastmod>2023-08-23T08:07:34+00:00</lastmod>
+        <priority>0.64</priority>
+    </url>
+    <url>
+        <loc>https://bobaecor.live/categories/product-details.html</loc>
+        <lastmod>2023-08-23T08:07:34+00:00</lastmod>
+        <priority>0.51</priority>
+    </url>
+    <url>
+        <loc>https://bobaecor.live/brands/product-details.html</loc>
+        <lastmod>2023-08-23T08:07:34+00:00</lastmod>
+        <priority>0.51</priority>
     </url>
 
 
