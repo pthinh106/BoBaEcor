@@ -1252,6 +1252,9 @@ h6 {
 .Activity{
     background: #05ef9e;
 }
+.Pending{
+    background: #71a0c5;
+}
 .Disable{
     background: #c54545;
 }

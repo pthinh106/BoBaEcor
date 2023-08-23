@@ -158,6 +158,9 @@
         function clearCart(){
             document.cookie = "cart=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
             document.getElementById("itemCart").innerHTML = '';
+
+            document.getElementById("subTotal").innerText = currencyFormat(0, ' VNĐ')
+            document.getElementById("grandTotal").innerText = currencyFormat(0, ' VNĐ')
         }
         function removeItem(value){
             document.getElementById("loading-wrapper").style.display = "block";
@@ -170,8 +173,8 @@
                     if(data){
                         const item = 'item' + value;
                         document.getElementById("itemCart").removeChild(document.getElementById(item));
-                        document.getElementById("subTotal").innerText = currencyFormat(data.data, 'VNĐ')
-                        document.getElementById("grandTotal").innerText = currencyFormat(data.data, 'VNĐ')
+                        document.getElementById("subTotal").innerText = currencyFormat(data.data, ' VNĐ')
+                        document.getElementById("grandTotal").innerText = currencyFormat(data.data, ' VNĐ')
                         Swal.fire({
                             position: 'center',
                             icon: 'success',

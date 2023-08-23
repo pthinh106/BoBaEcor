@@ -46,7 +46,7 @@ public class SecurityConfig {
         http    .authorizeHttpRequests()
                 .requestMatchers("/user/**").hasAnyRole("ADMIN","USER")
                 .requestMatchers("/admin/**").hasAnyRole("ADMIN")
-                .requestMatchers("/api/private/**").hasAnyRole("ADMIN")
+                .requestMatchers("/api//v1/private/**").hasAnyRole("ADMIN")
                 .requestMatchers("/**").permitAll()
                 .and().formLogin().loginPage("/dang-nhap").loginProcessingUrl("/user/login").failureUrl("/dang-nhap?error=true").permitAll()
                 .and().logout(logout -> logout

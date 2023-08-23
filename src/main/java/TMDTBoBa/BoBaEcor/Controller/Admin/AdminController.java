@@ -1,23 +1,32 @@
 package TMDTBoBa.BoBaEcor.Controller.Admin;
 
+import TMDTBoBa.BoBaEcor.API.CustomeHttpRe.Auth.Login.AuthenticationRequest;
 import TMDTBoBa.BoBaEcor.API.CustomeHttpRe.Store.StoreResponse;
 import TMDTBoBa.BoBaEcor.API.PublicAPI.Payment.Paypal.PaypalService;
 import TMDTBoBa.BoBaEcor.API.PublicAPI.Payment.VNPay.VNPayService;
 import TMDTBoBa.BoBaEcor.Controller.BaseController;
 import TMDTBoBa.BoBaEcor.Models.Store.*;
+import TMDTBoBa.BoBaEcor.Models.User.User;
 import TMDTBoBa.BoBaEcor.Service.Blog.Channel14RSSReader;
 import TMDTBoBa.BoBaEcor.Service.User.UserService;
 import TMDTBoBa.BoBaEcor.Service.store.Brand.BrandService;
 import TMDTBoBa.BoBaEcor.Service.store.Category.CategoryService;
 import TMDTBoBa.BoBaEcor.Service.store.Order.OrderService;
 import TMDTBoBa.BoBaEcor.Service.store.Product.ProductService;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.data.repository.query.Param;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.security.Principal;
 import java.util.Objects;
+import java.util.Optional;
 
 @Controller
 @RequestMapping(path = "/admin")
@@ -28,6 +37,10 @@ public class AdminController extends BaseController {
         super(paypalService, productService, categoryService, brandService, channel14RSSReader, userService, vnPayService, orderService);
     }
 
+    @GetMapping("/admin")
+    public String index(){
+        return "admin/index";
+    }
     @GetMapping("/login")
     public String login(){
         return "admin/login";
@@ -61,6 +74,31 @@ public class AdminController extends BaseController {
             model.addAttribute("listBrand",brandService.findAll());
             return "admin/Store/manager_brands";
 
+    }
+
+    @GetMapping("/management/orders")
+    public String orders(Model model){
+        model.addAttribute("orders",orderService.findAll());
+        return "admin/Store/manager_orders";
+
+    }
+    @GetMapping("/dang-nhap")
+    public String login(Principal principal, HttpServletRequest request, HttpServletResponse response){
+        if(principal != null) {
+            Optional<User> user = Optional.empty();
+            String username = principal.getName();
+            user = userService.findUserByUsername(username);
+            if(user.isPresent() && user.get().getIsEmployee() == 1){
+                return "redirect:/admin";
+            }else{
+                Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+                new SecurityContextLogoutHandler().logout(request, response, auth);
+            }
+
+        }else{
+            return "admin/login";
+        }
+        return "admin/login";
     }
 
 

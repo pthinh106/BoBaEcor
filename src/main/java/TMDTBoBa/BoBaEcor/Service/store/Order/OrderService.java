@@ -2,6 +2,7 @@ package TMDTBoBa.BoBaEcor.Service.store.Order;
 
 import TMDTBoBa.BoBaEcor.API.CustomeHttpRe.Store.Cart;
 import TMDTBoBa.BoBaEcor.API.CustomeHttpRe.Store.CartItem;
+import TMDTBoBa.BoBaEcor.API.CustomeHttpRe.Store.StoreResponse;
 import TMDTBoBa.BoBaEcor.Models.Store.Order;
 import TMDTBoBa.BoBaEcor.Models.Store.ProductOrder;
 import TMDTBoBa.BoBaEcor.Models.User.User;
@@ -11,6 +12,7 @@ import lombok.RequiredArgsConstructor;
 import org.intellij.lang.annotations.JdkConstants;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -60,5 +62,41 @@ public class OrderService implements IOrderService{
     @Override
     public Order save(Order order) {
         return iOrderRepository.save(order);
+    }
+
+    @Override
+    @Transactional
+    public StoreResponse orderSuccess(Integer id) {
+        try {
+            Optional<Order> optionalOrder = iOrderRepository.findById(id);
+            if(optionalOrder.isPresent()){
+                optionalOrder.get().setStatus(1);
+                iOrderRepository.save(optionalOrder.get());
+                return new StoreResponse(200,"Update success!",optionalOrder,optionalOrder,0,0);
+            }else {
+                throw new RuntimeException("Server Error");
+            }
+        }catch (Exception e){
+            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+            return new StoreResponse(500,e.getMessage(),null,null,0,0);
+        }
+    }
+
+    @Override
+    public StoreResponse delivered(Integer id) {
+        try {
+            Optional<Order> optionalOrder = iOrderRepository.findById(id);
+            if(optionalOrder.isPresent()){
+                optionalOrder.get().setStatus(0);
+                optionalOrder.get().setPaymentStatus(0);
+                iOrderRepository.save(optionalOrder.get());
+                return new StoreResponse(200,"Delivered success!",optionalOrder,optionalOrder,0,0);
+            }else {
+                throw new RuntimeException("Server Error");
+            }
+        }catch (Exception e){
+            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+            return new StoreResponse(500,e.getMessage(),null,null,0,0);
+        }
     }
 }

@@ -183,7 +183,6 @@ public class ProductService implements IProductService {
                 throw new RuntimeException("File is empty!");
             }
             if(product.getNoTypeStatus() == 0 ){
-                product.setProductPrice(null);
                 product.setQuantitySolid(totalQuantitySolid);
                 product.setQuantityInventory(totalQuantityInventory);
             }

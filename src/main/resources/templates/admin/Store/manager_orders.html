@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{admin/Fragment/layout :: head}">
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<header th:replace="~{admin/Fragment/layout :: header}"></header>
+<aside th:replace="~{admin/Fragment/layout :: sidebar}"></aside>
+<main id="main" class="main">
+
+    <div class="pagetitle">
+        <h1>Category Management</h1>
+        <nav>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="#">Home</a></li>
+                <li class="breadcrumb-item">Orders</li>
+                <li class="breadcrumb-item active">Management</li>
+            </ol>
+        </nav>
+    </div><!-- End Page Title -->
+
+    <section class="section">
+        <div class="row">
+            <div class="col-lg-12">
+
+                <div class="card">
+                    <div class="card-body">
+                        <table class="table" id="orders">
+                            <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Recipient's name</th>
+                                <th scope="col">Phone number</th>
+                                <th scope="col">Address</th>
+                                <th scope="col">Status</th>
+                                <th scope="col">Action</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                                <th:block th:each="item,cout : ${orders}">
+                                    <tr>
+                                        <th scope="row" th:text="${cout.index + 1}">1</th>
+                                        <td th:text="${item.getFirstName() + ' '+ item.getLastName()}">Category Name</td>
+                                        <td th:text="${item.getPhoneNumber()}">Category Name</td>
+                                        <td th:text="${item.getAddress()}">Category Name</td>
+                                        <th:block th:if="${item.getStatus() == 1 && item.getPaymentStatus() == 1}">
+                                            <td>
+                                                <span class="status Activity">Approved</span>
+                                            </td>
+                                        </th:block>
+                                        <th:block th:if="${item.getStatus() == 0 && item.getPaymentStatus() == 1}">
+                                            <td>
+                                                <span class="status Pending">Pending</span>
+                                            </td>
+                                        </th:block>
+                                        <th:block th:if="${item.getPaymentStatus() == 0}">
+                                            <td>
+                                                <span class="status Disable">Delivered</span>
+                                            </td>
+                                        </th:block>
+                                        <td th:if="${item.getPaymentStatus() == 1}">
+                                            <div class="d-flex justify-content-evenly">
+                                                <span style="font-size: 20px;color: #63ff05; cursor: pointer" th:onclick="updateOrder([[${item.getOrderId()}]])"><i class="bi bi-check-lg"></i></span>
+                                                <a th:href="@{'~/order/' + ${item.getOrderId()}}"><span style="font-size: 20px;color: #2f412e;"><i class="bi bi-eye-fill"></i></span></a>
+                                                <span style="font-size: 20px;color: #ff1205;cursor: pointer" th:onclick="delivered([[${item.getOrderId()}]])"><i class="bi bi-trash-fill"></i></span>
+                                            </div>
+                                        </td>
+                                        <td th:if="${item.getPaymentStatus() == 0}">
+                                        </td>
+                                    </tr>
+                                </th:block>
+                            </tbody>
+                        </table>
+                        <!-- End Table with stripped rows -->
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+</main><!-- End #main -->
+<div th:replace="~{admin/Fragment/layout :: loading}"></div>
+<footer th:replace="~{admin/Fragment/layout :: footer}"></footer>
+<div th:replace="~{admin/Fragment/layout :: js}"></div>
+<div th:replace="~{admin/Fragment/layout :: jsDataTable}"></div>
+
+<script>
+    let dataTable = new DataTable('#orders');
+
+    function updateOrder(dataApi){
+        $.ajax({
+            type: "POST",
+            url: "/api/v1/private/order/success/"+dataApi,
+            success: function(data)
+            {
+
+                document.getElementById("loading-wrapper").style.display = "none";
+                if(data){
+                    Swal.fire({
+                        position: 'center',
+                        icon: 'success',
+                        title: data.message,
+                        showConfirmButton: true
+                    }).then((result) =>{
+                        window.location.reload();
+                    })
+                }else{
+                    Swal.fire({
+                        position: 'center',
+                        icon: 'error',
+                        title: data.message,
+                        showConfirmButton: true
+                    })
+                }
+            },
+            error: function ($xhr,textStatus,errorThrown) {
+                document.getElementById("loading-wrapper").style.display = "none";
+                var data = $xhr.responseJSON;
+                Swal.fire({
+                    position: 'center',
+                    icon: 'error',
+                    title: data.message,
+                    showConfirmButton: true
+                })
+
+            }
+        });
+    }
+    function delivered(dataApi){
+        $.ajax({
+            type: "POST",
+            url: "/api/v1/private/order/delivered/"+dataApi,
+            success: function(data)
+            {
+
+                document.getElementById("loading-wrapper").style.display = "none";
+                if(data){
+                    Swal.fire({
+                        position: 'center',
+                        icon: 'success',
+                        title: data.message,
+                        showConfirmButton: true
+                    }).then((result) =>{
+                        window.location.reload();
+                    })
+                }else{
+                    Swal.fire({
+                        position: 'center',
+                        icon: 'error',
+                        title: data.message,
+                        showConfirmButton: true
+                    })
+                }
+            },
+            error: function ($xhr,textStatus,errorThrown) {
+                document.getElementById("loading-wrapper").style.display = "none";
+                var data = $xhr.responseJSON;
+                Swal.fire({
+                    position: 'center',
+                    icon: 'error',
+                    title: data.message,
+                    showConfirmButton: true
+                })
+
+            }
+        });
+    }
+</script>
+</body>
+</html>

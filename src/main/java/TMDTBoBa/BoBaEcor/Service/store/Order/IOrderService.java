@@ -1,6 +1,7 @@
 package TMDTBoBa.BoBaEcor.Service.store.Order;
 
 import TMDTBoBa.BoBaEcor.API.CustomeHttpRe.Store.Cart;
+import TMDTBoBa.BoBaEcor.API.CustomeHttpRe.Store.StoreResponse;
 import TMDTBoBa.BoBaEcor.Models.Store.Order;
 import TMDTBoBa.BoBaEcor.Models.User.User;
 
@@ -18,4 +19,8 @@ public interface IOrderService {
     Order save(Order order, Cart cart);
 
     Order save(Order order);
+
+    StoreResponse orderSuccess(Integer id);
+
+    StoreResponse delivered(Integer id);
 }
