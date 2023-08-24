@@ -217,7 +217,7 @@
                                     <li><a th:href="@{~/cua-hang}"> << </a></li>
                                     <th:block th:if="${page > 1}">
                                         <li><a th:href="@{~/cua-hang(page = ${page - 1})}"> < </a></li>
-                                        <li><a th:href="@{~/cua-hang(page = ${page - 1})}" th:text="${page}">1</a></li>
+                                        <li><a th:href="@{~/cua-hang(page = ${page - 1})}" th:text="${page - 1}">1</a></li>
                                     </th:block>
                                     <li><a href="javascript:void(0)" th:text="${page}">1</a></li>
                                     <th:block th:if="${page < pageTotal}">
