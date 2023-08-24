@@ -30,7 +30,7 @@ public class OrderService implements IOrderService{
 
     @Override
     public List<Order> findByUser(User user) {
-        return iOrderRepository.findAllByUser(user);
+        return iOrderRepository.findAllByUserOrderByOrderIdDesc(user);
     }
 
     @Override
