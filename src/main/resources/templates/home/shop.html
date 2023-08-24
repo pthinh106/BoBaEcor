@@ -202,26 +202,26 @@
                             <th:block th:if="${page != 0}">
                                 <th:block th:if="${param.get('q') != null}">
                                     <li><a th:href="@{~/cua-hang(q = ${param.get('q')})}"> << </a></li>
-                                    <th:block th:if="${pageTotal > 1}">
+                                    <th:block th:if="${page > 1 }">
                                         <li><a th:href="@{~/cua-hang(q = ${param.get('q')},page = ${page - 1})}"> < </a></li>
-                                        <li><a th:href="@{~/cua-hang(q = ${param.get('q')},page = ${page - 1})}" th:text="${page}">1</a></li>
+                                        <li><a th:href="@{~/cua-hang(q = ${param.get('q')},page = ${page - 1})}" th:text="${page - 1}">1</a></li>
                                     </th:block>
                                     <li><a href="javascript:void(0)" th:text="${page}">1</a></li>
                                     <th:block th:if="${page < pageTotal}">
-                                        <li><a th:href="@{~/cua-hang(q = ${param.get('q')},page = ${page + 1})}" th:text="${page}">1</a></li>
+                                        <li><a th:href="@{~/cua-hang(q = ${param.get('q')},page = ${page + 1})}" th:text="${page+1}">1</a></li>
                                         <li><a th:href="@{~/cua-hang(q = ${param.get('q')},page = ${page + 1})}"> > </a></li>
                                     </th:block>
                                     <li><a th:href="@{~/cua-hang(q = ${param.get('q')},page = ${pageTotal})}">>></a></li>
                                 </th:block>
                                 <th:block th:unless="${param.get('q') != null}">
                                     <li><a th:href="@{~/cua-hang}"> << </a></li>
-                                    <th:block th:if="${pageTotal > 1}">
+                                    <th:block th:if="${page > 1}">
                                         <li><a th:href="@{~/cua-hang(page = ${page - 1})}"> < </a></li>
                                         <li><a th:href="@{~/cua-hang(page = ${page - 1})}" th:text="${page}">1</a></li>
                                     </th:block>
                                     <li><a href="javascript:void(0)" th:text="${page}">1</a></li>
                                     <th:block th:if="${page < pageTotal}">
-                                        <li><a th:href="@{~/cua-hang(page = ${page + 1})}" th:text="${page}">1</a></li>
+                                        <li><a th:href="@{~/cua-hang(page = ${page + 1})}" th:text="${page+1}">1</a></li>
                                         <li><a th:href="@{~/cua-hang(page = ${page + 1})}"> > </a></li>
                                     </th:block>
                                     <li><a th:href="@{~/cua-hang(page = ${pageTotal})}">>></a></li>

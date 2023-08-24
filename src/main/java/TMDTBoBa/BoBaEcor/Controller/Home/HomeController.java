@@ -128,7 +128,7 @@ public class HomeController  extends BaseController {
         model.addAttribute("brands",brands);
         model.addAttribute("parent",parent.get());
         model.addAttribute("listProduct",products.getContent());
-        model.addAttribute("page",products.getPageable().getPageNumber() + 1);
+        model.addAttribute("page",page);
         model.addAttribute("pageTotal",products.getTotalPages());
         model.addAttribute("title","Cửa Hàng");
         model.addAttribute("curURL",request.getRequestURL());
