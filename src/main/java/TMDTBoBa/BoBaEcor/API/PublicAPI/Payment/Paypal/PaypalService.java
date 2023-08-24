@@ -23,7 +23,7 @@ public class PaypalService {
 
     public String createPaypal(Order order, Cart cart){
         List<Item> items = new ArrayList<>();
-        double total = 0;
+        Integer total = 0;
         for(CartItem cartItem : cart.getCartItems()){
             Item item = new Item();
             Integer price = cartItem.getTotalPriceItem()/ 23820 + 1;
