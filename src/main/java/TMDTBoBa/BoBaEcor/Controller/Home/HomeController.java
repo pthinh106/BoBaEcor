@@ -317,28 +317,28 @@ public class HomeController  extends BaseController {
         model.addAttribute("des","Chào mừng bạn đến với Boba Shop");
         return "home/verify";
     }
-    @GetMapping( value = "/robots.txt")
-    public String robot(HttpServletResponse response,Model model)  {
-        String value = "User-agent: Googlebot\n" +
-                "Disallow: /nogooglebot/\n" +
-                "\n" +
-                "User-agent: *\n" +
-                "Allow: /\n" +
-                "\n" +
-                "Sitemap: https://bobaecor.live/sitemap.xml";
-//        Path path = null;
-//        try {
-//            path = Paths.get(Objects.requireNonNull(getClass().getResource("/static/robots.txt")).toURI());
-//        } catch (URISyntaxException e) {
-//            throw new RuntimeException(e);
-//        }
-//        String value = null;
-//        try {
-//            value = new String(Files.readAllBytes(path));
-//        } catch (IOException e) {
-//            throw new RuntimeException(e);
-//        }
-        model.addAttribute("value", value);
-        return "robot";
-    }
+//    @GetMapping( value = "/robots.txt")
+//    public String robot(HttpServletResponse response,Model model)  {
+//        String value = "User-agent: Googlebot\n" +
+//                "Disallow: /nogooglebot/\n" +
+//                "\n" +
+//                "User-agent: *\n" +
+//                "Allow: /\n" +
+//                "\n" +
+//                "Sitemap: https://bobaecor.live/sitemap.xml";
+////        Path path = null;
+////        try {
+////            path = Paths.get(Objects.requireNonNull(getClass().getResource("/static/robots.txt")).toURI());
+////        } catch (URISyntaxException e) {
+////            throw new RuntimeException(e);
+////        }
+////        String value = null;
+////        try {
+////            value = new String(Files.readAllBytes(path));
+////        } catch (IOException e) {
+////            throw new RuntimeException(e);
+////        }
+//        model.addAttribute("value", value);
+//        return "robot";
+//    }
 }
