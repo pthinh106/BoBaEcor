@@ -174,7 +174,7 @@ public class HomeController  extends BaseController {
                 break;
             }
         }
-        if (cart.getCartItems().isEmpty()) return "redirect:/cua-hang";
+        if (cart.getCartItems() == null) return "redirect:/cua-hang";
         if (user.isPresent()) {
             order.setAddress(user.get().getAddress());
             order.setFirstName(user.get().getFirstName());
@@ -196,7 +196,6 @@ public class HomeController  extends BaseController {
     public String processingOrder(@ModelAttribute("order") Order order,HttpServletRequest request, @RequestParam("check_method") String paymentMethod,Principal principal) throws UnknownHostException, UnsupportedEncodingException {
         if(paymentMethod.isEmpty()) return "pages-error-404";
         order.setPayment(paymentMethod);
-        System.out.println(order.getPayment());
         Cart cart = new Cart();
         Cookie[] cookies = request.getCookies();
         for(Cookie cookie : cookies){
@@ -212,6 +211,7 @@ public class HomeController  extends BaseController {
             user = userService.findUserByUsername(username);
         }
         if(user.isPresent()) order.setUser(user.get());
+        if(order.getAddress().isEmpty() || order.getFirstName().isEmpty() || order.getLastName().isEmpty() || order.getPhoneNumber().isEmpty() || cart.getCartItems().isEmpty()) return "pages-error-404";
         order.setTotal(cart.getTotalPrice());
         order = orderService.save(order,cart);
         if(paymentMethod.equals("paypal")) return paypalService.createPaypal(order,cart);
