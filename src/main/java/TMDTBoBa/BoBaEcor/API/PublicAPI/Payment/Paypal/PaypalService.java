@@ -26,15 +26,14 @@ public class PaypalService {
         Integer total = 0;
         for(CartItem cartItem : cart.getCartItems()){
             Item item = new Item();
-            Integer price = cartItem.getTotalPriceItem()/ 23820 + 1;
-            total += price;
+            Integer price = cartItem.getProductDetail().getProductPrice()/ 23820;
+            total += price * cartItem.getQuantity();
             item.setName(cartItem.getName()).setQuantity(String.valueOf(cartItem.getQuantity())).setCurrency("USD").setPrice(String.valueOf(price));
             items.add(item);
         }
         // Adding items to itemList
         ItemList itemList = new ItemList();
         itemList.setItems(items);
-
         // Set payment details
         Details details = new Details();
         details.setShipping("1");
