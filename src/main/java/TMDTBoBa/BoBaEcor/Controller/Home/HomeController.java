@@ -214,6 +214,7 @@ public class HomeController  extends BaseController {
         if(order.getAddress().isEmpty() || order.getFirstName().isEmpty() || order.getLastName().isEmpty() || order.getPhoneNumber().isEmpty()) return "pages-error-404";
         order.setTotal(cart.getTotalPrice());
         order = orderService.save(order,cart);
+        System.out.println("aaa");
         if(paymentMethod.equals("paypal")) return paypalService.createPaypal(order,cart);
         if (paymentMethod.equals("vnpay")) return "redirect:" + vnPayService.createPayment(cart.getTotalPrice(),"",order.getOrderId()).getUrl();
         return "pages-error-404";
