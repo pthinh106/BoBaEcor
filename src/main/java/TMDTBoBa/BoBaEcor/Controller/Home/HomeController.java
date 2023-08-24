@@ -211,7 +211,7 @@ public class HomeController  extends BaseController {
             user = userService.findUserByUsername(username);
         }
         if(user.isPresent()) order.setUser(user.get());
-        if(order.getAddress().isEmpty() || order.getFirstName().isEmpty() || order.getLastName().isEmpty() || order.getPhoneNumber().isEmpty() || cart.getCartItems().isEmpty()) return "pages-error-404";
+        if(order.getAddress().isEmpty() || order.getFirstName().isEmpty() || order.getLastName().isEmpty() || order.getPhoneNumber().isEmpty()) return "pages-error-404";
         order.setTotal(cart.getTotalPrice());
         order = orderService.save(order,cart);
         if(paymentMethod.equals("paypal")) return paypalService.createPaypal(order,cart);
