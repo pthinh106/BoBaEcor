@@ -266,7 +266,7 @@
                                                                 <td th:text="${#dates.format(item.getCreated(), 'dd-MMM-yyyy')}">Aug 22, 2018</td>
                                                                 <td>Pending</td>
                                                                 <td th:text="${#numbers.formatDecimal(item.getTotal(),3,'COMMA',0,'POINT')} + ' VNĐ'">$3000</td>
-                                                                <td><a
+                                                                <td><a th:href="@{/user/order/{id}(id = ${item.getOrderId()})}"
                                                                         class="btn btn btn-dark btn-hover-primary btn-sm rounded-0">View</a>
                                                                 </td>
 
@@ -297,7 +297,7 @@
                                                                 <td th:text="${#dates.format(item.getCreated(), 'dd-MMM-yyyy')}">Aug 22, 2018</td>
                                                                 <td>Approved</td>
                                                                 <td th:text="${#numbers.formatDecimal(item.getTotal(),3,'COMMA',0,'POINT')} + ' VNĐ'">$3000</td>
-                                                                <td><a
+                                                                <td><a th:href="@{/user/order/{id}(id = ${item.getOrderId()})}"
                                                                         class="btn btn btn-dark btn-hover-primary btn-sm rounded-0">View</a>
                                                                 </td>
                                                             </tr>
@@ -325,7 +325,7 @@
                                                                 <td th:text="${count.index + 1}">1</td>
                                                                 <td th:text="${#dates.format(item.getCreated(), 'dd-MMM-yyyy')}">Aug 22, 2018</td>
                                                                 <td>Delivered</td><td th:text="${#numbers.formatDecimal(item.getTotal(),3,'COMMA',0,'POINT')} + ' VNĐ'">$3000</td>
-                                                                <td><a
+                                                                <td><a th:href="@{/user/order/{id}(id = ${item.getOrderId()})}"
                                                                         class="btn btn btn-dark btn-hover-primary btn-sm rounded-0">View</a>
                                                                 </td>
                                                             </tr>
