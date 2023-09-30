@@ -6,7 +6,7 @@ COPY . .
 RUN mvn clean package -DskipTests
 
 #
-# Package stage
+# Package stage$ docker build -t docker-apache2 .
 #
 FROM openjdk:17.0.1-jdk-slim
 COPY --from=build /target/BoBaEcor-0.0.1-SNAPSHOT.jar BoBaEcor.jar
